@@ -1,0 +1,17 @@
+# Pesos y checkpoints del modelo (GitHub rechaza archivos > 100 MB)
+modelo/*.safetensors
+modelo/*.bin
+modelo/*.pt
+modelo/checkpoint-*/
+modelo/checkpoints/
+
+# Respaldo crudo del scraping (HTML/XML pesado, se regenera con el notebook 01)
+datos/raw/*.html
+
+# Credenciales (API key de Gemini)
+.env
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
