@@ -1,11 +1,11 @@
 # Tarea 1 – Clasificador de noticias peruanas (La República)
 # Python 3.11
 #
-# PyTorch: este proyecto usa la versión CPU (el fine-tuning de DistilBERT tarda pocos minutos en CPU).
-# Instalar primero:
-#   pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
-# y luego:
-#   pip install -r requirements.txt
+# Instalar con:  pip install -r requirements.txt
+#
+# PyTorch se instala en su versión CPU (índice oficial de PyTorch, abajo): el fine-tuning de DistilBERT
+# tarda pocos minutos en CPU, y así Streamlit Cloud no descarga la versión con CUDA (~2 GB).
+--extra-index-url https://download.pytorch.org/whl/cpu
 
 # Datos y scraping
 pandas==3.0.6
@@ -24,7 +24,7 @@ seaborn==0.13.2
 
 # Modelado
 scikit-learn==1.9.1
-torch==2.14.1
+torch==2.14.1+cpu
 transformers==5.19.0
 datasets==5.1.0
 accelerate==1.15.0

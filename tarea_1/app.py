@@ -13,6 +13,7 @@ import streamlit as st
 BASE = Path(__file__).parent
 RUTA_DATOS = BASE / "datos" / "noticias.csv"
 RUTA_MODELO = BASE / "modelo"
+MODELO_HUB = "LuisGGV/distilbert-titulares-larepublica"   # copia pública de los pesos entrenados
 CATEGORIAS = ["politica", "economia", "deportes", "ciencia_tecnologia"]
 NOMBRES = {
     "politica": "Política",
@@ -45,23 +46,33 @@ def cargar_metricas():
 
 @st.cache_resource(show_spinner="Cargando el clasificador…")
 def cargar_clasificador():
-    """Usa el DistilBERT entrenado en modelo/. Si los pesos no están (no se suben a GitHub
-    por pesar ~540 MB), cae al modelo zero-shot para que la app siga funcionando."""
+    """Carga el DistilBERT entrenado. Los pesos (~540 MB) no se suben a GitHub, así que:
+    1) se usan los de modelo/ si existen (ejecución local tras el notebook 02);
+    2) si no, se descargan del Hugging Face Hub (así funciona en Streamlit Cloud);
+    3) si tampoco hay acceso al Hub, se cae al zero-shot para que la app siga respondiendo."""
     import torch
     from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
                               pipeline)
 
     if (RUTA_MODELO / "model.safetensors").exists():
-        tokenizer = AutoTokenizer.from_pretrained(RUTA_MODELO)
-        modelo = AutoModelForSequenceClassification.from_pretrained(RUTA_MODELO).eval()
+        fuentes = [(str(RUTA_MODELO), "DistilBERT fine-tuned (modelo/ local)")]
+    else:
+        fuentes = [(MODELO_HUB, f"DistilBERT fine-tuned (Hugging Face: {MODELO_HUB})")]
 
-        def predecir(texto):
+    for fuente, nombre in fuentes:
+        try:
+            tokenizer = AutoTokenizer.from_pretrained(fuente)
+            modelo = AutoModelForSequenceClassification.from_pretrained(fuente).eval()
+        except OSError:
+            continue
+
+        def predecir(texto, tokenizer=tokenizer, modelo=modelo):
             entradas = tokenizer(texto, truncation=True, max_length=64, return_tensors="pt")
             with torch.no_grad():
                 probs = torch.softmax(modelo(**entradas).logits, dim=-1)[0].tolist()
             return {modelo.config.id2label[i]: p for i, p in enumerate(probs)}
 
-        return "DistilBERT fine-tuned (modelo/)", predecir
+        return nombre, predecir
 
     zero_shot = pipeline("zero-shot-classification",
                          model="Recognai/bert-base-spanish-wwm-cased-xnli")
@@ -73,7 +84,7 @@ def cargar_clasificador():
                       hypothesis_template="Esta noticia trata sobre {}.")
         return {hipotesis[e]: p for e, p in zip(r["labels"], r["scores"])}
 
-    return "Zero-shot BETO-XNLI (respaldo: faltan los pesos del modelo entrenado)", predecir
+    return "Zero-shot BETO-XNLI (respaldo: no se pudo cargar el modelo entrenado)", predecir
 
 
 df = cargar_datos()

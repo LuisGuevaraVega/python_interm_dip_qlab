@@ -64,8 +64,7 @@ Requisitos: Anaconda/Miniconda y unos 3 GB de RAM libres para el fine-tuning.
 # 1) Entorno (Python 3.11 de conda-forge: trae librerías de Visual C++ actuales, necesarias para torch en Windows)
 conda create -n tarea1 -c conda-forge python=3.11 -y
 conda activate tarea1
-pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
-pip install -r tarea_1/requirements.txt
+pip install -r tarea_1/requirements.txt   # incluye torch CPU desde el índice oficial de PyTorch
 
 # 2) Ir a la carpeta del trabajo
 cd tarea_1
@@ -82,8 +81,11 @@ streamlit run app.py
 ```
 
 * Los pesos del modelo (`modelo/model.safetensors`, ~540 MB) **no se suben a GitHub** por el límite de 100 MB.
-  El paso 4 los regenera en ~2 minutos en CPU. Si faltan, el probador de la app usa automáticamente el modelo
-  zero-shot como respaldo (y lo indica en pantalla).
+  Hay una copia pública en Hugging Face:
+  [`LuisGGV/distilbert-titulares-larepublica`](https://huggingface.co/LuisGGV/distilbert-titulares-larepublica).
+  Si `modelo/` no tiene los pesos, la app los descarga de ahí automáticamente (así funciona en Streamlit Cloud);
+  el paso 4 también los regenera en ~2 minutos en CPU. Sin pesos ni internet, el probador cae al zero-shot y
+  lo indica en pantalla.
 * `datos/etiquetas_llm.csv` y `datos/auditoria_llm.csv` ya están en el repo, así que el notebook 02 **no** llama a
   la API de Gemini salvo que se borren.
 
