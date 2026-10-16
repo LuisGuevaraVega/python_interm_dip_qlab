@@ -1,6 +1,8 @@
 # 🗞️ Tarea 1 – Noticias peruanas: del titular al clasificador
 
-**Estudiante:** [@LuisGuevaraVega](https://github.com/LuisGuevaraVega) · Python Intermedio – Diplomado de Ciencia de Datos (QLab)
+**Estudiante:** Luis Guevara Vega ([@LuisGuevaraVega](https://github.com/LuisGuevaraVega)) · Python Intermedio – Diplomado de Ciencia de Datos (QLab)
+
+**🚀 Dashboard en vivo:** https://tarea1-luisguevara-larepublica-dashboard-en-vivo.streamlit.app/
 
 ## 1. Pregunta del proyecto
 
@@ -89,7 +91,9 @@ streamlit run app.py
 * `datos/etiquetas_llm.csv` y `datos/auditoria_llm.csv` ya están en el repo, así que el notebook 02 **no** llama a
   la API de Gemini salvo que se borren.
 
-El dashboard incluye filtros por medio, categoría y fecha; métricas clave (total de noticias, F1 macro en test,
+El dashboard está desplegado en **Streamlit Community Cloud** (rama `main`, archivo `tarea_1/app.py`,
+Python 3.11): https://tarea1-luisguevara-larepublica-dashboard-en-vivo.streamlit.app/. Incluye filtros por
+medio, categoría y fecha; métricas clave (total de noticias, F1 macro en test,
 concordancia LLM–humano); gráfico de distribución; tabla con descarga en CSV y un **probador en vivo** que
 devuelve la categoría y la probabilidad de cada clase para cualquier titular.
 
