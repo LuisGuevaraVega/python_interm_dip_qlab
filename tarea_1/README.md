@@ -69,8 +69,8 @@ pip install -r tarea_1/requirements.txt   # incluye torch CPU desde el índice o
 # 2) Ir a la carpeta del trabajo
 cd tarea_1
 
-# 3) (Solo para volver a etiquetar con el LLM) crear .env con tu API key de Google AI Studio
-copy .env.example .env        # en Linux/Mac: cp .env.example .env
+# 3) (Solo para volver a etiquetar con el LLM) crear un archivo .env en tarea_1/ con una línea:
+#    GEMINI_API_KEY=tu_api_key      (se obtiene en https://aistudio.google.com/apikey; .env no se versiona)
 
 # 4) Ejecutar los notebooks (el 01 reutiliza el respaldo crudo; el 02 entrena y guarda el modelo en modelo/)
 jupyter nbconvert --to notebook --execute --inplace 01_recoleccion.ipynb
@@ -100,12 +100,17 @@ tarea_1/
 ├── 01_recoleccion.ipynb     # robots.txt, scraping, limpieza, mapeo de secciones, EDA (ejecutado)
 ├── 02_clasificacion.ipynb   # zero-shot, LLM + auditoría, split, fine-tuning, test, comparativa (ejecutado)
 ├── app.py                   # dashboard Streamlit
-├── requirements.txt         # dependencias con versiones exactas
-├── .env.example             # plantilla para la API key de Gemini (.env no se versiona)
+├── requirements.txt         # dependencias con versiones exactas (torch CPU)
+├── .gitignore               # excluye pesos del modelo, HTML crudo y el .env con claves
 ├── datos/
 │   ├── noticias.csv         # 458 x 7
 │   ├── etiquetas_llm.csv    # titular, etiqueta_llm, confianza, modelo_llm, fecha
 │   ├── auditoria_llm.csv    # 20 casos revisados manualmente
 │   └── raw/                 # robots.txt, RSS, sitemaps, artículos crudos, log de peticiones, respuestas del LLM
-└── modelo/                  # config, tokenizer y metrics.json (los pesos se regeneran con el notebook 02)
+└── modelo/
+    ├── config.json          # arquitectura y mapeo id → categoría
+    ├── tokenizer.json       # tokenizer de DistilBERT multilingüe
+    ├── tokenizer_config.json
+    └── metrics.json         # métricas que muestra el dashboard
+                             # (model.safetensors no se versiona: está en Hugging Face y se regenera con el notebook 02)
 ```
