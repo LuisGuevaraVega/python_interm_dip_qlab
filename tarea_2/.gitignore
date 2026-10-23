@@ -1,0 +1,17 @@
+# Corpus original y salidas pesadas (se recuperan con `uv run python corpus.py`)
+datos/raw/
+
+# Pesos y checkpoints de modelos (GitHub rechaza archivos > 100 MB)
+modelos/*.safetensors
+modelos/*.bin
+modelos/*.pt
+modelos/checkpoint-*/
+
+# Credenciales (API key de Gemini, token de Hugging Face)
+.env
+
+# Python / Jupyter
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
