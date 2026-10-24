@@ -262,6 +262,24 @@ def extraer_campos(id_: str, texto: str, cliente=None) -> dict:
     raise RuntimeError(f"Ningún modelo respondió para {id_}")
 
 
+SEMILLA_AUDITORIA = 2026
+
+
+def muestra_auditoria(ids: list[str]) -> list[str]:
+    """20 extracciones al azar para la auditoría humana: 10 documentos y 10 clips."""
+    import random
+    rng = random.Random(SEMILLA_AUDITORIA)
+    docs = sorted(i for i in ids if i.startswith("doc_"))
+    clips = sorted(i for i in ids if i.startswith("clip_"))
+    return sorted(rng.sample(docs, 10)) + sorted(rng.sample(clips, 10))
+
+
+def cita_literal(cita: str, texto: str) -> bool:
+    """¿La cita aparece tal cual en la transcripción? (sin distinguir mayúsculas ni espacios)."""
+    junta = lambda s: re.sub(r"\s+", " ", s).strip().lower()
+    return junta(cita) in junta(MARCA_HABLANTE.sub(" ", texto))
+
+
 def textos_publicados() -> dict[str, str]:
     """Los textos OCR y ASR ya seudonimizados y revisados de la Parte 1 (los de los CSV)."""
     docs = pd.read_csv(DATOS / "documentos.csv")

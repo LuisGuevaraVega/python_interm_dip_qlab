@@ -1,0 +1,41 @@
+id,modalidad,tipo,modelo,metrica,valor,segundos,factor_tiempo_real
+doc_001,documento,impreso,PaddleOCR,CER,0.0386,32.5,
+doc_002,documento,impreso,PaddleOCR,CER,0.0379,24.1,
+doc_008,documento,impreso,PaddleOCR,CER,0.0416,37.4,
+doc_009,documento,foto,PaddleOCR,CER,0.0059,24.9,
+doc_012,documento,foto,PaddleOCR,CER,0.0647,14.8,
+doc_013,documento,foto,PaddleOCR,CER,0.0135,13.8,
+doc_015,documento,foto,PaddleOCR,CER,0.0392,41.1,
+doc_020,documento,manuscrito,PaddleOCR,CER,0.1588,24.2,
+doc_022,documento,manuscrito,PaddleOCR,CER,0.2131,37.1,
+doc_024,documento,manuscrito,PaddleOCR,CER,0.5126,26.5,
+doc_001,documento,impreso,EasyOCR,CER,0.0643,14.2,
+doc_002,documento,impreso,EasyOCR,CER,0.1227,12.1,
+doc_008,documento,impreso,EasyOCR,CER,0.2592,15.0,
+doc_009,documento,foto,EasyOCR,CER,0.0177,24.1,
+doc_012,documento,foto,EasyOCR,CER,0.1412,13.0,
+doc_013,documento,foto,EasyOCR,CER,0.6188,12.2,
+doc_015,documento,foto,EasyOCR,CER,0.0582,23.3,
+doc_020,documento,manuscrito,EasyOCR,CER,0.6407,23.1,
+doc_022,documento,manuscrito,EasyOCR,CER,0.6808,13.9,
+doc_024,documento,manuscrito,EasyOCR,CER,0.7789,19.6,
+clip_001,audio,entrevista en la calle,faster-whisper small,WER,0.2677,43.4,0.3184
+clip_002,audio,"entrevista en la calle, varias hablantes",faster-whisper small,WER,0.1894,66.2,0.3503
+clip_003,audio,"entrevista durante un partido, ruido de fondo",faster-whisper small,WER,0.4353,11.7,0.3913
+clip_006,audio,entrevista grabada por estudiante UNMSM,faster-whisper small,WER,0.2146,31.1,0.4018
+clip_008,audio,"entrevista en una marcha, ruido de multitud",faster-whisper small,WER,0.2778,22.9,0.4217
+clip_009,audio,"entrevista en una marcha, ruido de multitud",faster-whisper small,WER,0.199,24.1,0.3114
+clip_013,audio,entrevista en una fiesta patronal (Áncash),faster-whisper small,WER,0.3318,31.0,0.3799
+clip_015,audio,entrevista en una fiesta patronal (Áncash),faster-whisper small,WER,0.0658,10.7,0.273
+clip_016,audio,lectura de artículo de Wikipedia,faster-whisper small,WER,0.1603,41.1,0.4567
+clip_020,audio,lectura de artículo de Wikipedia,faster-whisper small,WER,0.0714,31.3,0.3478
+clip_001,audio,entrevista en la calle,Qwen3-ASR 0.6B,WER,0.3032,100.0,0.7337
+clip_002,audio,"entrevista en la calle, varias hablantes",Qwen3-ASR 0.6B,WER,0.2197,142.0,0.7513
+clip_003,audio,"entrevista durante un partido, ruido de fondo",Qwen3-ASR 0.6B,WER,0.3294,24.8,0.8294
+clip_006,audio,entrevista grabada por estudiante UNMSM,Qwen3-ASR 0.6B,WER,0.2488,68.9,0.8902
+clip_008,audio,"entrevista en una marcha, ruido de multitud",Qwen3-ASR 0.6B,WER,0.2778,48.3,0.8895
+clip_009,audio,"entrevista en una marcha, ruido de multitud",Qwen3-ASR 0.6B,WER,0.1309,67.6,0.8734
+clip_013,audio,entrevista en una fiesta patronal (Áncash),Qwen3-ASR 0.6B,WER,0.2995,70.0,0.8578
+clip_015,audio,entrevista en una fiesta patronal (Áncash),Qwen3-ASR 0.6B,WER,0.1316,30.3,0.773
+clip_016,audio,lectura de artículo de Wikipedia,Qwen3-ASR 0.6B,WER,0.1941,92.9,1.0322
+clip_020,audio,lectura de artículo de Wikipedia,Qwen3-ASR 0.6B,WER,0.1044,85.2,0.9467
