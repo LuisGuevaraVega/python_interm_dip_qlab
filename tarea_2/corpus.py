@@ -10,6 +10,10 @@ es la forma de recuperarlos.
 Se baja con un User-Agent descriptivo y con pausas de 2 s entre pedidos. Las imágenes se piden
 en el ancho estándar de 1920 px de Wikimedia (o en su tamaño original si son más chicas); de
 los PDF se renderiza una sola página.
+
+Cinco entrevistas tienen en su nombre de archivo el nombre de la persona entrevistada (personas
+privadas). Para no publicarlo, esas se piden por su número de página en Commons (curid), su
+`fuente_url` usa el enlace `?curid=` y su título se guarda seudonimizado.
 """
 from __future__ import annotations
 
@@ -64,7 +68,7 @@ DOCUMENTOS = {
     "doc_025": ("manuscrito", "AR-ANH-EF-Secc.II-17.pdf", 1, "Decreto del Virrey del Perú, Marqués de Mancera (1642)"),
 }
 
-# id: (archivo en Commons, (inicio, fin) en segundos o None para el audio completo, condición)
+# id: (archivo en Commons o su curid, (inicio, fin) en segundos o None para el audio completo, condición)
 AUDIOS = {
     "clip_001": ("Entrevista 1 en la Av. Rivagüero - El Agustino.ogg", None, "entrevista en la calle"),
     "clip_002": ("Entrevista 2 en la Av. Rivagüero - El Agustino.ogg", None, "entrevista en la calle, varias hablantes"),
@@ -76,11 +80,11 @@ AUDIOS = {
     "clip_008": ("Audio de la entrevista a una chica que participaba de la marcha.ogg", None, "entrevista en una marcha, ruido de multitud"),
     "clip_009": ("UNMSM Entrevista realizada en la marcha por Cristopher Serrano Pérez.wav", None, "entrevista en una marcha, ruido de multitud"),
     "clip_010": ("UNMSM Entrevistas en la marcha 1 por Cristopher Serrano Pérez.wav", None, "entrevistas en una marcha, ruido de multitud"),
-    "clip_011": ("Entrevista-Aurora Coronado-organización de mujeres indígenas-fiestas patrias.ogg", None, "declaraciones en conferencia de prensa"),
-    "clip_012": ("Entrevista a Luz Merida-Organización de mujeres indígenas-fiestas patrias-protesta.ogg", (0, 240), "declaraciones en conferencia de prensa"),
-    "clip_013": ("Entrevista a la señora Dina Espinoza, mujer pomabambina.ogg", None, "entrevista en una fiesta patronal (Áncash)"),
-    "clip_014": ("Entrevista a la señora Aurelia, mujer shuyasina.ogg", None, "entrevista en una fiesta patronal (Áncash)"),
-    "clip_015": ("Entrevista a María Romero, organizadora de la fiesta patronal de Tayta Palli de Chuyas.ogg", None, "entrevista en una fiesta patronal (Áncash)"),
+    "clip_011": (121219890, None, "declaraciones en conferencia de prensa"),
+    "clip_012": (121219891, (0, 240), "declaraciones en conferencia de prensa"),
+    "clip_013": (149433722, None, "entrevista en una fiesta patronal (Áncash)"),
+    "clip_014": (149433723, None, "entrevista en una fiesta patronal (Áncash)"),
+    "clip_015": (149445104, None, "entrevista en una fiesta patronal (Áncash)"),
     "clip_016": ("Es-Huaca El Retablo-Comas-article2.oga", (0, 90), "lectura de artículo de Wikipedia"),
     "clip_017": ("Huaca Mateo Salado, cultura Yschma en 4 minutos audio.ogg", (0, 90), "lectura de artículo de Wikipedia"),
     "clip_018": ("Es-Huaca Puente Inca-article.ogg", (0, 90), "lectura de artículo de Wikipedia"),
@@ -89,6 +93,15 @@ AUDIOS = {
     "clip_021": ("Es-Huaca Garagay-article.ogg", (0, 90), "lectura de artículo de Wikipedia"),
     "clip_022": ("Es-Huaca El Sauce-article.ogg", (0, 90), "lectura de artículo de Wikipedia"),
     "clip_023": ("Es-Huaca Tambo Inga 20-article.oga", (0, 90), "lectura de artículo de Wikipedia"),
+}
+
+# Títulos publicables de los archivos que se piden por curid (el nombre real queda fuera del repo)
+TITULOS_SEUDONIMIZADOS = {
+    "clip_011": "Entrevista-[ENTREVISTADA_1]-organización de mujeres indígenas-fiestas patrias.ogg",
+    "clip_012": "Entrevista a [ENTREVISTADA_2]-Organización de mujeres indígenas-fiestas patrias-protesta.ogg",
+    "clip_013": "Entrevista a la señora [ENTREVISTADA_3], mujer pomabambina.ogg",
+    "clip_014": "Entrevista a la señora [ENTREVISTADA_4], mujer shuyasina.ogg",
+    "clip_015": "Entrevista a [ENTREVISTADA_5], organizadora de la fiesta patronal de Tayta Palli de Chuyas.ogg",
 }
 
 
@@ -107,9 +120,10 @@ def _pedir(url: str, intentos: int = 5) -> bytes:
     raise RuntimeError(f"Commons sigue respondiendo 429: {url}")
 
 
-def _info(titulo: str, pagina: int | None = None) -> dict:
-    """URL de descarga, licencia y autor de un archivo de Commons."""
-    p = {"action": "query", "titles": "File:" + titulo, "prop": "imageinfo", "format": "json", "formatversion": 2,
+def _info(titulo: str | int, pagina: int | None = None) -> dict:
+    """URL de descarga, licencia y autor de un archivo de Commons (por título o por curid)."""
+    clave = {"pageids": titulo} if isinstance(titulo, int) else {"titles": "File:" + titulo}
+    p = {"action": "query", **clave, "prop": "imageinfo", "format": "json", "formatversion": 2,
          "iiprop": "url|mime|size|extmetadata", "iiextmetadatafilter": "LicenseShortName|Artist|DateTimeOriginal"}
     if pagina is not None:
         p["iiurlwidth"] = ANCHO
@@ -119,7 +133,8 @@ def _info(titulo: str, pagina: int | None = None) -> dict:
     meta = {k: re.sub(r"<[^>]+>", "", v.get("value", "")).strip() for k, v in ii.get("extmetadata", {}).items()}
     return {"url": ii.get("thumburl") or ii["url"], "licencia": meta.get("LicenseShortName", ""),
             "autor": " ".join(meta.get("Artist", "").split()), "fecha_original": meta.get("DateTimeOriginal", ""),
-            "fuente_url": "https://commons.wikimedia.org/wiki/File:" + urllib.parse.quote(titulo.replace(" ", "_"))}
+            "fuente_url": f"https://commons.wikimedia.org/?curid={titulo}" if isinstance(titulo, int)
+            else "https://commons.wikimedia.org/wiki/File:" + urllib.parse.quote(titulo.replace(" ", "_"))}
 
 
 def bajar_documentos() -> pd.DataFrame:
@@ -147,7 +162,7 @@ def bajar_audios() -> pd.DataFrame:
     filas = []
     for id_, (titulo, recorte, condicion) in AUDIOS.items():
         info = _info(titulo)
-        original = originales / f"{id_}{Path(titulo).suffix.lower()}"
+        original = originales / f"{id_}{Path(urllib.parse.urlparse(info['url']).path).suffix.lower()}"
         if not original.exists():
             original.write_bytes(_pedir(info["url"]))
         ruta = destino / f"{id_}.wav"
@@ -158,7 +173,8 @@ def bajar_audios() -> pd.DataFrame:
             sf.write(ruta, x, SR)
         duracion = sf.info(ruta).duration
         filas.append({"id": id_, "modalidad": "audio", "descripcion": condicion,
-                      "archivo_audio": ruta.relative_to(CARPETA).as_posix(), "titulo_original": titulo,
+                      "archivo_audio": ruta.relative_to(CARPETA).as_posix(),
+                      "titulo_original": TITULOS_SEUDONIMIZADOS.get(id_, titulo),
                       "recorte": f"{recorte[0]}-{recorte[1]} s" if recorte else "completo",
                       "duracion_seg": round(duracion, 1), **info})
         print(f"  {id_} {duracion:6.1f} s  {info['licencia']:<12} {condicion}")
