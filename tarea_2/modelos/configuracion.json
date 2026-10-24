@@ -1,0 +1,84 @@
+{
+  "fijada": "2026-10-24, antes de calcular CER/WER sobre la muestra",
+  "muestra": {
+    "documentos": [
+      "doc_001",
+      "doc_002",
+      "doc_008",
+      "doc_009",
+      "doc_012",
+      "doc_013",
+      "doc_015",
+      "doc_020",
+      "doc_022",
+      "doc_024"
+    ],
+    "clips": [
+      "clip_001",
+      "clip_002",
+      "clip_003",
+      "clip_006",
+      "clip_008",
+      "clip_009",
+      "clip_013",
+      "clip_015",
+      "clip_016",
+      "clip_020"
+    ]
+  },
+  "ocr": {
+    "base": {
+      "modelo": "PaddleOCR 3.7.0 (PP-OCRv6_medium_det + PP-OCRv6_medium_rec, CPU, sin preprocesamiento)",
+      "opciones": {
+        "use_doc_orientation_classify": false,
+        "use_doc_unwarping": false,
+        "use_textline_orientation": false
+      }
+    },
+    "alternativo": {
+      "modelo": "EasyOCR 1.7.2 (CRAFT + latin_g2, lang=es, CPU, valores por defecto)",
+      "version": "1.7.2",
+      "idiomas": [
+        "es"
+      ],
+      "gpu": false,
+      "readtext": {}
+    }
+  },
+  "asr": {
+    "base": {
+      "modelo": "faster-whisper 1.2.1 small (CPU int8, beam 5, VAD Silero on, idioma=es)",
+      "version": "1.2.1"
+    },
+    "alternativo": {
+      "modelo": "Qwen3-ASR 0.6B (transformers, CPU float32, VAD Silero, idioma=es)",
+      "hf": "Qwen/Qwen3-ASR-0.6B-hf",
+      "transformers": "5.20.2",
+      "clave": "qwen3-asr-0.6b",
+      "device": "cpu",
+      "idioma": "es",
+      "silencio_min": 0.3,
+      "max_tramo": 12.0
+    }
+  },
+  "llm": {
+    "modelos": [
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash"
+    ],
+    "temperatura": 0,
+    "salida": "JSON con esquema (pydantic)",
+    "prompt_documento": "Eres un archivista peruano. Recibes el texto que un OCR extrajo de un documento\nescaneado o fotografiado (impreso, foto de celular o manuscrito, a veces de los siglos XIX o XX).\nEl OCR comete errores: no los corrijas inventando, y si una parte es ilegible no la reconstruyas.\n\nDevuelve SOLO estos campos, basándote únicamente en el texto:\n- modalidad: siempre \"documento\".\n- tema: el asunto principal en pocas palabras (máximo 8).\n- resumen: una o dos oraciones con lo que dice el documento.\n- emisor: quien firma, escribe o publica el documento, tal como aparece; null si no aparece.\n- fecha: la fecha del documento tal como aparece en el texto; null si no aparece.\n- monto: una cantidad de dinero con su moneda, tal como aparece; null si no hay ninguna.\nUsa null para todo dato ausente. No agregues campos. Las etiquetas como [PERSONA_1] son\nseudónimos de personas reales: cópialas tal cual, no intentes adivinar el nombre.",
+    "prompt_audio": "Eres un archivista de historia oral peruana. Recibes la transcripción automática\n(ASR) de un clip de audio en español. Las marcas [HABLANTE_n] vienen de una diarización automática\nque puede equivocarse (juntar o dividir voces). El ASR también comete errores: no los corrijas inventando.\n\nDevuelve SOLO estos campos, basándote únicamente en la transcripción:\n- modalidad: siempre \"audio\".\n- tema: el asunto principal en pocas palabras (máximo 8).\n- resumen: una o dos oraciones con lo que se dice en el clip.\n- numero_hablantes: cuántas personas distintas hablan, solo si el contenido lo sustenta\n  (turnos de pregunta y respuesta, saludos, nombres); null si no se puede saber.\n- citas_clave: de 1 a 3 frases textuales copiadas EXACTAMENTE de la transcripción, que resuman\n  lo más importante; null si no hay ninguna frase con sentido.\nUsa null para todo dato ausente. No agregues campos. Las etiquetas como [ENTREVISTADA_1] son\nseudónimos de personas reales: cópialas tal cual, no intentes adivinar el nombre."
+  },
+  "metricas": {
+    "normalizacion": "voz.normalizar: minúsculas, sin puntuación ni espacios repetidos; tildes se conservan",
+    "referencia": "se quitan las marcas de hablante (h1:, h2.) y las anotaciones entre corchetes ([?], [risas])",
+    "hipotesis": "se quitan las marcas [HABLANTE_n] de la diarización",
+    "seudonimos": "referencia e hipótesis se seudonimizan con el mismo mapa antes de medir",
+    "agregado": "CER/WER de corpus (errores totales / largo total de las referencias) y por archivo"
+  },
+  "versiones": {
+    "paddleocr": "3.7.0"
+  }
+}
