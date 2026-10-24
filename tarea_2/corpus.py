@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import time
 import urllib.error
 import urllib.parse
@@ -193,7 +194,44 @@ def fuentes(docs: pd.DataFrame, audios: pd.DataFrame) -> pd.DataFrame:
     return tabla[["id", "modalidad", "fuente_url", "licencia", "autor", "acceso", "titulo_original", "fecha_descarga"]]
 
 
-if __name__ == "__main__":
+def ejemplos() -> pd.DataFrame:
+    """Muestra ligera y publicable para el dashboard (datos/ejemplos/): imágenes reducidas y clips en OGG.
+
+    Solo entran los archivos sin personas privadas (sin entradas en el mapa de seudónimos): los
+    demás se consultan en el dashboard como texto y metadatos, nunca como imagen o audio.
+    """
+    from PIL import Image
+    from voz import SR, cargar_audio
+    privados = set(json.loads((RAW / "seudonimos.json").read_text(encoding="utf-8")))
+    destino = CARPETA / "datos" / "ejemplos"
+    destino.mkdir(parents=True, exist_ok=True)
+    filas = []
+    for ruta in sorted((RAW / "documentos").glob("doc_*.jpg")):
+        if ruta.stem in privados:
+            continue
+        imagen = Image.open(ruta).convert("RGB")
+        imagen.thumbnail((1200, 1600))
+        salida = destino / f"{ruta.stem}.jpg"
+        imagen.save(salida, quality=80, optimize=True)
+        filas.append({"id": ruta.stem, "archivo": salida.relative_to(CARPETA).as_posix()})
+    for ruta in sorted((RAW / "audio").glob("clip_*.wav")):
+        if ruta.stem in privados:
+            continue
+        salida = destino / f"{ruta.stem}.ogg"
+        audio = cargar_audio(ruta)
+        with sf.SoundFile(salida, "w", SR, 1, format="OGG", subtype="VORBIS") as f:
+            for i in range(0, len(audio), 4096):   # por bloques: de un solo golpe, libsndfile desborda la pila en Windows
+                f.write(audio[i:i + 4096])
+        filas.append({"id": ruta.stem, "archivo": salida.relative_to(CARPETA).as_posix()})
+    tabla = pd.DataFrame(filas)
+    tabla.to_csv(destino / "ejemplos.csv", index=False)
+    return tabla
+
+
+if __name__ == "__main__" and sys.argv[1:] == ["ejemplos"]:
+    t = ejemplos()
+    print(f"{len(t)} ejemplos publicables en datos/ejemplos/")
+elif __name__ == "__main__":
     print("Documentos:")
     docs = bajar_documentos()
     print("Audios:")
