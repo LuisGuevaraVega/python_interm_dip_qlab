@@ -1,0 +1,5 @@
+modalidad,modelo,métrica,valor (corpus),WER de palabras,segundos por documento,factor de tiempo real
+documento,PaddleOCR,CER,0.0911,0.2479,27.64,
+documento,EasyOCR,CER,0.3,0.5803,17.05,
+audio,faster-whisper small,WER,0.2183,0.2183,,0.3624
+audio,Qwen3-ASR 0.6B,WER,0.228,0.228,,0.8438
