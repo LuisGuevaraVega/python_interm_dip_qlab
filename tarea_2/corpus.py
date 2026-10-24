@@ -11,8 +11,8 @@ Se baja con un User-Agent descriptivo y con pausas de 2 s entre pedidos. Las im�
 en el ancho estándar de 1920 px de Wikimedia (o en su tamaño original si son más chicas); de
 los PDF se renderiza una sola página.
 
-Cinco entrevistas tienen en su nombre de archivo el nombre de la persona entrevistada (personas
-privadas). Para no publicarlo, esas se piden por su número de página en Commons (curid), su
+Siete entrevistas tienen en su nombre de archivo el nombre de la persona entrevistada o del
+estudiante que entrevista (personas privadas). Para no publicarlo, esas se piden por su número de página en Commons (curid), su
 `fuente_url` usa el enlace `?curid=` y su título se guarda seudonimizado.
 """
 from __future__ import annotations
@@ -78,8 +78,8 @@ AUDIOS = {
     "clip_006": ("Entrevista 3.wav", None, "entrevista grabada por estudiante UNMSM"),
     "clip_007": ("Entrevista 4.wav", None, "entrevista grabada por estudiante UNMSM"),
     "clip_008": ("Audio de la entrevista a una chica que participaba de la marcha.ogg", None, "entrevista en una marcha, ruido de multitud"),
-    "clip_009": ("UNMSM Entrevista realizada en la marcha por Cristopher Serrano Pérez.wav", None, "entrevista en una marcha, ruido de multitud"),
-    "clip_010": ("UNMSM Entrevistas en la marcha 1 por Cristopher Serrano Pérez.wav", None, "entrevistas en una marcha, ruido de multitud"),
+    "clip_009": (133964620, None, "entrevista en una marcha, ruido de multitud"),
+    "clip_010": (133964621, None, "entrevistas en una marcha, ruido de multitud"),
     "clip_011": (121219890, None, "declaraciones en conferencia de prensa"),
     "clip_012": (121219891, (0, 240), "declaraciones en conferencia de prensa"),
     "clip_013": (149433722, None, "entrevista en una fiesta patronal (Áncash)"),
@@ -97,6 +97,8 @@ AUDIOS = {
 
 # Títulos publicables de los archivos que se piden por curid (el nombre real queda fuera del repo)
 TITULOS_SEUDONIMIZADOS = {
+    "clip_009": "UNMSM Entrevista realizada en la marcha por [ENTREVISTADOR_4].wav",
+    "clip_010": "UNMSM Entrevistas en la marcha 1 por [ENTREVISTADOR_4].wav",
     "clip_011": "Entrevista-[ENTREVISTADA_1]-organización de mujeres indígenas-fiestas patrias.ogg",
     "clip_012": "Entrevista a [ENTREVISTADA_2]-Organización de mujeres indígenas-fiestas patrias-protesta.ogg",
     "clip_013": "Entrevista a la señora [ENTREVISTADA_3], mujer pomabambina.ogg",

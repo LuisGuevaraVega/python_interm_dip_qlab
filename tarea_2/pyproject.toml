@@ -44,6 +44,7 @@ dependencies = [
   "google-genai>=2.29.0",
   # Dashboard (para probarlo en local)
   "streamlit>=1.38",
+  "kaleido==1.5.0",
 ]
 
 [tool.uv]
