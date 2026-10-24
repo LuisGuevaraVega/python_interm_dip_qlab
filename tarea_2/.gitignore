@@ -15,3 +15,9 @@ modelos/checkpoint-*/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# Transcripciones manuales con nombres reales (la versión seudonimizada está en texto_referencia de los CSV)
+datos/referencias/
+
+# Lock del entorno de los notebooks: Streamlit Cloud lo preferiría a requirements.txt
+uv.lock
