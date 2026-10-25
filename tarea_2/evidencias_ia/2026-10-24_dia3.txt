@@ -1,0 +1,2147 @@
+ ▐▛███▛█   Claude Code v2.1.310
+▝▜██████▀  Opus 5.5 · Claude Pro
+ ▝▝   ▝▝   ~\Documents\GitHub\python_interm_dip_qlab\tarea_2
+
+▎ [✻] [✻] [✻] · Share Claude Code and earn $10 in usage credits · /passes
+
+> /resume                                                                       
+  ⎿  This conversation is from a different directory.
+
+     To resume, run:
+       cd 'C:\Users\user\Documents\GitHub\python_interm_dip_qlab' ; claude
+     --resume 5ea560a3-c91c-4757-a9d3-919ee6fc2971
+
+     (Command copied to clipboard)
+
+> claude, el día de hoy qué debemos hacer para continuar la tarea?              
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Hoy, sábado 24, toca la Parte 2 (issue #7) y, si nos alcanza el tiempo,
+  empezar la Parte 3 (issue #8). La entrega cierra mañana, domingo 25, a las
+  23:59. Estado de partida: la Parte 1 está terminada y el #6 cerrado, tus 20
+  referencias están en el commit 619fd31 y la rama tarea-2 está al día en
+  GitHub.
+
+  Plan de hoy
+
+  Mañana: Parte 2, métricas (02_evaluacion.ipynb)
+  1. Fijar las configuraciones primero. Dejo por escrito en modelos/ la
+     configuración de los modelos alternativos antes de calcular cualquier
+     métrica. El enunciado prohíbe ajustar parámetros mirando los resultados.
+  2. Línea base. Calculo el CER de PaddleOCR y el WER de faster-whisper small
+     sobre tus 10 + 10 referencias. Las salidas ya están en caché desde ayer.
+     Antes de comparar, normalizo igual ambos textos y quito tus marcas h1: y
+     [?] y las etiquetas de hablante.
+  3. Modelos alternativos sobre esas mismas 20 muestras:
+     - OCR: EasyOCR, que ya está instalado.
+     - ASR: Qwen3-ASR o Parakeet. Además del WER, mido el factor de tiempo real
+       (tiempo de proceso ÷ duración del audio).
+  4. Casos difíciles. Analizo los manuscritos y el clip_014 (habla bajo una
+     banda de música).
+
+  Tarde: extracción con el LLM y tu auditoría
+  5. Extraigo campos JSON (modalidad, tema, resumen, emisor/fecha/monto o
+  citas_clave/numero_hablantes, con null cuando no aparecen) de los 48 textos y
+  genero datos/extraccion_llm.csv.
+  6. Tú auditas 20 extracciones al azar (10 documentos y 10 audios). Antes
+  fijamos juntos qué cuenta como "completamente correcta". Esto no puedo hacerlo
+  yo.
+  7. Armo la tabla comparativa y el borrador de la decisión de qué modelo
+  elegir. Las conclusiones las escribes tú, con tus palabras. Luego ejecuto el
+  notebook, hacemos el commit y cierras el #7.
+
+  Noche, si alcanza: Parte 3
+  8. app.py, requirements.txt, README.md y la carpeta datos/ejemplos/. Tú haces
+  el despliegue en Streamlit Cloud. Si no llegamos, queda para mañana, que es el
+  día de reserva.
+
+  Dos decisiones que necesito de ti para arrancar
+
+  1. ¿Qué LLM usamos? Ollama no está instalado y no encontré ninguna clave de
+     Gemini configurada.
+     - Gemini API (te lo recomiendo). La librería google-genai ya está
+       instalada, el plan gratuito alcanza para 48 textos y no consume RAM. Solo
+       necesitas sacar una clave en aistudio.google.com y guardarla en un .env
+       que no se sube a Git. Yo nunca la veo en las capturas.
+     - Ollama con Qwen local. No hay que enviar datos fuera de tu laptop, pero
+       ocupa unos 2 a 5 GB más (al disco C: le quedan 28 GB) y la RAM ya nos dio
+       problemas ayer.
+  2. ¿Qué ASR alternativo? Te recomiendo Qwen3-ASR 0.6B: corre con transformers,
+     que ya tenemos. Parakeet necesita NeMo, que es pesado y da problemas en
+     Windows.
+
+  Además, todavía están pendientes tus capturas de la conversación de ayer en
+  evidencias_ia/. Cuando las guardes, las renumero y reviso que no muestren
+  datos personales.
+
+  ¿Te parecen Gemini y Qwen3-ASR? Si me dices que sí, empiezo por fijar las
+  configuraciones y la línea base, que no dependen de la clave.
+
+✻ Brewed for 44s · done 11:14
+
+> 1. que no tengo ya el api_key de gemini en el .env? me hiciste que lo copiara 
+  en la parte 1. 2. usemos el ASR que me recomiendas. 3. Estoy guardando las    
+  exportaciones de nuestras conversaciones diarias en esa carpeta. No te        
+  preocupes por las capturas                                                    
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Tienes razón: tarea_2/.env ya tiene GEMINI_API_KEY (y HF_TOKEN), y Git lo
+  ignora. Me equivoqué al buscar solo variables de entorno. Actualizo la memoria
+  y arranco.
+
+  Ran 4 shell commands (ctrl+o to expand)
+
+● Aviso: al imprimir el inicio de datos/referencias/clip_001.txt apareció el
+  nombre real de la entrevistada, así que deberás tachar ese dato en la
+  exportación de hoy antes de subirla a evidencias_ia/. A partir de ahora
+  evitaré imprimir el contenido de las referencias o del mapa de seudónimos.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Noto que la última salida también expuso las claves del mapa de seudónimos
+  (los mismos dos nombres de clip_001), así que las ocultaré también en la
+  exportación de hoy. De aquí en adelante solo contaré entradas sin mostrarlas.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+> no te preocupes por las evidencias_ia                                         
+
+● Entendido, no vuelvo a mencionar las evidencias. Sigo con la Parte 2.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+> cuando haya algo que deba hacer yo, avísame, estaré con remote control        
+
+● Entendido. Avanzo solo y te aviso con una notificación cuando necesite algo de
+  ti.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Ya tengo el inventario de las marcas que usaste en tus referencias. Ahora
+  escribo evaluacion.py con las configuraciones fijas, antes de calcular
+  cualquier métrica.
+
+● Write(evaluacion.py)
+  ⎿  Wrote 304 lines to evaluacion.py
+      1 """Parte 2 de la Tarea 2: modelos alternativos, métricas y extrac
+      2 
+      3 Lo usa 02_evaluacion.ipynb. Igual que extraccion.py, cada salida 
+      4 datos/raw/ y no se recalcula si ya existe, así que se puede corre
+        r por tandas desde la terminal:
+      6     uv run python evaluacion.py config                 # escribe 
+        modelos/configuracion.json
+         los 10 de la muestra
+      8     uv run python evaluacion.py qwen clip_001 ...
+        ids: los 48 textos
+     … +398 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2";
+      .venv/Scripts/python evaluacion.py config 2>&1 | tail -5 && head -c 1500
+      modelos/configuraci…)
+  ⎿  escrito modelos\configuracion.json
+     {
+       "fijada": "2026-10-24, antes de calcular CER/WER sobre la muestra",
+     … +58 lines (ctrl+o to expand)
+  ⎿  Created modelos\configuracion.json (+84 -0)
+       1 +{                                                              
+       2 +  "fijada": "2026-10-24, antes de calcular CER/WER sobre la mue
+         +stra",                                                         
+       3 +  "muestra": {                                                 
+       4 +    "documentos": [                                            
+       5 +      "doc_001",                                               
+       6 +      "doc_002",                                               
+       7 +      "doc_008",                                               
+       8 +      "doc_009",                                               
+       9 +      "doc_012",                                               
+      10 +      "doc_013",                                               
+      11 +      "doc_015",                                               
+      12 +      "doc_020",                                               
+      13 +      "doc_022",                                               
+      14 +      "doc_024"                                                
+      15 +    ],                                                         
+      16 +    "clips": [                                                 
+      17 +      "clip_001",                                              
+      18 +      "clip_002",                                              
+      19 +      "clip_003",                                              
+      20 +      "clip_006",                                              
+      21 +      "clip_008",                                              
+      22 +      "clip_009",                                              
+      23 +      "clip_013",                                              
+      24 +      "clip_015",                                              
+      25 +      "clip_016",                                              
+      26 +      "clip_020"                                               
+      27 +    ]                                                          
+      28 +  },                                                           
+      29 +  "ocr": {                                                     
+      30 +    "base": {                                                  
+      31 +      "modelo": "PaddleOCR 3.7.0 (PP-OCRv6_medium_det + PP-OCRv
+         +6_medium_rec, CPU, sin preprocesamiento)",                     
+      32 +      "opciones": {                                            
+      33 +        "use_doc_orientation_classify": false,                 
+      34 +        "use_doc_unwarping": false,                            
+      35 +        "use_textline_orientation": false                      
+      36 +      }                                                        
+      37 +    },                                                         
+      38 +    "alternativo": {                                           
+      39 +      "modelo": "EasyOCR 1.7.2 (CRAFT + latin_g2, lang=es, CPU,
+         + valores por defecto)",                                        
+      40 +      "version": "1.7.2",                                      
+     … 44 more lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Hago el commit de la configuración ahora, para que la marca de tiempo
+  demuestre que quedó fija antes de ver cualquier métrica.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Ahora corro EasyOCR sobre los 10 documentos de la muestra:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Fue rápido (unos 17 s por documento), así que también corro EasyOCR sobre los
+  15 documentos restantes. En el dashboard servirá para filtrar por modelo.
+  Después, Qwen3-ASR sobre la muestra.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Lanzo en segundo plano la extracción con el LLM (apenas consume RAM, son solo
+  llamadas a la API) mientras termino de procesar con Qwen los 8 clips restantes
+  en dos tandas.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Background command "Run Gemini extraction on all 48 texts in background"
+completed (exit code 0)
+
+● Las 48 extracciones del LLM terminaron. Reviso el log y calculo todas las
+  métricas de una vez:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Ya tengo las métricas. Antes de seguir, reviso la calidad de las extracciones
+  del LLM y sorteo los 20 casos de la auditoría:
+  Ran 1 shell command (ctrl+o to expand)
+
+● Las 48 extracciones terminaron con gemini-3.5-flash-lite (7 reintentos por
+  cuota, todos exitosos), y ya detecto errores como un monto "$30" sin
+  referencia en doc_020 y citas no literales en 5 clips. Como harás la auditoría
+  desde el celular, te armo una página privada con botones ✓/✗ por campo para
+  que revises los 20 casos y leeré tus respuestas directamente de ahí.
+
+● Artifact(quickstart other without design systems)
+  ⎿  sent page-design guidance, left design systems out
+
+● Skill(artifact-capabilities)
+  ⎿  Successfully loaded skill
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+● Estoy armando la página de auditoría con el texto seudonimizado de cada caso,
+  los campos extraídos por el LLM, botones ✓/✗ y el enlace al original en
+  Commons. Las respuestas quedarán guardadas ahí mismo para poder leerlas
+  después.
+
+  Made 1 scratchpad edit +294, ran 1 shell command (ctrl+o to expand)
+
+● Paso al módulo el sorteo de la auditoría y la verificación de citas, para que
+  el notebook los reproduzca igual:
+
+● Update(evaluacion.py)
+  ⎿  Added 18 lines
+      262      raise RuntimeError(f"Ningún modelo respondió para {id_}")
+      263  
+      264  
+      265 +SEMILLA_AUDITORIA = 2026                                      
+      266 +                                                              
+      267 +                                                              
+      268 +def muestra_auditoria(ids: list[str]) -> list[str]:           
+      269 +    """20 extracciones al azar para la auditoría humana: 10 do
+          +cumentos y 10 clips."""                                       
+      270 +    import random                                             
+      271 +    rng = random.Random(SEMILLA_AUDITORIA)                    
+      272 +    docs = sorted(i for i in ids if i.startswith("doc_"))     
+      273 +    clips = sorted(i for i in ids if i.startswith("clip_"))   
+      274 +    return sorted(rng.sample(docs, 10)) + sorted(rng.sample(cl
+          +ips, 10))                                                     
+      275 +                                                              
+      276 +                                                              
+      277 +def cita_literal(cita: str, texto: str) -> bool:              
+      278 +    """¿La cita aparece tal cual en la transcripción? (sin dis
+          +tinguir mayúsculas ni espacios)."""                           
+      279 +    junta = lambda s: re.sub(r"\s+", " ", s).strip().lower()  
+      280 +    return junta(cita) in junta(MARCA_HABLANTE.sub(" ", texto)
+          +)                                                             
+      281 +                                                              
+      282 +                                                              
+      283  def textos_publicados() -> dict[str, str]:
+      284      """Los textos OCR y ASR ya seudonimizados y revisados de l
+           a Parte 1 (los de los CSV)."""
+      285      docs = pd.read_csv(DATOS / "documentos.csv")
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Artifact("auditoria/auditoria.html")
+  ⎿  Published ⧉ https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+● PushNotification(Te toca: audita 20 extracciones del LLM (✓/✗ por campo) en
+                  https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU — se guarda
+                  solo. Mientras, armo el notebook 02.)
+  ⎿  Not sent because "Push when Claude decides" is disabled in /config.
+
+● No pude enviar la notificación al celular porque el push móvil está
+  desactivado en /config, así que te dejo el aviso aquí. Ahora corro Qwen sobre
+  clip_014 para el análisis de casos difíciles y reviso que las referencias
+  seudonimizadas no conserven nombres propios fuera del mapa.
+
+  Ran 4 shell commands (ctrl+o to expand)
+
+● Detecté que "[ENTREVISTADA_7]" (con erratas) escapa a la comparación difusa en
+  clip_002, así que lo añadiré como alias en datos/raw/seudonimos.json,
+  vinculado a la etiqueta del nombre más similar, para evitar que se publique.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Ahora verifico dos hipótesis antes de escribirlas en el notebook: por qué
+  EasyOCR falla tanto en doc_013, y qué condiciones de grabación tienen los
+  clips con peor WER.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Confirmé las hipótesis: en doc_013 EasyOCR falla tanto en el orden como en la
+  tipografía decorativa, y en clip_014 ambos modelos devuelven solo ~30 palabras
+  tras aislar los 10,6 s de voz con VAD, sin inventar frases sobre la música.
+  Ahora reviso dónde se guardaron los pesos de cada modelo para reportar su
+  tamaño en disco.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Ya tengo todo para el notebook. Escribo su generador:
+
+  Made 1 scratchpad edit +460 (ctrl+o to expand)
+
+● Antes de ejecutar, verifico tres afirmaciones del borrador: de dónde salen los
+  "$30" que puso el LLM, si Qwen de verdad omite las muletillas y cuántos clips
+  gana cada modelo.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Encontré que "$30" sí viene del OCR mal leído (no lo inventó el LLM) y que
+  ambos ASR omiten muletillas por igual, no es exclusivo de Qwen; además
+  faster-whisper gana en 6 clips, Qwen en 3 y hay 1 empate. Voy a corregir el
+  generador con estos hallazgos.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Reviso cómo va tu auditoría:
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+● Todavía no empiezas. Mientras tanto, hago una ejecución de prueba del
+  notebook. La sección de la auditoría fallará porque aún no hay datos, pero
+  sirve para depurar el resto.
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2";
+      S="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHub-
+      python-interm-dip-…)
+  ⎿  escrito C:\Users\user\AppData\Local\Temp\claude\C--Users-user-Document
+     s-GitHub-python-interm-dip-qlab-tarea-2\624b6c42-bef4-4564-90d9-3c7b01
+     66d123\scratchpad\prueba_02.ipynb
+     … +182 lines (ctrl+o to expand)
+  ⎿  Updated datos\documentos.csv (+94 -26)
+      1 -id,archivo,tipo,fuente,texto_ocr,modelo_ocr,texto_referencia,des
+        -cripcion,lineas,confianza_media,caracteres,segundos_ocr         
+      1 +id,archivo,tipo,fuente,texto_ocr,modelo_ocr,texto_referencia,des
+        +cripcion,lineas,confianza_media,caracteres,segundos_ocr         
+      2  doc_001,datos/raw/documentos/doc_001.jpg,impreso,Wikimedia Commo
+         ns (CC BY-SA 4.0),"Representación Permanente del Periv ante
+      3  RECEIVED
+      4  la Organización de los Estados Americanos
+     ...
+      29  Secretario General de la
+      30  Organización de los Estados Americanos
+      31  Washington D.C.-
+      32 -Escaneado con CamScanner","PaddleOCR 3.7.0 (PP-OCRv6_medium_det
+         - + PP-OCRv6_medium_rec, CPU, sin preprocesamiento)",,Nota de la
+         - Representación del Perú ante la OEA (2001),31,0.967,1043,32.5 
+      32 +Escaneado con CamScanner","PaddleOCR 3.7.0 (PP-OCRv6_medium_det
+         + + PP-OCRv6_medium_rec, CPU, sin preprocesamiento)","Representa
+         +ción Permanente del Perú ante la Organización de los Estados Am
+         +ericanos                                                       
+      33 +Received 0926 2001 APR 26 P 4: 14                              
+      34 +nota 7-5-M/134                                                 
+      35 +Washington D.C., 25 de abril de 2001                           
+      36 +Señor Secretario General:                                      
+      37 +Tengo a honra dirigirme a Su Excelencia, de conformidad con lo 
+         +dispuesto en el Artículo 37 del Reglamento de la Asamblea Gener
+         +al, a fin de hacerle llegar adjunto al presente, el texto del p
+         +royecto de resolución ""Carta Democrática Interamericana"", así
+         + como del memorándum explicativo, que será materia de consultas
+         + entre los Ministros de Relaciones Exteriores y jefes de delega
+         +ción de la XXXI Asamblea General de la OEA, a realizarse en San
+         + José, Costa Rica.                                             
+      38 +Hago propicia la oportunidad para renovar a Su Excelencia las s
+         +eguridades de mi más alta y distinguida consideración.         
+      39 +Manuel Rodríguez Cuadros                                       
+      40 +Embajador                                                      
+      41 +Representante Permanente del Perú ante la Organización de los E
+         +stamos Americanos                                              
+      42 +Al Excelentísimo señor                                         
+      43 +César Gaviria                                                  
+      44 +Secretario General de la                                       
+      45 +Organización de los Estados Americanos                         
+      46 +Washington D.C.-                                               
+      47 +Escaneado con CamScanner",Nota de la Representación del Perú an
+         +te la OEA (2001),31,0.967,1043,32.5                            
+      48  doc_002,datos/raw/documentos/doc_002.jpg,impreso,Wikimedia Comm
+          ons (CC0),"Secretaria General de la Presidencia
+      49  de la República
+      50  Lima, 19 de diciembre de 1956
+     ...
+      64  Atentamente
+      65  Nahauir/
+      66  Naxaria Chávex Aliaga
+      52 -Secretario General de la Presidencia de la República","PaddleOC
+         -R 3.7.0 (PP-OCRv6_medium_det + PP-OCRv6_medium_rec, CPU, sin pr
+         -eprocesamiento)",,Carta mecanografiada de la Secretaría de la P
+         -residencia (1956),20,0.963,577,24.1                            
+      67 +Secretario General de la Presidencia de la República","PaddleOC
+         +R 3.7.0 (PP-OCRv6_medium_det + PP-OCRv6_medium_rec, CPU, sin pr
+         +eprocesamiento)","Secretaría General de la Presidencia de la Re
+         +pública                                                        
+      68 +Lima, 19 de diciembre de 1956                                  
+      69 +Señor                                                          
+      70 +Segundo Gallardo Gallo,                                        
+      71 +Sullana                                                        
+      72 +N° 4418                                                        
+      73 +De mi consideración:                                           
+      74 +Me es grato acusar recibo de su atenta comunicación de 12 de oc
+         +tubre último, dirigida al señor Presi-                         
+     … 228 more lines (ctrl+o to expand)
+  ⎿  Created datos\extraccion_llm.csv (+49 -0)
+       1 +id,modalidad,campos_json,modelo_llm,fecha                      
+       2 +doc_001,documento,"{""modalidad"": ""documento"", ""tema"": ""P
+         +royecto de resolución Carta Democrática Interamericana"", ""res
+         +umen"": ""La Representación Permanente del Perú ante la OEA rem
+         +ite al Secretario General el proyecto de resolución sobre la Ca
+         +rta Democrática Interamericana y su memorándum explicativo."", 
+         +""emisor"": ""Manuel Rodriguez Cuadros"", ""fecha"": ""25 de ab
+         +ril de 2001"", ""monto"": null}",gemini-3.5-flash-lite,2026-10-
+         +24                                                             
+       3 +doc_002,documento,"{""modalidad"": ""documento"", ""tema"": ""A
+         +gradecimiento por retrato obsequiado al Presidente"", ""resumen
+         +"": ""La Secretaría General de la Presidencia de la República a
+         +cusa recibo y agradece a Segundo Gallardo Gallo por el retrato 
+         +enviado al señor Presidente."", ""emisor"": ""Nazaria Chávez Al
+         +iaga"", ""fecha"": ""19 de diciembre de 1956"", ""monto"": null
+         +}",gemini-3.5-flash-lite,2026-10-24                            
+       4 +doc_003,documento,"{""modalidad"": ""documento"", ""tema"": ""R
+         +econocimiento como Hijo Predilecto"", ""resumen"": ""Resolución
+         + de alcaldía que otorga el título de Hijo Predilecto al señor [
+         +HOMENAJEADO_1] por su labor en la promoción de la gastronomía m
+         +oyobambina."", ""emisor"": ""LOSWALDO MENEZ SALAS"", ""fecha"":
+         + ""24 de julio de 2015"", ""monto"": null}",gemini-3.5-flash-li
+         +te,2026-10-24                                                  
+       5 +doc_004,documento,"{""modalidad"": ""documento"", ""tema"": ""N
+         +ombramientos y resoluciones judiciales"", ""resumen"": ""El doc
+         +umento oficializa el nombramiento del Síndico Departamental de 
+         +Quiebras de Lima para el periodo 2007-2010 y resuelve traslados
+         + de magistrados por razones de salud."", ""emisor"": ""Corte Su
+         +perior de Justicia de Lima"", ""fecha"": ""6 de diciembre de 20
+         +06"", ""monto"": null}",gemini-3.5-flash-lite,2026-10-24       
+       6 +doc_005,documento,"{""modalidad"": ""documento"", ""tema"": ""C
+         +onstitucion politica del Peru"", ""resumen"": ""El presidente p
+         +rovisorio promulga la Constitucion dada por la Convencion Nacio
+         +nal, la cual establece en su primer titulo los principios funda
+         +mentales de la Nacion peruana."", ""emisor"": ""EL LIBERTADOR B
+         +ANON GASTILLA"", ""fecha"": null, ""monto"": null}",gemini-3.5-
+         +flash-lite,2026-10-24                                          
+       7 +doc_006,documento,"{""modalidad"": ""documento"", ""tema"": ""C
+         +risis política y dimisión del gabinete Romero"", ""resumen"": "
+         +"El gabinete Romero ha dimitido tras la crisis política y los a
+         +contecimientos recientes, llevando a la formación de un nuevo g
+         +abinete bajo la dirección del presidente Leguía para aplicar un
+         +a política más enérgica."", ""emisor"": ""Clemente Palma"", ""f
+         +echa"": ""12 de junio de 1909"", ""monto"": null}",gemini-3.5-f
+         +lash-lite,2026-10-24                                           
+       8 +doc_007,documento,"{""modalidad"": ""documento"", ""tema"": ""J
+         +uicios de la prensa sobre las tradiciones de Palma"", ""resumen
+         +"": ""El documento analiza las tradiciones de Ricardo Palma, di
+         +vidiendo la época de la dominación española en el Perú entre la
+         + conquista y la colonia."", ""emisor"": null, ""fecha"": null, 
+         +""monto"": null}",gemini-3.5-flash-lite,2026-10-24             
+       9 +doc_008,documento,"{""modalidad"": ""documento"", ""tema"": ""F
+         +elicitación por nombramiento en la Biblioteca Nacional"", ""res
+         +umen"": ""Carta de felicitación dirigida a Ricardo Palma por su
+         + nombramiento como director honorario de la Biblioteca Nacional
+         +."", ""emisor"": null, ""fecha"": ""4 de julio de 1914"", ""mon
+         +to"": null}",gemini-3.5-flash-lite,2026-10-24                  
+      10 +doc_009,documento,"{""modalidad"": ""documento"", ""tema"": ""V
+         +isita pastoral del Papa [ENTREVISTADOR_3] Pablo II"", ""resumen"": ""Documen
+         +to conmemorativo de la segunda visita pastoral del Papa [ENTREVISTADOR_3] Pa
+         +blo II con motivo de la clausura del quinto congreso eucarístic
+         +o mariano de los países bolivarianos en Lima."", ""emisor"": ""
+         +EL CABILDO METROPOLITANO DE LIMA"", ""fecha"": ""14 DE MAYO DE 
+         +1988"", ""monto"": null}",gemini-3.5-flash-lite,2026-10-24     
+      11 +doc_010,documento,"{""modalidad"": ""documento"", ""tema"": ""H
+         +omenaje a Federico Elguera"", ""resumen"": ""El municipio de Li
+         +ma rinde homenaje de gratitud a la memoria de Federico Elguera 
+         +por su labor como alcalde y la modernización de la ciudad."", "
+         +"emisor"": ""EL MVNICPO D UMA"", ""fecha"": ""ENERO D 1935"", "
+         +"monto"": null}",gemini-3.5-flash-lite,2026-10-24              
+      12 +doc_011,documento,"{""modalidad"": ""documento"", ""tema"": ""H
+         +omenaje a Fray Diego de Hojeda"", ""resumen"": ""Documento conm
+         +emorativo dedicado a Fray Diego de Hojeda, autor del poema épic
+         +o La Cristiada, figura de la literatura virreinal peruana."", "
+         +"emisor"": ""La Ciudad de Lima"", ""fecha"": ""MMXX"", ""monto"
+         +": null}",gemini-3.5-flash-lite,2026-10-24                     
+      13 +doc_012,documento,"{""modalidad"": ""documento"", ""tema"": ""I
+         +nauguracion de mercados"", ""resumen"": ""Se inauguraron los me
+         +rcados mayorista y minorista bajo la presidencia de Manuel Prad
+         +o y la alcaldia de Luis Gallo Porras."", ""emisor"": null, ""fe
+         +cha"": ""26 JULIO DE 1945"", ""monto"": null}",gemini-3.5-flash
+         +-lite,2026-10-24                                               
+      14 +doc_013,documento,"{""modalidad"": ""documento"", ""tema"": ""R
+         +eforma de teatro"", ""resumen"": ""Este teatro fue reformado po
+         +r iniciativa de la Colectividad Española en el Perú, con apoyo 
+         +de la Embajada de España en Bima y financiamiento del Ministeri
+         +o de Trabajo e Inmigración."", ""emisor"": ""Colectividad Españ
+         +ola en el Perú"", ""fecha"": ""Agosto de 2010"", ""monto"": nul
+         +l}",gemini-3.5-flash-lite,2026-10-24                           
+      15 +doc_014,documento,"{""modalidad"": ""documento"", ""tema"": ""D
+         +eclaracion de Santo Toribio como patrono"", ""resumen"": ""El P
+         +apa [ENTREVISTADOR_3] Pablo II declaro a Santo Toribio Alfonso de Mogrovejo 
+         +como patrono del Episcopado Latinoamericano por iniciativa del 
+         +Cardenal [ENTREVISTADOR_3] Landazuri Ricketts."", ""emisor"": ""[ENTREVISTADOR_3] PABLO I
+         +I"", ""fecha"": ""10 DE MAYO DE 1983"", ""monto"": null}",gemin
+         +i-3.5-flash-lite,2026-10-24                                    
+      16 +doc_015,documento,"{""modalidad"": ""documento"", ""tema"": ""D
+         +eclaratoria de Arbol Patrimonial"", ""resumen"": ""Documento in
+         +formativo de la Municipalidad de San Isidro que declara a la Ar
+         +aucaria del Bosque El Olivar como Arbol Patrimonial en el anio 
+         +2021."", ""emisor"": ""Municipalidad de San Isidro"", ""fecha""
+         +: ""2021"", ""monto"": null}",gemini-3.5-flash-lite,2026-10-24 
+      17 +doc_016,documento,"{""modalidad"": ""documento"", ""tema"": ""C
+         +ondolencia y remision de prendas"", ""resumen"": ""Miguel Grau 
+         +escribe a Carmela Carvajal de Prat para expresarle sus condolen
+         +cias por la muerte de su esposo Arturo Prat en el combate naval
+         + de Iquique y le envia algunas prendas personales encontradas e
+         +n su poder."", ""emisor"": ""MIGUEL GRAU"", ""fecha"": ""JUNIO 
+         +2 DE 1879"", ""monto"": null}",gemini-3.5-flash-lite,2026-10-24
+      18 +doc_017,documento,"{""modalidad"": ""documento"", ""tema"": ""R
+         +elaciones peruano-chilenas"", ""resumen"": ""Documento históric
+         +o manuscrito fragmentario que menciona relaciones entre peruano
+         +s y chilenos, autoridades y referencias a la patria."", ""emiso
+         +r"": null, ""fecha"": null, ""monto"": null}",gemini-3.5-flash-
+         +lite,2026-10-24                                                
+      19 +doc_018,documento,"{""modalidad"": ""documento"", ""tema"": ""C
+         +arta sobre negociaciones y movimientos politicos"", ""resumen""
+         +: ""Una carta dirigida a un amigo discutiendo sobre ventajas en
+         + movimientos y la necesidad de prudencia ante diversos incident
+         +es."", ""emisor"": ""Gomaxxaf"", ""fecha"": ""2e1822"", ""monto
+         +"": null}",gemini-3.5-flash-lite,2026-10-24                    
+      20 +doc_019,documento,"{""modalidad"": ""documento"", ""tema"": ""E
+         +nfermedad y solicitud de viaje"", ""resumen"": ""El emisor le e
+         +scribe a su tío y padrino comentándole que se encuentra enfermo
+         + de disentería y pidiendo permiso para viajar a Abancay."", ""e
+         +misor"": ""Thiget mn"", ""fecha"": ""12 de Agosto de 1840"", ""
+         +monto"": null}",gemini-3.5-flash-lite,2026-10-24               
+      21 +doc_020,documento,"{""modalidad"": ""documento"", ""tema"": ""P
+         +resentacion y recomendacion del señor Pedro Adolfo Espinoza"", 
+         +""resumen"": ""El emisor recomienda al señor Pedro Adolfo Espin
+         +oza ante el Prefecto del Departamento de Lambayeque a su regres
+         +o a Mbotupe."", ""emisor"": ""lierola"", ""fecha"": null, ""mon
+         +to"": ""$30""}",gemini-3.5-flash-lite,2026-10-24               
+      22 +doc_021,documento,"{""modalidad"": ""documento"", ""tema"": ""E
+         +ncargos y situacion militar"", ""resumen"": ""Carta personal qu
+         +e menciona encargos y remedios para un viaje, asi como novedade
+         +s militares y de la campana."", ""emisor"": ""F. Mateo"", ""fec
+         +ha"": ""28 de mayo de 1880"", ""monto"": null}",gemini-3.5-flas
+         +h-lite,2026-10-24                                              
+      23 +doc_022,documento,"{""modalidad"": ""documento"", ""tema"": ""P
+         +rotesta por desalojo de maestro"", ""resumen"": ""Carta dirigid
+         +a a un maestro expresando profundo dolor e indignación por su d
+         +esalojo de la casa de la Biblioteca Nacional."", ""emisor"": nu
+         +ll, ""fecha"": ""junio 10 de 1912"", ""monto"": null}",gemini-3
+         +.5-flash-lite,2026-10-24                                       
+      24 +doc_023,documento,"{""modalidad"": ""documento"", ""tema"": ""G
+         +arantia y fianza"", ""resumen"": ""Se comunica la disposicion s
+         +obre la aceptacion de una fianza de dos mil pesos para asegurar
+         + fondos publicos."", ""emisor"": ""Manllenu"", ""fecha"": ""29 
+         +de Octubre de 1839"", ""monto"": ""dos mil pesos""}",gemini-3.5
+         +-flash-lite,2026-10-24                                         
+      25 +doc_024,documento,"{""modalidad"": ""documento"", ""tema"": ""P
+         +resentacion y encargo"", ""resumen"": ""Carta dirigida a [PERSO
+         +NA_1] en Arequipa donde se menciona que el portador instruira s
+         +obre un asunto."", ""emisor"": ""Balta"", ""fecha"": ""abril o 
+         +fey"", ""monto"": ""$30""}",gemini-3.5-flash-lite,2026-10-24   
+      26 +doc_025,documento,"{""modalidad"": ""documento"", ""tema"": ""f
+         +ondos para el hospital de Sechura"", ""resumen"": ""Se solicita
+         + y ordena la entrega de fondos de la caja de comunidad para el 
+         +hospital y la curación de los indios del pueblo de Sechura tras
+         + haberse quemado el pueblo."", ""emisor"": ""Don [PERSONA_1]"",
+         + ""fecha"": ""mil y seiscientos y cuarenta y dos"", ""monto"": 
+         +""ciento y veynte y un pesos y siete R""}",gemini-3.5-flash-lit
+         +e,2026-10-24                                                   
+      27 +clip_001,audio,"{""modalidad"": ""audio"", ""tema"": ""Expectat
+         +ivas sobre el partido de fútbol de Perú"", ""resumen"": ""Un en
+         +trevistador de la Universidad Nacional Mayor de San Marcos le p
+         +regunta a una pobladora sobre sus expectativas, el resultado es
+         +perado y su opinión acerca del fútbol como unión de masas."", "
+         +"numero_hablantes"": 2, ""citas_clave"": [""Bueno, esperamos qu
+         +e Perú ganemos, ¿no? Espero que Padula se eche goles."", ""Que 
+         +Perú gane. Es todo lo que Dios pienso. Esperamos que ganemos.""
+         +]}",gemini-3.5-flash-lite,2026-10-24                           
+      28 +clip_002,audio,"{""modalidad"": ""audio"", ""tema"": ""Entrevis
+         +ta sobre el futbol y la seleccion peruana"", ""resumen"": ""Un 
+         +estudiante entrevista a dos vecinas sobre las expectativas del 
+         +partido de la seleccion peruana, los jugadores destacados, el r
+         +esultado probable y el futbol como factor de union."", ""numero
+         +_hablantes"": 3, ""citas_clave"": [""El Peru va a dar todo por 
+         +todo, todo su corazon va a entregar para que ganemos"", ""Hace 
+         +que la gente se una, no hay distincion de raza ni religion""]}"
+         +,gemini-3.5-flash-lite,2026-10-24                              
+      29 +clip_003,audio,"{""modalidad"": ""audio"", ""tema"": ""Situacio
+         +n de la seleccion peruana de futbol"", ""resumen"": ""Los habla
+         +ntes discuten sobre el mal desempeño actual de la seleccion per
+         +uana de futbol y critican a algunos jugadores y decisiones tecn
+         +icas."", ""numero_hablantes"": 2, ""citas_clave"": [""Como ves 
+         +a Per_, Per_, hasta las..."", ""Hay como cuatro jugadores que e
+         +stán por las puras y ya peor ahora el técnico tiene que hacer..
+         +.""]}",gemini-3.5-flash-lite,2026-10-24                        
+      30 +clip_004,audio,"{""modalidad"": ""audio"", ""tema"": ""Entrevis
+         +ta sobre la identidad y vivencia peruana"", ""resumen"": ""Un e
+         +studiante de la Universidad San Marcos entrevista a un ciudadan
+         +o sobre su perspectiva del Perú, los aspectos positivos y negat
+         +ivos del país, y le pide un mensaje para los jóvenes."", ""nume
+         +ro_hablantes"": 2, ""citas_clave"": [""El Perú es un país con m
+         +ucha historia. Bueno, el lugar donde yo nací, y me gusta."", ""
+         +Punto número uno, estudia y aprende todo lo que puedas, porque 
+         +mientras más sabes, más después de desarrollar en muchos trabaj
+         +os."", ""Punto número uno, no preste dinero. Punto número dos, 
+         +no seas a val de nadie. Y punto número tres, ahorra tu dinero."
+         +"]}",gemini-3.5-flash-lite,2026-10-24                          
+      31 +clip_005,audio,"{""modalidad"": ""audio"", ""tema"": ""Signific
+         +ado del Perú, aspectos positivos y negativos"", ""resumen"": ""
+         +Una entrevista donde se discute el significado del Perú para el
+         + entrevistado, destacando tanto los avances y el desarrollo del
+         + país como los problemas políticos y la corrupción."", ""numero
+         +_hablantes"": 2, ""citas_clave"": [""Yo pienso que para cada Pe
+         +rú el Perú debe significar casi todo"", ""Indudablemente las ma
+         +las funciones que hacen nuestras autoridades. Si lo vemos en el
+         + lado político, la corrupción, todo eso.""]}",gemini-3.5-flash-
+         +lite,2026-10-24                                                
+      32 +clip_006,audio,"{""modalidad"": ""audio"", ""tema"": ""Percepci
+         +ón sobre el Perú y Lima"", ""resumen"": ""Un entrevistador de l
+         +a Universidad San Marcos le pregunta a un extranjero su opinión
+         + sobre el Perú, destacando la riqueza cultural del país, la ama
+         +bilidad de su gente y la lentitud del servicio en Lima."", ""nu
+         +mero_hablantes"": 5, ""citas_clave"": [""Perú, yo creo que junt
+         +o con México los dos países que más historia tienen, más cultur
+         +a y más restos de civilizaciones prehispánicas"", ""La gente es
+         + increíblemente amable."", ""El servicio es terriblemente lento
+         + en los restaurantes.""]}",gemini-3.5-flash-lite,2026-10-24    
+      33 +clip_007,audio,"{""modalidad"": ""audio"", ""tema"": ""Entrevis
+         +ta sobre la identidad y desarrollo del Peru"", ""resumen"": ""U
+         +n estudiante de la Universidad San Marcos entrevista a un ciuda
+         +dano sobre su concepto de patria, los aspectos positivos y nega
+         +tivos del pais, y un mensaje para la juventud enfocado en la pr
+         +oduccion."", ""numero_hablantes"": 3, ""citas_clave"": [""El Pe
+         +ru es mi patria, es una patria donde aun naci mis ancestros"", 
+         +""las caracteristicas serian su gastronomia, la gastronomia a n
+         +ivel mundial tiene prestigio"", ""la juventud de hoy debe pensa
+         +r en lo que es la produccion, deben seguir carreras tecnicas, i
+         +ngenieria, ligadas a la produccion""]}",gemini-3.5-flash-lite,2
+         +026-10-24                                                      
+      34 +clip_008,audio,"{""modalidad"": ""audio"", ""tema"": ""Marcha d
+         +el orgullo y derechos LGTBIQ+"", ""resumen"": ""Una persona exp
+         +resa lo que significa para ella la marcha del orgullo y envía u
+         +n mensaje de apoyo a la juventud."", ""numero_hablantes"": 12, 
+         +""citas_clave"": [""Para mí, la marcha del orgullo es luchar po
+         +r mis derechos para no tener miedo a salir a la calle"", ""Que 
+         +no tengan miedo porque somos muchos, somos muchos los que nos v
+         +amos a recibir con los brazos abiertos""]}",gemini-3.5-flash-li
+         +te,2026-10-24                                                  
+      35 +clip_009,audio,"{""modalidad"": ""audio"", ""tema"": ""Entrevis
+         +ta sobre la juventud y la marcha de la comunidad"", ""resumen""
+         +: ""Un entrevistador de la Facultad de Censas Biológicas conver
+         +sa con el señor sobre el mensaje a la juventud del país y el si
+         +gnificado de participar en la marcha de la comunidad."", ""nume
+         +ro_hablantes"": 2, ""citas_clave"": [""Creo que cada uno tiene 
+         +una orientación, tiene una preferencia y nadie debe ser usado p
+         +or eso"", ""es un espacio donde pueden encontrarme con mucha má
+         +s gente que también de la comunidad y son espacios donde simple
+         +mente expresamos lo que sentimos""]}",gemini-3.5-flash-lite,202
+         +6-10-24                                                        
+      36 +clip_010,audio,"{""modalidad"": ""audio"", ""tema"": ""Entrevis
+         +ta sobre la juventud y la marcha"", ""resumen"": ""Un entrevist
+         +ador conversa con varias personas sobre un mensaje para la juve
+         +ntud y sus opiniones acerca de una marcha, describiéndola como 
+         +colorida y participativa."", ""numero_hablantes"": 8, ""citas_c
+         +lave"": [""Que sigan sus sueños, que sigan sus, que hagan lo qu
+         +e le gusta, con responsabilidad,"", ""Que colorida.""]}",gemini
+         +-3.5-flash-lite,2026-10-24                                     
+      37 +clip_011,audio,"{""modalidad"": ""audio"", ""tema"": ""Entrevis
+         +ta sobre identidad y peruanidad"", ""resumen"": ""Una entrevist
+         +adora conversa con [ENTREVISTADA_1] sobre el significado del Pe
+         +rú, sus recuerdos de infancia, los aspectos positivos y negativ
+         +os del país, y un mensaje para las futuras generaciones."", ""n
+         +umero_hablantes"": 2, ""citas_clave"": [""el Perú es mi país do
+         +nde nacido, amo mucho porque acá vivo tengo todo lo que necesit
+         +o y adoro mi país"", ""los aspectos negativos es que la corrupc
+         +ión y dentro de los gobiernos siempre ha habido demasiada corru
+         +pción"", ""tenemos que tener generaciones nuevas""]}",gemini-3.
+         +5-flash-lite,2026-10-24                                        
+      38 +clip_012,audio,"{""modalidad"": ""audio"", ""tema"": ""Marcha d
+         +e protesta y amor por el Peru"", ""resumen"": ""La señora [ENTR
+         +EVISTADA_2], desde Apurimac, participa en una marcha pidiendo e
+         +l cierre del Congreso, comparte reflexiones sobre la identidad 
+         +peruana influenciadas por su padre, y anima a los jovenes a def
+         +ender la patria."", ""numero_hablantes"": 3, ""citas_clave"": [
+         +""El Peru es una patria grande donde todos los peruanos aca som
+         +os parte de eso."", ""Jovenes, la patria es de ustedes y a cont
+         +inuar luchando para un peul grande, lleno de riquezas, de miner
+         +ia.""]}",gemini-3.5-flash-lite,2026-10-24                      
+      39 +clip_013,audio,"{""modalidad"": ""audio"", ""tema"": ""Festivid
+         +ad y costumbres en Pumbuamba"", ""resumen"": ""Una entrevista s
+         +obre la asistencia anual a las celebraciones, las misas y los b
+         +ailes tradicionales en Pumbuamba."", ""numero_hablantes"": 3, "
+         +"citas_clave"": [""La misma sitio no, yo soy de la misma Pumbua
+         +mba, esta es un distrito"", ""Esta es como vienen para misa, co
+         +mo dicen Entonces ahí llegamos a las personas que nos gusta esc
+         +uchar la misa""]}",gemini-3.5-flash-lite,2026-10-24            
+      40 +clip_014,audio,"{""modalidad"": ""audio"", ""tema"": ""Vivencia
+         + del dolor y la festividad"", ""resumen"": ""Se reflexiona sobr
+         +e cómo se experimenta el dolor y la celebración de una imagen e
+         +n la sierra de Chuyas y su contraste al encontrarse lejos."", "
+         +"numero_hablantes"": 2, ""citas_clave"": [""¿Como se vive en es
+         +e momento el dolor?"", ""¿Sólo de venir?""]}",gemini-3.5-flash-
+         +lite,2026-10-24                                                
+     … 9 more lines (ctrl+o to expand)
+  ⎿  Created datos\metricas.csv (+41 -0)
+       1 +id,modalidad,tipo,modelo,metrica,valor,segundos,factor_tiempo_r
+         +eal                                                            
+       2 +doc_001,documento,impreso,PaddleOCR,CER,0.0386,32.5,           
+       3 +doc_002,documento,impreso,PaddleOCR,CER,0.0379,24.1,           
+       4 +doc_008,documento,impreso,PaddleOCR,CER,0.0416,37.4,           
+       5 +doc_009,documento,foto,PaddleOCR,CER,0.0059,24.9,              
+       6 +doc_012,documento,foto,PaddleOCR,CER,0.0647,14.8,              
+       7 +doc_013,documento,foto,PaddleOCR,CER,0.0135,13.8,              
+       8 +doc_015,documento,foto,PaddleOCR,CER,0.0392,41.1,              
+       9 +doc_020,documento,manuscrito,PaddleOCR,CER,0.1588,24.2,        
+      10 +doc_022,documento,manuscrito,PaddleOCR,CER,0.2131,37.1,        
+      11 +doc_024,documento,manuscrito,PaddleOCR,CER,0.5126,26.5,        
+      12 +doc_001,documento,impreso,EasyOCR,CER,0.0643,14.2,             
+      13 +doc_002,documento,impreso,EasyOCR,CER,0.1227,12.1,             
+      14 +doc_008,documento,impreso,EasyOCR,CER,0.2592,15.0,             
+      15 +doc_009,documento,foto,EasyOCR,CER,0.0177,24.1,                
+      16 +doc_012,documento,foto,EasyOCR,CER,0.1412,13.0,                
+      17 +doc_013,documento,foto,EasyOCR,CER,0.6188,12.2,                
+      18 +doc_015,documento,foto,EasyOCR,CER,0.0582,23.3,                
+      19 +doc_020,documento,manuscrito,EasyOCR,CER,0.6407,23.1,          
+      20 +doc_022,documento,manuscrito,EasyOCR,CER,0.6808,13.9,          
+      21 +doc_024,documento,manuscrito,EasyOCR,CER,0.7789,19.6,          
+      22 +clip_001,audio,entrevista en la calle,faster-whisper small,WER,
+         +0.2677,43.4,0.3184                                             
+      23 +clip_002,audio,"entrevista en la calle, varias hablantes",faste
+         +r-whisper small,WER,0.1894,66.2,0.3503                         
+      24 +clip_003,audio,"entrevista durante un partido, ruido de fondo",
+         +faster-whisper small,WER,0.4353,11.7,0.3913                    
+      25 +clip_006,audio,entrevista grabada por estudiante UNMSM,faster-w
+         +hisper small,WER,0.2146,31.1,0.4018                            
+      26 +clip_008,audio,"entrevista en una marcha, ruido de multitud",fa
+         +ster-whisper small,WER,0.2778,22.9,0.4217                      
+      27 +clip_009,audio,"entrevista en una marcha, ruido de multitud",fa
+         +ster-whisper small,WER,0.199,24.1,0.3114                       
+      28 +clip_013,audio,entrevista en una fiesta patronal (Áncash),faste
+         +r-whisper small,WER,0.3318,31.0,0.3799                         
+      29 +clip_015,audio,entrevista en una fiesta patronal (Áncash),faste
+         +r-whisper small,WER,0.0658,10.7,0.273                          
+      30 +clip_016,audio,lectura de artículo de Wikipedia,faster-whisper 
+         +small,WER,0.1603,41.1,0.4567                                   
+      31 +clip_020,audio,lectura de artículo de Wikipedia,faster-whisper 
+         +small,WER,0.0714,31.3,0.3478                                   
+      32 +clip_001,audio,entrevista en la calle,Qwen3-ASR 0.6B,WER,0.3032
+         +,100.0,0.7337                                                  
+      33 +clip_002,audio,"entrevista en la calle, varias hablantes",Qwen3
+         +-ASR 0.6B,WER,0.2197,142.0,0.7513                              
+      34 +clip_003,audio,"entrevista durante un partido, ruido de fondo",
+         +Qwen3-ASR 0.6B,WER,0.3294,24.8,0.8294                          
+      35 +clip_006,audio,entrevista grabada por estudiante UNMSM,Qwen3-AS
+         +R 0.6B,WER,0.2488,68.9,0.8902                                  
+      36 +clip_008,audio,"entrevista en una marcha, ruido de multitud",Qw
+         +en3-ASR 0.6B,WER,0.2778,48.3,0.8895                            
+      37 +clip_009,audio,"entrevista en una marcha, ruido de multitud",Qw
+         +en3-ASR 0.6B,WER,0.1518,67.6,0.8734                            
+      38 +clip_013,audio,entrevista en una fiesta patronal (Áncash),Qwen3
+         +-ASR 0.6B,WER,0.2995,70.0,0.8578                               
+      39 +clip_015,audio,entrevista en una fiesta patronal (Áncash),Qwen3
+         +-ASR 0.6B,WER,0.1316,30.3,0.773                                
+      40 +clip_016,audio,lectura de artículo de Wikipedia,Qwen3-ASR 0.6B,
+         +WER,0.1941,92.9,1.0322                                         
+     … 1 more lines (ctrl+o to expand)
+  ⎿  Updated datos\transcripciones.csv (+116 -24)
+      1 -id,archivo_audio,duracion_seg,idioma,texto_asr,modelo_asr,n_habl
+        -antes,texto_referencia,descripcion,fuente,recorte,voz_seg,palabr
+        -as,segundos_asr,factor_tiempo_real                              
+      1 +id,archivo_audio,duracion_seg,idioma,texto_asr,modelo_asr,n_habl
+        +antes,texto_referencia,descripcion,fuente,recorte,voz_seg,palabr
+        +as,segundos_asr,factor_tiempo_real                              
+      2  clip_001,datos/raw/audio/clip_001.wav,136.3,es,"[HABLANTE_1] Bue
+         nos días, aquí son las 10 y 28 y estoy con una señora que va a d
+         arme su opinión acerca de partido de hoy. ¿Puedes decirme su nom
+         bre por favor?
+      3  [HABLANTE_2] [ENTREVISTADA_6].
+      4  [HABLANTE_1] Mucho gusto, yo soy [ENTREVISTADOR_1], soy alumno d
+         e la Universidad Nacional Mayor de San Marcos y le voy a hacer e
+         stas preguntas acerca del partido de hoy. ¿Qué expectativas tien
+         e acerca de este partido? ¿Quién piensa que va a atacar más o de
+         fender?
+     ...
+       9  [HABLANTE_2] Eso es una gente no de juntarse, o sea, tomar, hac
+          er barras. Es decir, es Dios mirar.
+      10  [HABLANTE_1] Muchas gracias por su opinión. ¿Un mensaje final q
+          ue desea dar?
+      11  [HABLANTE_2] Que Perú gane. Es todo lo que Dios pienso. Esperam
+          os que ganemos.
+      12 -[HABLANTE_1] Muchas gracias.","faster-whisper 1.2.1 small (CPU 
+         -int8, beam 5, VAD Silero on, idioma=es)",2,,entrevista en la ca
+         -lle,Wikimedia Commons (CC BY-SA 4.0),completo,105.5,257,43.4,0.
+         -32                                                             
+      13 -clip_002,datos/raw/audio/clip_002.wav,189.0,es,"[HABLANTE_1] Bu
+         -enos días profesor y compañeros. Hoy estoy cerca de aquí por mi
+         - casa y voy a hacer entrevistas cerca del fútbol como unión de 
+         -masas. Estoy con las señoras [ENTREVISTADA_7]. ¿Estáis [ENTREVI
+         -STADA_8]? Muy bien. Voy a comenzar con la primera pregunta y es
+         - ¿qué expectativas tienen ante este partido? Que la afición se 
+         -encuentra motivado para ganar este partido. ¿Me puede decir su 
+         -nombre? [ENTREVISTADA_7]. La expectativa que pienso es que acá 
+         -que el Perú va a dar todo por todo, todo su corazón va a entreg
+         -ar para que ganemos ¿no? para que seamos ganemos este para ir a
+         - las olimpiadas al mundial. ¿Me puede decir este su nombre? [EN
+         -TREVISTADA_8]. Bien. Sigo con la siguiente pregunta. ¿Qué jugad
+         -or piensa que va a ser más determinante? Antes de que diga su r
+         -espuesta dígame su nombre por favor. [ENTREVISTADA_7]. La padul
+         -a. ¿Por qué? Porque ha demostrado su fuerza y su barra para jug
+         -ar y ha metido unos cuantos goles. Muy bien. Sigo con la siguie
+         -nte señora. [ENTREVISTADA_8] para mí sería la padula con cueva 
+         -¿no? porque los dos han hecho un dúo y la padula más para que d
+         -emuestre que tiene el corazón más peruano quitaliano. Muchas gr
+         -acias. Sigo con la siguiente. Sigo con la pregunta y antes de e
+         -mpezar con ella puedo decir que han destacado la padula más ¿no
+         -? Y la siguiente pregunta es ¿cuál es el resultado de hoy? ¿Cuá
+         -l piensa que va a ser el resultado de hoy? [ENTREVISTADA_7]. 2-
+         -0. Sigo con la siguiente señorita. ¿Señora? [ENTREVISTADA_8]. 2
+         --0. Fala que sea 2-0. Veo que ambas han dicho el mismo resultad
+         -o y esperemos que sea así. Y la última pregunta ¿qué opina del 
+         -fútbol acerca como factor de unión de masas? [ENTREVISTADA_7], 
+         -deporte, apasiona a todos los peruanos tanto como fuera del paí
+         -s también y es este un deporte que une a toda la familia, a tod
+         -as las amistades generales. Muchas gracias y ya finalizando su 
+         -comentario final. [ENTREVISTADA_8]. Hace que la gente se una, n
+         -o hay distinción de raza ni religión ¿no? Por q … [+291 chars] 
+      12 +[HABLANTE_1] Muchas gracias.","faster-whisper 1.2.1 small (CPU 
+         +int8, beam 5, VAD Silero on, idioma=es)",2,"h1: buenos días, aq
+         +uí son las 10 y 28 y estoy con una señora que va a darme su opi
+         +nión de acerca del partido de hoy. ¿Puede decirme su nombre por
+         + favor?                                                        
+      13 +h2. [ENTREVISTADA_6]                                           
+      14 +h1: Ehm, mucho gusto, eh, yo soy [ENTREVISTADOR_1], soy alumno 
+         +de la Universidad Nacional Mayor de San Marcos y le voy a hacer
+         + estas preguntas a cerca del partido de hoy. Eh, ¿Qué expectati
+         +vas tiene a cerca de este partido?, ¿quién, quién piensa que va
+         + a atacar más o defender?                                      
+      15 +h2: bueno, esperamos que Perú ganemos, no? Es el espero que Pad
+         +ula eche goles jeje                                            
+      16 +h1: Muy bien, la siguiente pregunta es acerca de qué jugador pi
+         +ensa que va a hacer más decisivo en este partido               
+      17 +h2: eh, bueno, Cueva, oreja, el orejita                        
+      18 +h1: Muy bien y la tercera pregunta es acerca de.. ¿Cuál es el r
+         +esultado que espera de este partido?, quién gana y a cuanto, po
+         +r cuanto?                                                      
+      19 +h2: Bueno, esperamos que gane Perú con 2 a 0 o si no también qu
+         +e sea como hay que esperar lo que Dios primeramente Dios pes sí
+         +, si perdemos también hay que hay que esperar lo mejor porque e
+         +stán demostrando lo mejor que pueden los nuestros jugadores, no
+         +?                                                              
+      20 +h1: Muy bien, o sea está diciendo que está esperando lo mínimo.
+         + No importa si ganemos 1 a 0 o perdamos, lo más importante es D
+         +ios. Y la última pregunta, eh. ¿Qué piensa del futbol como unió
+         +n de masas? Porque como puede ver, eh, muy pronto en muchos loc
+         +ales va a ver que va a ver muchas personas viendo este partido.
+         + ¿Qué piensa de ello?                                          
+      21 +h2: Ah, eso, eso es una alegría, una emoción pues que tiene la 
+         +gente, no? de juntarse o sea tomar, hacer barras, irse al parti
+         +do a mirar pues [?]                                            
+      22 +h1: Muchas gracias por su opinión. Eh... un mensaje final que d
+         +esea dar?                                                      
+      23 +h2: Qué Perú gane, es... solo que yo pienso pues. Esperamos que
+         + ganemos.                                                      
+      24 +h1: Muchas gracias",entrevista en la calle,Wikimedia Commons (C
+         +C BY-SA 4.0),completo,105.5,257,43.4,0.32                      
+      25 +clip_002,datos/raw/audio/clip_002.wav,189.0,es,"[HABLANTE_1] Bu
+         +enos días profesor y compañeros. Hoy estoy cerca de aquí por mi
+         + casa y voy a hacer entrevistas cerca del fútbol como unión de 
+         +masas. Estoy con las señoras [ENTREVISTADA_7]. ¿Estáis [ENTREVI
+         +STADA_8]? Muy bien. Voy a comenzar con la primera pregunta y es
+         + ¿qué expectativas tienen ante este partido? Que la afición se 
+         +encuentra motivado para ganar este partido. ¿Me puede decir su 
+         +nombre? [ENTREVISTADA_7]. La expectativa que pienso es que acá 
+         +que el Perú va a dar todo por todo, todo su corazón va a entreg
+         +ar para que ganemos ¿no? para que seamos ganemos este para ir a
+         + las olimpiadas al mundial. ¿Me puede decir este su nombre? [EN
+         +TREVISTADA_8]. Bien. Sigo con la siguiente pregunta. ¿Qué jugad
+         +or piensa que va a ser más determinante? Antes de que diga su r
+         +espuesta dígame su nombre por favor. [ENTREVISTADA_7]. La padul
+         +a. ¿Por qué? Porque ha demostrado su fuerza y su barra para jug
+         +ar y ha metido unos cuantos goles. Muy bien. Sigo con la siguie
+         +nte señora. [ENTREVISTADA_8] para mí sería la padula con cueva 
+         +¿no? porque los dos han hecho un dúo y la padula más para que d
+         +emuestre que tiene el corazón más peruano quitaliano. Muchas gr
+         +acias. Sigo con la siguiente. Sigo con la pregunta y antes de e
+         +mpezar con ella puedo decir que han destacado la padula más ¿no
+         +? Y la siguiente pregunta es ¿cuál es el resultado de hoy? ¿Cuá
+         +l piensa que va a ser el resultado de hoy? [ENTREVISTADA_7]. 2-
+         +0. Sigo con la siguiente señorita. ¿Señora? [ENTREVISTADA_8]. 2
+         +-0. Fala que sea 2-0. Veo que ambas han dicho el mismo resultad
+         +o y esperemos que sea así. Y la última pregunta ¿qué opina del 
+         +fútbol acerca como factor de unión de masas? [ENTREVISTADA_7], 
+         +deporte, apasiona a todos los peruanos tanto como fuera del paí
+         +s también y es este un deporte que une a toda la familia, a tod
+         +as las amistades generales. Muchas gracias y ya finalizando su 
+         +comentario final. [ENTREVISTADA_8]. Hace que la gente se una, n
+         +o hay distinción de raza ni religión ¿no? Por q … [+357 chars] 
+      26 +h2: [ENTREVISTADA_7]                                           
+      27 +h3: [ENTREVISTADA_8]                                           
+      28 +h1: Eh, muy bien, eh, voy a empezar con la primera pregunta y e
+         +s ¿Qué expectativas tienen ante este partido?                  
+      29 +h2: ah que que la afición se encuentra motivado para ganar este
+         + partido                                                       
+      30 +h1: me puede decir su nombre?                                  
+      31 +h2: [ENTREVISTADA_7]                                           
+      32 +h1: Eh...                                                      
+      33 +h3: Mi expectativa que yo pienso es que que acá que el Perú va 
+         +a dar todo por todo todo su corazón, va a entregar para que gan
+         +emos, no? para que seamos cam… ganemos este para ir a las olimp
+         +iadas.                                                         
+      34 +h1: Al mundial.                                                
+      35 +h3: Al mundial.                                                
+      36 +h1: Puede decir su nombre?                                     
+      37 +h3: [ENTREVISTADA_8]                                           
+      38 +h1: Bien, sigo con la siguiente pregunta: eh, qué jugador piens
+         +a que va a ser más determi determinante? Antes de que diga su r
+         +espuesta, dígame su nombre por favor.                          
+      39 +h2: [ENTREVISTADA_7]. Lapalula.                                
+      40 +h1. por qué?                                                   
+      41 +h2: Porque ha demostrado su fuerza y su garra para para jugar y
+         + ha metido unos cuantos goles. Ha metido goles.                
+     … 167 more lines (ctrl+o to expand)
+  ⎿  … 1 more file changed
+  ⎿  (timeout 10m)
+● La prueba pasa sin errores, aunque la sección de auditoría aún no tiene datos.
+  Ajustaré las cifras del texto a los valores reales y ordenaré las tablas para
+  evitar columnas vacías.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Mientras auditas, continúo con la Parte 3: reviso qué quedó escrito en los CSV
+  de la ejecución de prueba y cómo corpus.py obtiene las URLs directas de
+  Commons para mostrar imágenes y audios en el dashboard.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● He preparado en datos/ejemplos/ 23 imágenes reducidas a 1200 px (excluyendo
+  doc_003 y doc_004 por mencionar personas privadas) y 9 audios en OGG (clip_003
+  y las lecturas clip_016–clip_023, sin personas en el mapa de seudónimos). El
+  resto de registros se mostrará solo como texto y metadatos.
+
+● Update(corpus.py)
+  ⎿  Added 35 lines, removed 1 line
+      193      return tabla[["id", "modalidad", "fuente_url", "licencia",
+            "autor", "acceso", "titulo_original", "fecha_descarga"]]
+      194  
+      195  
+      196 -if __name__ == "__main__":                                    
+      196 +def ejemplos() -> pd.DataFrame:                               
+      197 +    """Muestra ligera y publicable para el dashboard (datos/ej
+          +emplos/): imágenes reducidas y clips en OGG.                  
+      198 +                                                              
+      199 +    Solo entran los archivos sin personas privadas (sin entrad
+          +as en el mapa de seudónimos): los                             
+      200 +    demás se consultan en el dashboard como texto y metadatos,
+          + nunca como imagen o audio.                                   
+      201 +    """                                                       
+      202 +    from PIL import Image                                     
+      203 +    from voz import SR, cargar_audio                          
+      204 +    privados = set(json.loads((RAW / "seudonimos.json").read_t
+          +ext(encoding="utf-8")))                                       
+      205 +    destino = CARPETA / "datos" / "ejemplos"                  
+      206 +    destino.mkdir(parents=True, exist_ok=True)                
+      207 +    filas = []                                                
+      208 +    for ruta in sorted((RAW / "documentos").glob("doc_*.jpg"))
+          +:                                                             
+      209 +        if ruta.stem in privados:                             
+      210 +            continue                                          
+      211 +        imagen = Image.open(ruta).convert("RGB")              
+      212 +        imagen.thumbnail((1200, 1600))                        
+      213 +        salida = destino / f"{ruta.stem}.jpg"                 
+      214 +        imagen.save(salida, quality=80, optimize=True)        
+      215 +        filas.append({"id": ruta.stem, "archivo": salida.relat
+          +ive_to(CARPETA).as_posix()})                                  
+      216 +    for ruta in sorted((RAW / "audio").glob("clip_*.wav")):   
+      217 +        if ruta.stem in privados:                             
+      218 +            continue                                          
+      219 +        salida = destino / f"{ruta.stem}.ogg"                 
+      220 +        sf.write(salida, cargar_audio(ruta), SR, format="OGG",
+          + subtype="VORBIS")                                            
+      221 +        filas.append({"id": ruta.stem, "archivo": salida.relat
+          +ive_to(CARPETA).as_posix()})                                  
+      222 +    tabla = pd.DataFrame(filas)                               
+      223 +    tabla.to_csv(destino / "ejemplos.csv", index=False)       
+      224 +    return tabla                                              
+      225 +                                                              
+      226 +                                                              
+      227 +if __name__ == "__main__" and sys.argv[1:] == ["ejemplos"]:   
+      228 +    t = ejemplos()                                            
+      229 +    print(f"{len(t)} ejemplos publicables en datos/ejemplos/")
+      230 +elif __name__ == "__main__":                                  
+      231      print("Documentos:")
+      232      docs = bajar_documentos()
+      233      print("Audios:")
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2"; grep
+      -n "^import sys" corpus.py; ls .venv/Scripts/python*;
+      .venv/Scripts/python.exe -X utf8…)
+  ⎿  22:import sys
+     .venv/Scripts/python.exe
+     .venv/Scripts/pythonw.exe
+     exit 127
+  ⎿  2 files changed (binary, mode only or too large to show)
+  ⎿  (timeout 5m)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2";
+      .venv/Scripts/python.exe -X utf8 -X faulthandler -c "
+      import corpus…)
+  ⎿  Windows fatal exception: stack overflow
+
+     Current thread 0x00001ee0 (most recent call first):
+     … +13 lines (ctrl+o to expand)
+  ⎿  2 files changed (binary, mode only or too large to show)
+  ⎿  (timeout 5m)
+
+● La librería libsndfile se desborda al escribir un OGG largo de una sola vez.
+  Es un fallo conocido y se evita escribiendo por bloques:
+
+● Update(corpus.py)
+  ⎿  Added 4 lines, removed 1 line
+      218          if ruta.stem in privados:
+      219              continue
+      220          salida = destino / f"{ruta.stem}.ogg"
+      221 -        sf.write(salida, cargar_audio(ruta), SR, format="OGG",
+          - subtype="VORBIS")                                            
+      221 +        audio = cargar_audio(ruta)                            
+      222 +        with sf.SoundFile(salida, "w", SR, 1, format="OGG", su
+          +btype="VORBIS") as f:                                         
+      223 +            for i in range(0, len(audio), 4096):   # por bloqu
+          +es: de un solo golpe, libsndfile desborda la pila en Windows  
+      224 +                f.write(audio[i:i + 4096])                    
+      225          filas.append({"id": ruta.stem, "archivo": salida.relat
+           ive_to(CARPETA).as_posix()})
+      226      tabla = pd.DataFrame(filas)
+      227      tabla.to_csv(destino / "ejemplos.csv", index=False)
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2";
+      .venv/Scripts/python.exe -X utf8 corpus.py ejemplos; echo "exit $?"; du
+      -sh datos/ejemplos;…)
+  ⎿  32 ejemplos publicables en datos/ejemplos/
+     exit 0
+     8.9M    datos/ejemplos
+     … +6 lines (ctrl+o to expand)
+  ⎿  Created datos\ejemplos\ejemplos.csv (+33 -0)
+       1 +id,archivo                                                     
+       2 +doc_001,datos/ejemplos/doc_001.jpg                             
+       3 +doc_002,datos/ejemplos/doc_002.jpg                             
+       4 +doc_005,datos/ejemplos/doc_005.jpg                             
+       5 +doc_006,datos/ejemplos/doc_006.jpg                             
+       6 +doc_007,datos/ejemplos/doc_007.jpg                             
+       7 +doc_008,datos/ejemplos/doc_008.jpg                             
+       8 +doc_009,datos/ejemplos/doc_009.jpg                             
+       9 +doc_010,datos/ejemplos/doc_010.jpg                             
+      10 +doc_011,datos/ejemplos/doc_011.jpg                             
+      11 +doc_012,datos/ejemplos/doc_012.jpg                             
+      12 +doc_013,datos/ejemplos/doc_013.jpg                             
+      13 +doc_014,datos/ejemplos/doc_014.jpg                             
+      14 +doc_015,datos/ejemplos/doc_015.jpg                             
+      15 +doc_016,datos/ejemplos/doc_016.jpg                             
+      16 +doc_017,datos/ejemplos/doc_017.jpg                             
+      17 +doc_018,datos/ejemplos/doc_018.jpg                             
+      18 +doc_019,datos/ejemplos/doc_019.jpg                             
+      19 +doc_020,datos/ejemplos/doc_020.jpg                             
+      20 +doc_021,datos/ejemplos/doc_021.jpg                             
+      21 +doc_022,datos/ejemplos/doc_022.jpg                             
+      22 +doc_023,datos/ejemplos/doc_023.jpg                             
+      23 +doc_024,datos/ejemplos/doc_024.jpg                             
+      24 +doc_025,datos/ejemplos/doc_025.jpg                             
+      25 +clip_003,datos/ejemplos/clip_003.ogg                           
+      26 +clip_016,datos/ejemplos/clip_016.ogg                           
+      27 +clip_017,datos/ejemplos/clip_017.ogg                           
+      28 +clip_018,datos/ejemplos/clip_018.ogg                           
+      29 +clip_019,datos/ejemplos/clip_019.ogg                           
+      30 +clip_020,datos/ejemplos/clip_020.ogg                           
+      31 +clip_021,datos/ejemplos/clip_021.ogg                           
+      32 +clip_022,datos/ejemplos/clip_022.ogg                           
+      33 +clip_023,datos/ejemplos/clip_023.ogg                           
+  ⎿  … 9 more files changed
+  ⎿  (timeout 5m)
+
+● Ya está datos/ejemplos/: 8,9 MB con 32 archivos. Ahora el dashboard. Reviso si
+  Streamlit está instalado:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Streamlit 1.66 ya está instalado. Escribo app.py:
+
+● Write(app.py)
+  ⎿  Wrote 303 lines to app.py
+       1 """Tarea 2 · Parte 3: dashboard de los documentos y audios proce
+         sados.
+       2 
+          LLM en vivo):
+       4 
+       5     streamlit run app.py
+       6 """
+       8 
+       9 import json
+      10 import re
+     … +439 lines (ctrl+o to expand)
+
+● Agrego al notebook la exportación de datos/metricas_corpus.csv, que el
+  dashboard necesita. Luego reviso tu auditoría.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+● Tu auditoría sigue en cero, así que pruebo el dashboard con una auditoría
+  ficticia en una copia temporal, fuera del repositorio:
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2";
+      S="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHub-
+      python-interm-dip-…)
+  ⎿  [11] base = PaddleOCR / faster-whisper small · alternativo = EasyOCR /
+      Qwen3-ASR 0.6B
+     modalidad  mejor
+     … +12 lines (ctrl+o to expand)
+  ⎿  Created datos\metricas_corpus.csv (+5 -0)
+      1 +modalidad,modelo,métrica,valor (corpus),WER de palabras,segundos
+        + por documento,factor de tiempo real                            
+      2 +documento,PaddleOCR,CER,0.0911,0.2479,27.64,                    
+      3 +documento,EasyOCR,CER,0.3,0.5803,17.05,                         
+      4 +audio,faster-whisper small,WER,0.2183,0.2183,,0.3624            
+      5 +audio,Qwen3-ASR 0.6B,WER,0.23,0.23,,0.8438                      
+  ⎿  (timeout 10m)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● La app funciona bien: los 5 indicadores, pestañas, búsqueda y cambio de modelo
+  operan sin problemas; el error final fue por cómo escribí la prueba del
+  selector. Ahora corrijo un aviso de pandas.
+
+● Update(app.py)
+  ⎿  Added 1 line, removed 1 line
+      46          alternativos[["id", "modalidad", "modelo_corto", "texto
+          "]],
+      47      ], ignore_index=True).rename(columns={"modelo_corto": "mode
+          lo"})
+      48      meta = pd.concat([
+      49 -        docs[["id", "tipo", "descripcion"]].assign(duracion_seg
+         -=None),                                                        
+      49 +        docs[["id", "tipo", "descripcion"]].assign(duracion_seg
+         +=float("nan")),                                                
+      50          clips[["id", "descripcion", "duracion_seg"]].assign(tip
+          o="audio"),
+      51      ])
+      52      textos = textos.merge(meta, on="id", how="left").merge(fuen
+          tes[["id", "licencia"]], on="id", how="left")
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+● Tu auditoría todavía no tiene marcas. Mientras tanto, compruebo que los CSV
+  con texto_referencia no conserven ningún nombre del mapa antes de hacer el
+  commit de lo avanzado en la Parte 2:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Reviso cada coincidencia en su contexto para descartar los falsos positivos,
+  como nombres de pila comunes que se confunden con "[ENTREVISTADOR_3] Pablo II".
+
+  Ran 1 shell command (ctrl+o to expand)
+● Casi todo son falsos positivos, salvo una fuga real: en el OCR de doc_003 el
+  nombre del homenajeado quedó partido en varias líneas y se le escaparon los
+  apellidos. Voy a revisarlo.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Añado dos alias al mapa de doc_003 (apellidos y nombre de pila) bajo la
+  etiqueta [HOMENAJEADO_1] para cubrir el nombre aunque el OCR lo divida en
+  líneas; en doc_004 el reemplazo ya funciona correctamente.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Ahora hago una revisión más fina: busco cada parte de cada nombre privado (las
+  palabras de más de 3 letras) en todos los textos publicados del mismo
+  archivo.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Qwen transcribió el nombre del entrevistador de clip_009 con otra grafía, y la
+  comparación difusa no lo detectó. Lo agrego como alias con la misma etiqueta:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Actualizo en el notebook la nota sobre los alias, para que registre los tres
+  casos:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+● Los CSV de la ejecución de prueba están desactualizados respecto a esos alias;
+  modelos_alternativos.csv todavía conserva los apellidos de doc_003. Voy a
+  regenerarlos y repetir la revisión antes de hacer cualquier commit.
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2";
+      S="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHub-
+      python-interm-dip-…)
+  ⎿  [29] ERROR FileNotFoundError
+     [30] ERROR NameError
+     [33] ERROR NameError
+     … +2 lines (ctrl+o to expand)
+  ⎿  Updated datos\metricas.csv (+1 -1)
+      34  clip_003,audio,"entrevista durante un partido, ruido de fondo",
+          Qwen3-ASR 0.6B,WER,0.3294,24.8,0.8294
+      35  clip_006,audio,entrevista grabada por estudiante UNMSM,Qwen3-AS
+          R 0.6B,WER,0.2488,68.9,0.8902
+      36  clip_008,audio,"entrevista en una marcha, ruido de multitud",Qw
+          en3-ASR 0.6B,WER,0.2778,48.3,0.8895
+      37 -clip_009,audio,"entrevista en una marcha, ruido de multitud",Qw
+         -en3-ASR 0.6B,WER,0.1518,67.6,0.8734                            
+      37 +clip_009,audio,"entrevista en una marcha, ruido de multitud",Qw
+         +en3-ASR 0.6B,WER,0.1309,67.6,0.8734                            
+      38  clip_013,audio,entrevista en una fiesta patronal (Áncash),Qwen3
+          -ASR 0.6B,WER,0.2995,70.0,0.8578
+      39  clip_015,audio,entrevista en una fiesta patronal (Áncash),Qwen3
+          -ASR 0.6B,WER,0.1316,30.3,0.773
+      40  clip_016,audio,lectura de artículo de Wikipedia,Qwen3-ASR 0.6B,
+          WER,0.1941,92.9,1.0322
+  ⎿  Updated datos\metricas_corpus.csv (+1 -1)
+      2  documento,PaddleOCR,CER,0.0911,0.2479,27.64,
+      3  documento,EasyOCR,CER,0.3,0.5803,17.05,
+      4  audio,faster-whisper small,WER,0.2183,0.2183,,0.3624
+      5 -audio,Qwen3-ASR 0.6B,WER,0.23,0.23,,0.8438                      
+      5 +audio,Qwen3-ASR 0.6B,WER,0.228,0.228,,0.8438                    
+  ⎿  Updated datos\modelos_alternativos.csv (+3 -3)
+      132  trayectoria y desempeño profesional, contribuyen a la identifi
+           cación cultural de nuestros pueblos;
+      133  Que, en este sentido; la Municipalidad Provincial de
+      134  Moyobamba;   considera conveniente conceder el título de ~HIJO
+            PREDILECTO""
+      135 -al señor [HOMENAJEADO_1]                                              
+      135 +al señor [HOMENAJEADO_1]                                      
+      136  Pa
+      137 -[HOMENAJEADO_1], por su avocada labor en la promoción y difusión d
+          -e la gastronomía moyobambina, tanto                           
+      137 +[HOMENAJEADO_1], por su avocada labor en la promoción y difusi
+          +ón de la gastronomía moyobambina, tanto                       
+      138  nacional como internacional;
+      139  Por lo expuesto; con la atribución que confiere, el
+      140  artículo 6"" de la Ley No 27972
+     ...
+      2433  clip_003,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+            D Silero, idioma=es)",normal prefiero no resaltar más pero có
+            mo lo ves cómo ves a Perú ahorita que está cómo lo ves Perú p
+            ero lo ves hasta las está no se no se entiende ven no se está
+            n entendiendo no no hay como cuatro jugadores que están por l
+            as puras y ya ve ahora el técnico tiene que hacer justo los c
+            ambios supongo esos cuatro jugadores carrillo canchita este t
+            rauco y y a la lota sino,24.8
+      2434  clip_006,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+            D Silero, idioma=es)","honda buenas noches soy empero [ENTREV
+            ISTADOR_2] estudiante de las amarcos esta entrevista va a ser
+             registrada en internet está de acuerdo usted Ah muy bien par
+            a usted qué es el Perú pues yo no soy peruano Entrada pero pe
+            rú yo creo que junto con México los dos países que más histor
+            ia tienen más cultura y más más restos de civilizaciones preh
+            ispánicas más ciudades coloniales mucho más ricas de follo de
+             culto de todo en América me parece que son unos dos más rico
+            s Muchas gracias. Si usted en su estadía en Perú, cuáles son 
+            las principales características positivas que podría destacar
+             de la gente es increíblemente amable. Lima por ejemplo me pa
+            rece una ciudad muy ordenada muy limpia hotel muy bien organi
+            zada te va a apañar un día entonces no te puedo decir mucho m
+            al de eso Y en ese día cuál sería el aspecto más negativo que
+             notó pues aquí en Lima El servicio es muy lento. El servicio
+             es terriblemente lento en los restaurantes. pero digo eso no
+             es que sea tan negativo por el único negativo que te puedo d
+            ecir de lino en realidad muchas gracias señor felices fiestas
+            ",68.9
+      2435  clip_008,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+            D Silero, idioma=es)",Sí. pero ya así de instalado claro. ya 
+            ya ya ya buenos días presento soy familiy y quería preguntarl
+            e tengo tu consentimiento para que esta entrevista sea public
+            ada sí claro qué significa la marcha para el fe para mí la ma
+            rcha del orgullo es luchar por mis derechos para no tener mie
+            do a salir a la calle a mostrar quién soy yo tener miedo de q
+            ue alguien me haga y buscar el res a mi persona y hacia las p
+            ersonas como yo es parte de la comunidad. la segunda última p
+            regunta es qué mensaje le daría la ponencia de hoy. que no te
+            ngan miedo. porque somos muchos somos muchos los que nos vamo
+            s a recibir con los brazos abiertos que si de repente en su f
+            amilia no los apoya acá tienen una familia que los va a recib
+            ir siempre muchas gracias ya,48.3
+      2436 -clip_009,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+           -D Silero, idioma=es)","gracias sí yo soy [ENTREVISTADOR_4] de la facultad de ciencias biológicas yo ahora lo voy a ha
+           -cer preguntas al señor [ENTREVISTADO_4] hola a señor [ENTREVI
+           -STADO_4] que nos va a responder en primer lugar qué pensas qu
+           -e le daría la juventud del país Bueno. El amar es amar, ¿no? 
+           -creo que cada uno tiene una orientación tiene una preferencia
+           - y nadie debe ser juzgado por esto Sabemos que la sociedad pe
+           -ruana es un tanto conservadora. pero poco a poco confío de qu
+           -e abriremos más la mente para que muchos de nosotros en la co
+           -munidad pues Podamos amar sin ninguna restricción. ah y tambi
+           -én me se preguntarle qué significa esta marcha para usted bue
+           -no ya vengo participando bueno desde que soy mayor de edad de
+           - hace cuatro o cinco años y es un espacio donde puedo encontr
+           -arme con mucha más gente que también de la comunidad y son es
+           -pacios donde simplemente expresamos lo que sentimos no quiene
+           -s somos a qué comunidad pertenecemos y que nuestro amor no ha
+           -ce daño a nadie simplemente queremos eso disfrutar de lo nues
+           -tro Ya muchas gracias por susuestas gracias a ti",67.6       
+      2436 +clip_009,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+           +D Silero, idioma=es)","gracias sí yo soy [ENTREVISTADOR_4] de
+           + la facultad de ciencias biológicas yo ahora lo voy a hacer p
+           +reguntas al señor [ENTREVISTADO_4] hola a señor [ENTREVISTADO
+           +_4] que nos va a responder en primer lugar qué pensas que le 
+           +daría la juventud del país Bueno. El amar es amar, ¿no? creo 
+           +que cada uno tiene una orientación tiene una preferencia y na
+           +die debe ser juzgado por esto Sabemos que la sociedad peruana
+           + es un tanto conservadora. pero poco a poco confío de que abr
+           +iremos más la mente para que muchos de nosotros en la comunid
+           +ad pues Podamos amar sin ninguna restricción. ah y también me
+           + se preguntarle qué significa esta marcha para usted bueno ya
+           + vengo participando bueno desde que soy mayor de edad de hace
+           + cuatro o cinco años y es un espacio donde puedo encontrarme 
+           +con mucha más gente que también de la comunidad y son espacio
+           +s donde simplemente expresamos lo que sentimos no quienes som
+           +os a qué comunidad pertenecemos y que nuestro amor no hace da
+           +ño a nadie simplemente queremos eso disfrutar de lo nuestro Y
+           +a muchas gracias por susuestas gracias a ti",67.6            
+      2437  clip_013,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+            D Silero, idioma=es)","Pues no Dinah es Penosa. Okay, usted m
+            e ha de acabo de decir que no no es el pueblo usted de dónde 
+            la misma sitio no de fuera de misma pumobamba estas son distr
+            itos es decir la provincia aychu ya son distritos y cómo cómo
+             ha sido usted ha venido aquí como conozco todos los años ven
+            go ah viene todos los años sí y hay algo de especial en esa o
+            casión en el que os ha venido antes ha habido tal vez más más
+             bandas más no es la misma. es lo mismo hombres que se acabar
+            on pasar eso claro y qué qué otras cosas más van a ocurrir má
+            s adelante otros bailes también depende de mayor domo o depen
+            de de donadores que hay ya virus y normalmente y Claro, norma
+            lmente hay esta cantidad de gente o a veces hay más o menos. 
+            Más tarde llenan. Ah, más tarde vienen más personas. hay bast
+            antes del pueblo este es como vienen para misa como dicen no 
+            entonces ahí llegamos el personas que nos gusta escuchar la m
+            isa y se quedan hasta tarde ahí disfrutando del ya entre cinc
+            o seis ya estamos siendo ya nosotros otros ya regresan ya se 
+            quedan más demás muchas gracias señora muchas gracias",70.0
+      2438  clip_014,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+            D Silero, idioma=es)","Sí, vamos. chuyas verdad sí está perte
+            necido sí y cómo cómo se vive en ese momento en sí la imagen 
+            se celebra ya ingresieron chubias pero acá bueno pero Venir."
+            ,15.5
+      2439  clip_015,audio,"Qwen3-ASR 0.6B (transformers, CPU float32, VA
+            D Silero, idioma=es)","Buenos días joven, claro que sí, la fi
+            esta de San Tu patron de Chuyas Taipapalli. es muy importante
+             para mí y para mi familia porque porque nosotros desde muy n
+            iña yo sigo y el tradición Entonces a mí me ha hecho muchos m
+            ilagros, es por ello yo sigo desde muy chiquita desde mis pad
+            res. Entonces seguimos el costumbre. y Todos los chuecinos no
+             solo yo, mi familia todos. Creemos a nuestro Santo Patron. M
+            uchas gracias.",30.3
+  ⎿  (timeout 10m)
+
+● Ya no queda ningún fragmento de nombre privado. Hago el commit del avance de
+  la Parte 2: datos y módulo. El notebook va después, cuando tenga tu auditoría.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● La dependencia está confirmada correctamente. Antes de generar
+  requirements.txt, voy a revisar si Streamlit Cloud podría priorizar
+  pyproject.toml o uv.lock en tarea_2/ e instalar PaddleOCR y torch sin querer,
+  así que consultaré su documentación.
+
+● Fetch(https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-a
+       pp/app-dependencies)
+  ⎿  Received 161.4KB (200 OK)
+
+● Confirmado: Streamlit Cloud prioriza uv.lock sobre requirements.txt en la
+  carpeta de app.py, así que con el repo actual intentaría instalar todo el
+  entorno de desarrollo y fallaría. Te haré una pregunta para decidir cómo
+  resolverlo; mientras tanto preparo requirements.txt y el README.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Write(requirements.txt)
+  ⎿  Wrote 4 lines to requirements.txt
+      1 # Solo lo necesario para el dashboard (app.py lee CSV; no corre O
+        CR, ASR ni LLM)
+      2 streamlit==1.66.1
+      3 pandas==2.3.3
+      4 plotly==7.1.0
+
+● Write(README.md)
+  ⎿  Wrote 99 lines to README.md
+      1 # Voces y documentos peruanos: del archivo escaneado al texto bus
+      2 
+      3 **Pregunta:** ¿podemos convertir documentos escaneados y entrevis
+      4 
+         Cloud)_
+      6 
+        ue extrae texto de documentos peruanos con OCR, transcribe entrev
+        istas en español peruano con ASR, seudonimiza a las personas priv
+        ados en un dashboard de Streamlit.
+      9 ## Corpus y fuentes
+     … +159 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Update(README.md)
+  ⎿  Added 1 line, removed 1 line
+      13  | Corpus | Volumen | Composición | Licencias |
+      14  |---|---|---|---|
+      15  | **A. Documentos** | 25 imágenes | 8 impresos, 8 fotos con som
+          bra o inclinación, 9 manuscritos (siglos XVII–XXI) | 10 dominio
+           público, 5 CC0, 7 CC BY-SA 4.0, 2 CC BY-SA 3.0, 1 CC BY 4.0 |
+      16 -| **B. Audio** | 23 clips · 42,4 min | entrevistas en la calle,
+         - en marchas, en fiestas patronales de Áncash y de estudiantes d
+         -e la UNMSM, conferencias de prensa y lecturas de artículos; 15 
+         -clips con 2 o más hablantes | 23 CC BY-SA 4.0 |                
+      16 +| **B. Audio** | 23 clips · 42,4 min | entrevistas en la calle,
+         + en marchas, en fiestas patronales de Áncash y de estudiantes d
+         +e la UNMSM, conferencias de prensa y lecturas de artículos; 13 
+         +clips con 2 o más hablantes según la diarización | 23 CC BY-SA 
+         +4.0 |                                                          
+      17  
+      18  - **Seudonimización:** 19 personas privadas (entrevistadas, ent
+          revistadores, un homenajeado) se reemplazaron por etiquetas com
+          o `[ENTREVISTADA_1]` en todos los textos publicados. Las figura
+          s históricas y los funcionarios en ejercicio público se conserv
+          an. El mapa con los nombres reales no se versiona.
+      19  - **Muestra publicable** (`datos/ejemplos/`): 23 imágenes reduc
+          idas y 9 audios en OGG, solo de los archivos donde no aparecen 
+          personas privadas. El resto se consulta como texto y metadatos.
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+● Hay dos decisiones que te tocan a ti y que bloquean la entrega:
+
+● User answered Claude's questions:
+  ⎿  · Streamlit Cloud instala primero uv.lock si lo encuentra junto a app.py, 
+     así que intentaría instalar PaddlePaddle y torch y el despliegue fallaría. 
+     ¿Cómo lo resolvemos? → Dejar uv.lock fuera de Git (Recomendado)
+     · Tus 20 referencias manuales (datos/referencias/) están subidas a GitHub 
+     con los nombres reales de las personas entrevistadas (commit 619fd31). El 
+     enunciado dice que publicar datos personales reales puede anular la parte 
+     correspondiente. ¿Qué hacemos? → Sacar y reescribir historial (Recomendado)
+
+● Entendido: saco las referencias y reescribo el historial, y dejo uv.lock fuera
+  de Git. Antes reviso en qué commits aparece la carpeta y respaldo los
+  archivos:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+> Dime luego si tengo que auditar algo o si lo hago ahora                       
+
+● Te dejo la página de auditoría con los 20 casos (10 documentos, 10 audios)
+  para que marques ✓/✗ y comentes lo que falle; mientras revisas, sigo con lo de
+  Git.
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2";
+      printf '\n# Transcripciones manuales con nombres reales (la versión
+      seudonimizada está en te…)  ⎿  warning: in the working copy of 'tarea_2/.gitignore', LF will be repla
+     ced by CRLF the next time Git touches it
+     warning: in the working copy of 'tarea_2/corpus.py', LF will be replac
+     … +13 lines (ctrl+o to expand)
+  ⎿  Updated .gitignore (+6 -0)
+      15  __pycache__/
+      16  *.pyc
+      17  .ipynb_checkpoints/
+      18 +                                                               
+      19 +# Transcripciones manuales con nombres reales (la versión seudo
+         +nimizada está en texto_referencia de los CSV)                  
+      20 +datos/referencias/                                             
+      21 +                                                               
+      22 +# Lock del entorno de los notebooks: Streamlit Cloud lo preferi
+         +ría a requirements.txt                                         
+      23 +uv.lock                                                        
+
+● El árbol de trabajo está limpio. Ahora reescribo el historial de tarea-2, solo
+  desde 619fd31, quitando tarea_2/datos/referencias:
+
+● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab"; git branch
+      respaldo-tarea-2-antes-de-limpiar tarea-2; FILTER_BRANCH_SQUELCH_WARNING=1
+      git filter-bra…)
+  ⎿  Rewrite 619fd31c923ac0ff8c35673677d2de5dbd55220e (1/6) (0 seconds pass
+     ed, remaining 0 predicted)    Rewrite 53d2118c9b8d46464b4b6a78806999f1
+     4262089d (2/6) (1 seconds passed, remaining 2 predicted)    Rewrite fe
+     … +17 lines (ctrl+o to expand)
+  ⎿  Shell cwd was reset to 
+     C:\Users\user\Documents\GitHub\python_interm_dip_qlab\tarea_2
+  ⎿  Deleted datos\referencias\clip_001.txt (+0 -13)
+       1 -h1: buenos días, aquí son las 10 y 28 y estoy con una señora qu
+         -e va a darme su opinión de acerca del partido de hoy. ¿Puede de
+         -cirme su nombre por favor?                                     
+       2 -h2. [ENTREVISTADA_6]                                               
+       3 -h1: Ehm, mucho gusto, eh, yo soy [ENTREVISTADO_5], soy alumno de la Univer
+         -sidad Nacional Mayor de San Marcos y le voy a hacer estas pregu
+         -ntas a cerca del partido de hoy. Eh, ¿Qué expectativas tiene a 
+         -cerca de este partido?, ¿quién, quién piensa que va a atacar má
+         -s o defender?                                                  
+       4 -h2: bueno, esperamos que Perú ganemos, no? Es el espero que Pad
+         -ula eche goles jeje                                            
+       5 -h1: Muy bien, la siguiente pregunta es acerca de qué jugador pi
+         -ensa que va a hacer más decisivo en este partido               
+       6 -h2: eh, bueno, Cueva, oreja, el orejita                        
+       7 -h1: Muy bien y la tercera pregunta es acerca de.. ¿Cuál es el r
+         -esultado que espera de este partido?, quién gana y a cuanto, po
+         -r cuanto?                                                      
+       8 -h2: Bueno, esperamos que gane Perú con 2 a 0 o si no también qu
+         -e sea como hay que esperar lo que Dios primeramente Dios pes sí
+         -, si perdemos también hay que hay que esperar lo mejor porque e
+         -stán demostrando lo mejor que pueden los nuestros jugadores, no
+         -?                                                              
+       9 -h1: Muy bien, o sea está diciendo que está esperando lo mínimo.
+         - No importa si ganemos 1 a 0 o perdamos, lo más importante es D
+         -ios. Y la última pregunta, eh. ¿Qué piensa del futbol como unió
+         -n de masas? Porque como puede ver, eh, muy pronto en muchos loc
+         -ales va a ver que va a ver muchas personas viendo este partido.
+         - ¿Qué piensa de ello?                                          
+      10 -h2: Ah, eso, eso es una alegría, una emoción pues que tiene la 
+         -gente, no? de juntarse o sea tomar, hacer barras, irse al parti
+         -do a mirar pues [?]                                            
+      11 -h1: Muchas gracias por su opinión. Eh... un mensaje final que d
+         -esea dar?                                                      
+      12 -h2: Qué Perú gane, es... solo que yo pienso pues. Esperamos que
+         - ganemos.                                                      
+      13 -h1: Muchas gracias                                             
+  ⎿  Deleted datos\referencias\clip_002.txt (+0 -28)
+       1 -h1: Buenos días eh profesor y compañero, hoy estoy cerca de aqu
+         -í por mi casa y voy hacer entrevistas acerca del fútbol como un
+         -ión de masas. Eh... estoy con las señoras...                   
+       2 -h2: [ENTREVISTADA_7]                                              
+       3 -h3: [ENTREVISTADA_8]                                            
+       4 -h1: Eh, muy bien, eh, voy a empezar con la primera pregunta y e
+         -s ¿Qué expectativas tienen ante este partido?                  
+       5 -h2: ah que que la afición se encuentra motivado para ganar este
+         - partido                                                       
+       6 -h1: me puede decir su nombre?                                  
+       7 -h2: [ENTREVISTADA_7]                                             
+       8 -h1: Eh...                                                      
+       9 -h3: Mi expectativa que yo pienso es que que acá que el Perú va 
+         -a dar todo por todo todo su corazón, va a entregar para que gan
+         -emos, no? para que seamos cam… ganemos este para ir a las olimp
+         -iadas.                                                         
+      10 -h1: Al mundial.                                                
+      11 -h3: Al mundial.                                                
+      12 -h1: Puede decir su nombre?                                     
+      13 -h3: [ENTREVISTADA_8]                                            
+      14 -h1: Bien, sigo con la siguiente pregunta: eh, qué jugador piens
+         -a que va a ser más determi determinante? Antes de que diga su r
+         -espuesta, dígame su nombre por favor.                          
+      15 -h2: [ENTREVISTADA_7]. Lapalula.                                  
+      16 -h1. por qué?                                                   
+      17 -h2: Porque ha demostrado su fuerza y su garra para para jugar y
+         - ha metido unos cuantos goles. Ha metido goles.                
+      18 -h1: Muy bien, sigo con la siguiente señora...                  
+      19 -h3: [ENTREVISTADA_8]. Para mí sería La Lapadula con Cueva, no? P
+         -orque los dos han hecho un dúo... un dúo y Lapadula más que par
+         -a que demuestre que tiene el cora´zon más peruano que italiano 
+      20 -h1: Muchas gracias, eh sigo con la siguiente, eh sigo con la pr
+         -egunta. Y antes de empezar con ella, puedo decir que eh, eh han
+         - destacado a Lapadula más, no? Y la siguiente pregunta es cuál 
+         -es el resultado de hoy? Cuál piensa que será el resultado de ho
+         -y?                                                             
+      21 -h2: Mi nombre. [ENTREVISTADA_7], 2 0.                            
+      22 -h1: Sigo con la... con la siguiente señorita, señora           
+      23 -h3: [ENTREVISTADA_8]. También 2 0, ojalá que sea 2 0.           
+      24 -h1: Veo, veo que ambas eh han dicho el mismo resultado y espere
+         -mos que sea así. Y la última pregunta. Eh, qué piensa del fútbo
+         -l acerca... como... factor factor de unión de masas            
+      25 -h2: [ENTREVISTADA_7]. El fútbol es un deporte que... apasiona a to
+         -d a todos los peruanos tanto como fuera del país también y es e
+         -ste un deporte que une a toda la familia todo todas las amistad
+         -es en general.                                                 
+      26 -h1: Muchas gracias y ya finalizando, su comentario final       
+      27 -h3: [ENTREVISTADA_8]. El deporte es la... hace que la... gente s
+         -e una. No, no hay distinción de raza ni... religión por... que 
+         -todos sean unidos y que el deporte siga adelante. Gracias      
+      28 -h1: Muchas gracia, con esto termina la entrevista              
+  ⎿  Deleted datos\referencias\clip_003.txt (+0 -3)
+      1 -h1: Normal pues, a esperar los resultado no más. Normal         
+      2 -h2: Pero cómo lo ves? Cómo ves a Perú ahorita que está...       
+      3 -h1: Ta que cómo lo veo a Perú, a Perú lo veo ya... hasta las... 
+        -[?] no se, no se entiendes pe, no se están entendiendo. No, no, 
+        -hay como 4 jugadores que están por las puras y ya pue ahora el t
+        -écnico tiene que ser justo los cambios pe no? Supongo esos 4 jug
+        -adores: Carrillo, Canchita, este, Trauco y... y a la el otro si 
+        -no...                                                           
+  ⎿  Deleted datos\referencias\clip_006.txt (+0 -11)
+       1 -h1: ya. Ah buenas noches eh, soy [ENTREVISTADOR_2], estoy ante 
+         -la San Marcos. Eh, esta entrevista va a ser registrada en Inter
+         -net. Está de acuerdo usted?                                    
+       2 -h2: Sí, estoy de acuerdo                                       
+       3 -h1: Ah, muy bien. Eh, para usted, qué es el Perú?              
+       4 -h2: Pues yo no soy peruano, ja,ja,ja. De entrada               
+       5 -h1: Pero está hábil                                            
+       6 -h2: [?] Pero, Perú, yo creo que junto con México los dos países
+         - que más historia tienen, más cultura y más más restos de [?] p
+         -rehispánicas, más ciudades coloniales, mucho más riqueza de fol
+         -k clore, de todo. En América me parece que son los dos más rico
+         -s.                                                             
+       7 -h1: Muchas gracias y de usted en estadía en Perú, cuales son la
+         -s principales características positivas que podría destacar?   
+       8 -h2: La gente es increíblemente amable. Lima por ejemplo me pare
+         -ce una ciudad muy ordenada y muy limpia, la tienen muy organiza
+         -da, yo apenas un día entonces no te puedo decir mucho más de es
+         -o.                                                             
+       9 -h1: Jum. Y en ese día eh cuál sería el aspecto más negativo que
+         - notó?                                                         
+      10 -h2: Pues aquí en Lima, el servicio es muy lento. El servicio es
+         - terriblemente lento en los restaurantes. Pero digo, eso no es 
+         -que sea tan negativo, lo único negativo que te puedo decir en L
+         -ima en realidad.                                               
+      11 -h1: Ya, muchas gracias señor, feliz día...                     
+  ⎿  Deleted datos\referencias\clip_008.txt (+0 -12)
+       1 -h1: ya, así, ya está grabando, ya está grabando.               
+       2 -[risas]                                                        
+       3 -h1: Ya está grabando, pregunta.                                
+       4 -h2: Ah, ya, ya, ya, eh, buenas tardes, me presento soy [ENTREVISTADOR_3] [?]
+         - y quería preguntarle si tengo su consentimiento para que esta 
+         -entrevista sea publicada.                                      
+       5 -h2: Sí                                                         
+       6 -h1: Ok, ya, primera pregunta, primera pregunta es qué significa
+         - la marcha para usted?                                         
+       7 -[gritos]                                                       
+       8 -h2: para mí la marcha del orgullo es luchar por mis derechos pa
+         -ra no tener miedo a salir a la calle a mostrar quien soy yo, a 
+         -tener miedo de que alguien me haga algo y buscar el respeto hac
+         -ia mi persona y hacia las persona como yo parte de la comunidad
+         -.                                                              
+       9 -h1: Muchas gracias, y la segunda y última pregunta es eh qué me
+         -nsaje le daría a la juventud de hoy?                           
+      10 -h2: que no tengan miedo porque somos muchos. Somos muchos los q
+         -ue los vamos a recibir con los brazos abiertos. Que si de repen
+         -te su familia no los apoyan, acá tienen una familia que los va 
+         -a recibir siempre.                                             
+      11 -h2: Ok, muchas gracias                                         
+      12 -h1: Ya                                                         
+  ⎿  … 15 more files changed
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Las referencias quedaron restauradas e ignoradas por Git, con las fechas de
+  commit intactas (la configuración sigue a las 11:22, antes de las métricas).
+  Ahora hago el force push de la rama.
+
+  Pushed to tarea-2 (ctrl+o to expand)
+
+● El push se completó con éxito. Ahora voy a borrar los respaldos locales que
+  aún contienen los nombres y a actualizar en el notebook la referencia al
+  commit de configuración, que cambió de fe3adae a da478cd.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● La Parte 2 está casi lista y la Parte 3 ya tiene un primer borrador. Lo único 
+  que me falta de ti ahora es la auditoría: todavía no veo ninguna marca en la
+  página.
+
+  Lo que tienes que hacer ahora
+
+  1. Auditar las 20 extracciones en ⧉
+     https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU. Marca ✓ o ✗ en cada
+     campo y deja un comentario cuando algo falle. Se guarda solo. Si la página
+     te muestra un aviso de que no puede guardar, dímelo.
+  2. Después, escribir con tus palabras la decisión y la reflexión en la última
+     sección de 02_evaluacion.ipynb. Te dejé arriba un resumen con las cifras
+     para apoyarte.
+
+  Resultados de la Parte 2 (los mismos 10 + 10 archivos para todos los modelos)
+
+  ┌──────────────────────┬───────────┬────────────────────────────┐
+  │        Modelo        │  Métrica  │      Latencia en CPU       │
+  ├──────────────────────┼───────────┼────────────────────────────┤
+  │ PaddleOCR            │ CER 0,091 │ 28 s por documento         │
+  ├──────────────────────┼───────────┼────────────────────────────┤
+  │ EasyOCR              │ CER 0,300 │ 17 s por documento         │
+  ├──────────────────────┼───────────┼────────────────────────────┤
+  │ faster-whisper small │ WER 0,218 │ factor de tiempo real 0,36 │
+  ├──────────────────────┼───────────┼────────────────────────────┤
+  │ Qwen3-ASR 0.6B       │ WER 0,228 │ factor de tiempo real 0,84 │
+  └──────────────────────┴───────────┴────────────────────────────┘
+
+  - Documentos: PaddleOCR gana en los 10. En manuscritos su CER sube a 0,24, y
+    el de EasyOCR, a 0,68.
+  - Audio: faster-whisper gana en 6 clips, Qwen en 3, y empatan en 1. Qwen solo
+    mejora con mucho ruido de fondo.
+  - Configuración: quedó fijada en un commit hecho antes de calcular cualquier
+    métrica.
+  - Extracción con el LLM: Gemini procesó los 48 textos. Hay errores
+    interesantes para tu auditoría, como un "$30" que el OCR leyó mal y el LLM
+    copió.
+
+  Privacidad: lo que corregí
+
+  - Tus referencias estaban en GitHub con nombres reales. Hice lo que elegiste:
+    saqué datos/referencias/ del repositorio, reescribí el historial de tarea-2
+    e hice el force push. Tus archivos siguen en tu disco, ahora ignorados por
+    Git. Las fechas de los commits se conservaron.
+  - El commit viejo todavía puede abrirse en GitHub. Lo más probable es que el
+    issue #7 tenga en su historial un enlace a 619fd31, porque su mensaje decía
+    "#7". Mientras ese enlace exista, el commit se puede ver con su enlace
+    directo. Para borrarlo del todo habría que pedírselo al soporte de GitHub.
+  - Tres nombres se habían escapado de la seudonimización: una errata en tu
+    referencia de clip_002, el nombre partido en dos líneas en EasyOCR de
+    doc_003 y una grafía distinta en Qwen de clip_009. Los agregué como alias en
+    el mapa local. Ahora ningún CSV publicado tiene fragmentos de nombres
+    privados.
+  - uv.lock quedó fuera de Git, para que Streamlit Cloud instale
+    requirements.txt y no todo el entorno de desarrollo.
+
+  Parte 3 (borrador listo y subido)
+
+  - app.py: tiene 5 pestañas (búsqueda, explorador de documentos, explorador de
+    audios, evaluación y fuentes), filtros por tipo, modelo, condición y
+    duración, 5 indicadores y descarga en CSV. La probé sin navegador y no dio
+    errores.
+  - datos/ejemplos/: 23 imágenes y 9 audios, solo de archivos sin personas
+    privadas. Los demás se ven como texto.
+  - README.md y requirements.txt: ya están escritos. Faltan el enlace del
+    despliegue y la cifra X/20 de la auditoría.
+
+  Cuando termines de auditar, avísame. Exporto tus veredictos a
+  datos/auditoria_llm.csv, ejecuto el notebook 02, hago el commit y cierras el
+  #7. Después sigue tu despliegue en Streamlit Cloud.
+
+✻ Brewed for 50m 56s · done 12:15
+
+※ recap: Estamos cerrando la Parte 2 de la Tarea 2 (métricas, modelos alternativos y LLM ya listos; dashboard en borrador). Lo siguiente es que audites las 20 extracciones en https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU y me avises al terminar. (disable recaps in /config)
+  ⎿  Read README.md (100 lines)
+  ⎿  Read requirements.txt (5 lines)
+  ⎿  Referenced file app.py
+  ⎿  Referenced file corpus.py
+  ⎿  Referenced file ..\..\..\..\AppData\Local\Temp\claude\C--Users-user-Documen
+     ts-GitHub-python-interm-dip-qlab-tarea-2\624b6c42-bef4-4564-90d9-3c7b0166d1
+     23\scratchpad\gen_nb02.py
+  ⎿  Skills restored (artifact-capabilities)
+
+● Compacted while idle, before the prompt cache expired · turn off with 
+  "idleCompaction": false in settings.json
+
+> Claude, ya terminé la auditoría                                               
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU → 
+          C:\Users\user\AppData\Local\Temp\claude\C--Users-user-Documents-GitHub
+          -python-interm-dip-qlab-tarea-2\624b6c42-bef4-4564-90d9-3c7b0166d123\s
+          cratchpad\auditoria\db\auditoria)
+  ⎿  saved 20 documents under C:\Users\user\AppData\Local\Temp\claude\C--Us
+     ers-user-Documents-GitHub-python-interm-dip-qlab-tarea-2\624b6c42-bef4
+     -4564-90d9-3c7b0166d123\scratchpad\auditoria\db\auditoria
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  read 0 documents
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Artifact(read database https://claude.ai/artifact/LtzRsDipU23byNhRvSaxhU)
+  ⎿  no such document
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Ya tengo tus 20 veredictos: 10/20 extracciones completamente correctas (5
+  documentos y 5 audios). Ahora los exporto al CSV y ejecuto el notebook 02.
+
+  Read 1 file (ctrl+o to expand)
+
+● Bash(cd ~/Documents/GitHub/python_interm_dip_qlab/tarea_2; cat >
+      "C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHub-py
+      thon-interm-dip-qlab-tarea…)
+  ⎿            id  modalidad  ok_modalidad  ok_tema  ok_resumen  ok_emisor
+      ok_fecha  ok_monto  ok_numero_hablantes  ok_citas_clave  completa
+     0   clip_001      audio          True     True        True       <NA>
+     … +56 lines (ctrl+o to expand)
+  ⎿  Created datos\auditoria_llm.csv (+21 -0)
+       1 +id,modalidad,ok_modalidad,ok_tema,ok_resumen,ok_emisor,ok_fecha
+         +,ok_monto,ok_numero_hablantes,ok_citas_clave,completa,comentari
+         +o                                                              
+       2 +clip_001,audio,True,True,True,,,,True,True,True,               
+       3 +clip_003,audio,True,True,True,,,,True,False,False,             
+       4 +clip_004,audio,True,True,True,,,,True,True,True,               
+       5 +clip_008,audio,True,True,True,,,,False,True,False,"Empieza a cr
+         +ear hablantes, no filtra el ruido de fondo, crea hablantes cuan
+         +do solo es ruido."                                             
+       6 +clip_010,audio,True,True,True,,,,False,,False,"Crea hablantes q
+         +ue no existen. Solo som 2, el resto es ruido."                 
+       7 +clip_015,audio,True,True,True,,,,True,True,True,               
+       8 +clip_018,audio,True,True,True,,,,True,True,True,               
+       9 +clip_019,audio,True,True,True,,,,True,False,False,"En vez de Pu
+         +nto número 1 lo ubicaseo, en realidad es ""la ubicación"""     
+      10 +clip_020,audio,True,False,False,,,,True,False,False,"Es huaca S
+         +inchi Roca, no sin cirroca"                                    
+      11 +clip_021,audio,True,True,True,,,,True,True,True,               
+      12 +doc_004,documento,True,True,True,True,True,True,,,True,        
+      13 +doc_008,documento,True,True,True,True,True,True,,,True,        
+      14 +doc_011,documento,True,True,True,True,True,True,,,True,        
+      15 +doc_014,documento,True,True,True,True,True,True,,,True,        
+      16 +doc_016,documento,True,True,True,True,True,True,,,True,"Al fina
+         +l, debe decir ""DE ESTE MONUMENTO"""                           
+      17 +doc_017,documento,True,True,False,True,True,True,,,False,"El te
+         +xto OCR no tiene sentido, no ha leído bien y no se puede interp
+         +retar."                                                        
+      18 +doc_018,documento,True,True,True,False,False,True,,,False,"El t
+         +exto OCR no tiene sentido, no ha leído bien y no se puede inter
+         +pretar."                                                       
+      19 +doc_021,documento,True,True,False,True,True,True,,,False,"El te
+         +xto OCR no tiene sentido, no ha leído bien y no se puede interp
+         +retar. Luego de la firma, debe empezar con ""Querido hermano"""
+      20 +doc_023,documento,True,True,True,False,True,True,,,False,"El te
+         +xto OCR no tiene sentido, no ha leído bien y no se puede interp
+         +retar. El emisor es Manuel Mendez"                             
+      21 +doc_025,documento,True,True,False,True,False,False,,,False,"El 
+         +texto OCR no tiene sentido, no ha leído bien y no se puede inte
+         +rpretar. El año es 1642"                                       
+
+  Made 2 scratchpad edits +23 -8, ran 1 shell command (ctrl+o to expand)
+● Bash(cd ~/Documents/GitHub/python_interm_dip_qlab/tarea_2;
+      S="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHub-
+      python-interm-dip-qlab-tarea-2/6…)
+  ⎿  escrito 02_evaluacion.ipynb
+     C:\Users\user\Documents\GitHub\python_interm_dip_qlab\tarea_2\.venv\Li
+     b\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loo
+     … +15 lines (ctrl+o to expand)
+  ⎿  1 file changed (binary, mode only or too large to show)
+  ⎿  (timeout 10m)
+
+● Update(README.md)
+  ⎿  Added 1 line, removed 1 line
+      37  | Documentos | EasyOCR | CER 0,300 | 17 s por documento |
+      38  | Audio | **faster-whisper small** | **WER 0,218** | factor de 
+          tiempo real 0,36 |
+      39  | Audio | Qwen3-ASR 0,6B | WER 0,228 | factor de tiempo real 0,
+          84 |
+      40 -| Extracción LLM | Gemini 3.5 Flash-Lite | acuerdo con la audit
+         -oría humana: _(pendiente)_/20 | — |                            
+      40 +| Extracción LLM | Gemini 3.5 Flash-Lite | acuerdo con la audit
+         +oría humana: **10/20** fichas completamente correctas (impresos
+         + y fotos 5/5, manuscritos 0/5, audios 5/10) | — |              
+      41  
+      42  ### Hallazgos
+      43  
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Notebook ejecutado: el resultado da 10/20. Estoy revisando una coincidencia de
+  privacidad en el notebook antes de hacer el commit.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Es un falso positivo: el apellido coincide, pero es un funcionario público en
+  ejercicio, el alcalde de Lima, mencionado en un documento impreso. Hago el
+  commit.
+
+  Ran 2 shell commands, wrote 1 memory (ctrl+o to expand)
+
+● Tu auditoría quedó registrada: el acuerdo LLM-humano es 10/20. Ejecuté
+  02_evaluacion.ipynb de principio a fin sin errores y subí todo a tarea-2
+  (commit 685ac3e). La línea final que vas a entregar es:
+
+  Resultados Test: WER: 0.22 | CER: 0.09 | Acuerdo LLM-Humano: 10/20
+
+  Qué mostró tu auditoría
+
+  ┌──────────────────┬────────────────────────────────┐
+  │      Grupo       │ Fichas completamente correctas │
+  ├──────────────────┼────────────────────────────────┤
+  │ Impresos y fotos │ 5/5                            │
+  ├──────────────────┼────────────────────────────────┤
+  │ Manuscritos      │ 0/5                            │
+  ├──────────────────┼────────────────────────────────┤
+  │ Audios           │ 5/10                           │
+  └──────────────────┴────────────────────────────────┘
+
+  - Documentos: todos los errores están en los manuscritos, porque el LLM resume
+    o copia lo que el OCR leyó mal. En impresos y fotos no falló en nada.
+  - Audios: en las dos marchas (clip_008 y clip_010), el número de hablantes
+    salió mal porque la diarización contó el ruido como voces. En clip_019 y
+    clip_020 copió palabras mal transcritas, como "Sin Cirroca" en lugar de
+    "Sinchi Roca".
+  - Campos más fiables: el LLM acertó la modalidad en 20/20 y el tema en 19/20.
+
+  Dos cosas que conviene que revises
+
+  1. Cambié los criterios del notebook para que coincidan con cómo calificaste.
+     Los criterios propuestos decían que copiar un error del OCR contaba como
+     correcto. Tú marcaste esos casos como error, por ejemplo el emisor de
+     doc_023 o el tema de clip_020. Por eso el notebook ahora dice que la
+     referencia es el original. Si no era tu intención, dímelo.
+  2. En clip_010 no calificaste citas_clave. El resultado no cambia, porque esa
+     ficha ya tenía un error en el número de hablantes. El notebook lo menciona.
+
+  También añadí el 10/20 al README. El dashboard con tu archivo real funciona
+  sin errores y muestra 50 % de concordancia.
+
+  Lo que te toca a ti
+
+  1. Escribir con tus palabras la decisión y la reflexión en la celda "Decisión
+     y reflexión (en palabras del autor)" de 02_evaluacion.ipynb, en la
+     sección 7. Justo encima tienes las cifras para apoyarte. Cuando la
+     escribas, hago el commit.
+  2. Cerrar el issue #7 con tu comentario de bitácora.
+  3. Desplegar en Streamlit Community Cloud con el repositorio
+     python_interm_dip_qlab, la rama tarea-2 y el archivo principal
+     tarea_2/app.py. Pásame el enlace y lo agrego al README. Después cierras el
+     #8.
+
+✻ Sautéed for 3m 45s · done 22:51
+
+> en donde dices que haga la decisión y sobre qué?                              
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Es la última celda de texto de la sección 7 del notebook de la Parte 2.
+
+  Dónde
+
+  1. Abre tarea_2/02_evaluacion.ipynb en VS Code o Jupyter.
+  2. Baja a la sección "7. Comparativa final y decisión", justo antes de la
+     sección 8, "Exportación".
+  3. Debajo de "Hechos que sustentan la decisión" vas a ver la celda "Decisión y
+     reflexión (en palabras del autor)", que dice "✍️ Pendiente: el autor 
+     escribe aquí…".
+  4. Haz doble clic en la celda, borra esa línea y escribe tu texto.
+
+  Si estás en el celular, también puedes escribirme el texto aquí y yo lo pego
+  en esa celda sin cambiarle nada.
+
+  Sobre qué escribir
+
+  El punto 6 del enunciado (issue #190) pide dos cosas. La rúbrica asigna 3
+  puntos a este bloque junto con las métricas y la tabla.
+
+  1. Decisión: qué modelo usarías en un entorno real para documentos y cuál para
+  audio, y por qué, considerando precisión, costo computacional y latencia.
+
+  Datos para apoyarte:
+  - Documentos:
+    - PaddleOCR: CER 0,09 y 28 s por documento.
+    - EasyOCR: CER 0,30 y 17 s por documento. Es más rápido y ligero, pero
+      triplica el error.
+  - Audio:
+    - faster-whisper small: WER 0,22, factor de tiempo real 0,36 y 0,5 GB.
+    - Qwen3-ASR: WER 0,23, factor de tiempo real 0,84 y 1,6 GB. Solo gana con
+      mucho ruido.
+
+  2. Reflexión por tipo de documento y por tipo de audio: dónde funcionó mejor y
+  dónde peor, y por qué.
+
+  - Documentos: a PaddleOCR le fue bien en impresos y fotos (CER 0,04 y 0,03) y
+    mal en manuscritos (0,24; doc_024 llegó a 0,51). ¿Por qué crees que pasa?
+    Por ejemplo: la cursiva, la tinta, la legibilidad del original o las
+    abreviaturas de época. Puedes contar lo que viste al transcribir las
+    referencias, como que no pudiste leer doc_017, doc_018 y doc_019.
+  - Audio: al ASR le fue mejor con una sola voz leyendo o en conferencias, y
+    peor en marchas, partidos y fiestas, con ruido y varias personas hablando a
+    la vez. ¿Por qué? Por ejemplo: el ruido de fondo, voces que se superponen o
+    la música (clip_014).
+  - LLM: tu auditoría dio 10/20. Impresos y fotos salieron 5/5, manuscritos 0/5
+    y audios 5/10. ¿Qué te dice eso de dónde nacen los errores?
+
+  Bastan dos o tres párrafos cortos: uno con la decisión y uno o dos con la
+  reflexión. Lo importante es que la explicación de las causas salga de lo que
+  tú observaste.
+
+✻ Baked for 26s · done 23:30
+
+※ recap: Estás cerrando la Parte 2 de la Tarea 2, que ya tiene la auditoría (10/20) y el notebook ejecutado. Te toca escribir tu decisión y reflexión en la última celda de la sección 7 de 02_evaluacion.ipynb, o mandármela aquí para pegarla. (disable recaps in /config)
+
+> listo, ya está, por fa, cierra el issue correspondiente (creo que el #7) y    
+  dime qué más falta o si es todo por hoy                                       
+  ⎿  1 skill available
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Solo cambió tu celda. Hago el commit y cierro el #7.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Cerré el issue #7 con un comentario de bitácora que resume la muestra, los dos
+  modelos elegidos, la auditoría y la línea "Resultados Test: WER: 0.22 | CER:
+  0.09 | Acuerdo LLM-Humano: 10/20". Tu celda de decisión y reflexión ya está en
+  GitHub, en el commit bba7234. Fue lo único que cambió en el notebook.
+
+  Sugerencia opcional: el enunciado pide una reflexión por tipo de documento y
+  por tipo de audio que explique la causa. En documentos ya está. En audio solo
+  mencionas el ruido. Podrías añadir una o dos frases: dónde le fue mejor (una
+  persona leyendo o una conferencia), dónde peor (marchas y fiestas, con mucha
+  gente y ruido) y por qué. Si lo agregas, me avisas y lo subo.
+
+  Lo que falta: solo la Parte 3 (issue #8)
+
+  1. Desplegar en Streamlit Community Cloud. Esto lo haces tú, y te toma unos 10
+     minutos:
+     - Entra a share.streamlit.io con tu cuenta de GitHub y elige "Create app".
+     - Repositorio: LuisGuevaraVega/python_interm_dip_qlab. Rama: tarea-2.
+       Archivo principal: tarea_2/app.py.
+     - Pulsa Deploy y pásame el enlace.
+  2. Con el enlace, lo agrego al README, reviso que la app cargue bien en la web
+     y cierras el #8.
+  3. Domingo: haces el comentario de entrega en el issue #190 con la línea de
+     resultados.
+
+  ¿Es todo por hoy? Si tienes 10 minutos, haz el despliegue hoy. Si falla algo,
+  como una dependencia o una ruta, mañana queda margen para corregirlo. Si no,
+  mañana tenemos el día completo y no hay apuro: la Parte 2 está terminada y la
+  app ya está subida.
+
+✻ Cooked for 1m 4s · done 23:39
+
+> espera, si eso es todo, ahora hay que pasar todo a main                       
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● La PR #9 ("Tarea 2") ya existe y GitHub la marca sin conflictos. El único
+  archivo sensible que aparece es uv.lock, y la PR lo borra de main, que es
+  justo lo que queremos. Hago el merge.
+
+  Merged PR #9 (ctrl+o to expand)
+
+● La Tarea 2 ya está en main. Hice el merge de la PR #9 ("Tarea 2") en el commit
+  d26d305, que es un merge commit, igual que con la Tarea 1.
+
+  Lo que revisé después del merge:
+  - main y tarea-2 tienen ahora el mismo contenido.
+  - En main están app.py, requirements.txt, 02_evaluacion.ipynb y
+    auditoria_llm.csv.
+  - En main no hay referencias con nombres reales, ni .env, ni uv.lock. El merge
+    también borró de main el uv.lock que había entrado con tu commit "creacion
+    de enviroment". Así Streamlit Cloud instala solo requirements.txt.
+  - La rama tarea-2 sigue existiendo, no la borré.
+
+  Lo único que falta es la Parte 3, el issue #8:
+
+  1. Despliegue en Streamlit Community Cloud. Ahora puedes hacerlo desde main:
+     - En share.streamlit.io, elige "Create app".
+     - Repositorio: LuisGuevaraVega/python_interm_dip_qlab. Rama: main. Archivo
+       principal: tarea_2/app.py.
+     - Pasa el enlace y lo agrego al README. Ese commit también tendrá que
+       llegar a main, ya sea con una PR pequeña o directamente.
+  2. Después cierras el #8.
+  3. El domingo haces el comentario de entrega en el #190.
+
+  Si ahora no tienes tiempo para el despliegue, por hoy está todo. La Parte 2
+  está terminada y cerrada.
+
+✻ Cooked for 44s · done 23:43
+
+> ya tengo el link https://tarea-2-texto-audio.streamlit.app/                   
+
+● Skill(browser-automation)
+  ⎿  Successfully loaded skill · 1 tool allowed
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Node.js no está instalado, así que lo compruebo desde los endpoints de
+  Streamlit.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Confirmo que el servidor está activo con Streamlit 1.66.1 y rutas de datos
+  correctas para la nube. Ahora agrego el enlace al README y lo fusiono a main.
+
+● Update(README.md)
+  ⎿  Added 1 line, removed 1 line
+      2  
+      3  **Pregunta:** ¿podemos convertir documentos escaneados y entrevi
+         stas en audio en un archivo de texto estructurado y buscable?
+      4  
+      5 -**Dashboard público:** _(pendiente: enlace de Streamlit Communit
+        -y Cloud)_                                                       
+      5 +**Dashboard público:** https://tarea-2-texto-audio.streamlit.app
+        +/                                                               
+      6  
+      7  Tarea 2 del curso Data Science con Python. Es un pipeline de IA 
+         que extrae texto de documentos peruanos con OCR, transcribe entr
+         evistas en español peruano con ASR, seudonimiza a las personas p
+         rivadas, extrae campos estructurados con un LLM y publica los re
+         sultados en un dashboard de Streamlit.
+      8  
+
+  Created PR #10, ran 2 shell commands, wrote 1 memory (ctrl+o to expand)
+
+● Agregué el enlace del dashboard al README y lo pasé a main con la PR #10. main
+  y tarea-2 vuelven a tener el mismo contenido.
+
+  No pude ver la app en un navegador, porque en esta computadora no está
+  instalado Node.js, que es lo que necesito para abrirla y capturar la pantalla.
+  Lo que sí comprobé:
+  - El servidor responde y la app figura como activa, con Streamlit 1.66.1, la
+    versión fijada en requirements.txt.
+  - El mismo código con los mismos CSV corre en local sin errores.
+
+  Por favor, revisa tú la app (2 minutos):
+  1. Abre https://tarea-2-texto-audio.streamlit.app/. Arriba deberías ver 5
+     indicadores, como "Documentos procesados: 25" y "Concordancia: 50 %".
+  2. Recorre las 5 pestañas. En "Explorador de documentos", elige un documento:
+     se muestra la imagen y el texto OCR. En "Explorador de audios", elige
+     clip_003: se reproduce el audio.
+
+  Si todo se ve bien, avísame y cierro el issue #8. Si ves un error en rojo,
+  cópiamelo.
+
+  Lo que queda para el domingo
+
+  Solo el comentario de entrega en el issue #190. Este es el formato que pide el
+  enunciado, con tus datos. Completa tu nombre:
+
+  Tarea 2 – Individual
+  Fuentes: Wikimedia Commons
+  Estudiante: <Tu nombre completo> (@LuisGuevaraVega)
+  Dashboard público (obligatorio): https://tarea-2-texto-audio.streamlit.app/
+  Carpeta del trabajo: 
+  https://github.com/LuisGuevaraVega/python_interm_dip_qlab/tree/main/tarea_2
+  Resultados Test: WER: 0.22 | CER: 0.09 | Acuerdo LLM-Humano: 10/20
+
+  Antes de publicarlo, guarda en evidencias_ia/ la exportación de la
+  conversación de hoy, como hiciste con los días 1 y 2. Esa carpeta es lo último
+  que falta subir a main.
+
+  Cuando confirmes que la app funciona, por hoy es todo.
+✻ Baked for 1m 46s · done 23:47
