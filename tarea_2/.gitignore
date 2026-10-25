@@ -1,0 +1,23 @@
+# Corpus original y salidas pesadas (se recuperan con `uv run python corpus.py`)
+datos/raw/
+
+# Pesos y checkpoints de modelos (GitHub rechaza archivos > 100 MB)
+modelos/*.safetensors
+modelos/*.bin
+modelos/*.pt
+modelos/checkpoint-*/
+
+# Credenciales (API key de Gemini, token de Hugging Face)
+.env
+
+# Python / Jupyter
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Transcripciones manuales con nombres reales (la versión seudonimizada está en texto_referencia de los CSV)
+datos/referencias/
+
+# Lock del entorno de los notebooks: Streamlit Cloud lo preferiría a requirements.txt
+uv.lock

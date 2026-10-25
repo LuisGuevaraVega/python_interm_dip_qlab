@@ -1,0 +1,21 @@
+id,modalidad,ok_modalidad,ok_tema,ok_resumen,ok_emisor,ok_fecha,ok_monto,ok_numero_hablantes,ok_citas_clave,completa,comentario
+clip_001,audio,True,True,True,,,,True,True,True,
+clip_003,audio,True,True,True,,,,True,False,False,
+clip_004,audio,True,True,True,,,,True,True,True,
+clip_008,audio,True,True,True,,,,False,True,False,"Empieza a crear hablantes, no filtra el ruido de fondo, crea hablantes cuando solo es ruido."
+clip_010,audio,True,True,True,,,,False,,False,"Crea hablantes que no existen. Solo som 2, el resto es ruido."
+clip_015,audio,True,True,True,,,,True,True,True,
+clip_018,audio,True,True,True,,,,True,True,True,
+clip_019,audio,True,True,True,,,,True,False,False,"En vez de Punto número 1 lo ubicaseo, en realidad es ""la ubicación"""
+clip_020,audio,True,False,False,,,,True,False,False,"Es huaca Sinchi Roca, no sin cirroca"
+clip_021,audio,True,True,True,,,,True,True,True,
+doc_004,documento,True,True,True,True,True,True,,,True,
+doc_008,documento,True,True,True,True,True,True,,,True,
+doc_011,documento,True,True,True,True,True,True,,,True,
+doc_014,documento,True,True,True,True,True,True,,,True,
+doc_016,documento,True,True,True,True,True,True,,,True,"Al final, debe decir ""DE ESTE MONUMENTO"""
+doc_017,documento,True,True,False,True,True,True,,,False,"El texto OCR no tiene sentido, no ha leído bien y no se puede interpretar."
+doc_018,documento,True,True,True,False,False,True,,,False,"El texto OCR no tiene sentido, no ha leído bien y no se puede interpretar."
+doc_021,documento,True,True,False,True,True,True,,,False,"El texto OCR no tiene sentido, no ha leído bien y no se puede interpretar. Luego de la firma, debe empezar con ""Querido hermano"""
+doc_023,documento,True,True,True,False,True,True,,,False,"El texto OCR no tiene sentido, no ha leído bien y no se puede interpretar. El emisor es Manuel Mendez"
+doc_025,documento,True,True,False,True,False,False,,,False,"El texto OCR no tiene sentido, no ha leído bien y no se puede interpretar. El año es 1642"

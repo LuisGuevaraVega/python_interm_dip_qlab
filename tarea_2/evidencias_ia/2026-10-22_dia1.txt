@@ -1,0 +1,1202 @@
+ ▐▛███▛█   Claude Code v2.1.308
+▝▜██████▀  Opus 5.5 · Claude Pro
+ ▝▝   ▝▝   ~\Documents\GitHub\python_interm_dip_qlab\tarea_2
+
+
+❯ hola claude, haré a continuación una tarea de este issue en github. Quiero    
+  que la analices pero aún no me digas nada de su contenido.                    
+  https://github.com/d2cml-ai/Data-Science-Python/issues/190                    
+
+  Ran 4 shell commands, wrote 1 memory (ctrl+o to expand)
+
+● Hola. Ya leí y analicé el issue #190 completo. Por ahora no te cuento nada de
+  lo que pide.
+
+  También revisé la carpeta tarea_2/ de tu repo. Estás en la rama tarea-2 y la
+  carpeta solo tiene clases/, así que se empieza desde cero.
+
+  Guardé en mi memoria la referencia al issue y la fecha de entrega, por si la
+  conversación se corta. Avísame cuando quieras que empecemos y por dónde.
+
+✻ Sautéed for 23s · done 7:29 PM
+
+❯ quiero que veas que he añadido una carpeta con 3 archivos, son de mis clases. 
+  Quiero que por fa revises e instales todos los paquetes necesarios para       
+  realizar la tarea. usa esos archivos como modelos. Créame un enviroment       
+  exclusivo para esta tarea.                                                    
+
+  Ran 5 shell commands, recalled 1 memory (ctrl+o to expand)
+
+● Estoy revisando los dos notebooks de clase para ver qué librerías usan.
+  Después armo el entorno.
+
+  Read 1 file (ctrl+o to expand)
+
+● Revisé los dos notebooks. El de audio usa voz.py y datos.py de la Sesión 13,
+  que no están en la carpeta. Los busco en el repo del curso para ver qué
+  librerías necesitan.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Ya tengo la lista de lo que hace falta. Antes de instalar reviso el espacio en
+  disco y qué versiones de Python tengo disponibles.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Hay un problema antes de instalar: al disco C: le quedan 3.5 GB libres. Veo
+  cuánto ocupan los cachés y si hay otro disco.
+
+  Read 1 file, ran 2 shell commands (ctrl+o to expand)
+
+● Stop Task
+  ⎿  cd /c/Users/user; for d in AppData/Local/uv/cache
+     "AppData/Local/pip/cache" .cache/huggingface .paddlex anaconda3/pkgs
+     anaconda3/envs/tarea1 anaconda3/envs/otre… · stopped
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● El disco C: solo tiene 4.1 GB libres, insuficientes para instalar todo lo
+  necesario (~6-8 GB entre librerías, modelos y corpus), así que antes de
+  instalar nada voy a limpiar cachés prescindibles (pip, Anaconda, uv, Hugging
+  Face) que suman unos 6 GB recuperables.
+
+● User answered Claude's questions:
+  ⎿  · El disco C: tiene 4.1 GB libres y el entorno completo necesita ~7–8 GB. 
+     ¿Cómo seguimos? → Limpio cachés + tú liberas más (Recomendado)
+
+● Limpio los cachés de pip, conda y uv.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Liberé ~2 GB, dejando 8.3 GB libres, suficiente para las librerías (~3.5 GB),
+  pero necesitarás liberar más espacio para los modelos y el corpus. Mientras
+  tanto, voy armando el entorno.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Voy a crear el pyproject.toml de la tarea basándome en el de clase, usando los
+  grupos docai y audio pero eliminando TensorFlow, Gradio, el micrófono y
+  PaddleOCR-VL, inviable en CPU por su peso de ~2 GB.
+
+● Write(pyproject.toml)
+  ⎿  Wrote 51 lines to pyproject.toml
+       1 [project]
+       2 name = "tarea-2-ocr-asr"
+       4 description = "Tarea 2 — Voces y documentos peruanos: OCR + ASR 
+         + extracción con LLM + dashboard"
+       5 requires-python = "==3.12.*"
+       7 # Entorno de trabajo de la tarea (notebooks). Basado en los grup
+         os `docai` y `audio`
+       8 # del pyproject del curso; el dashboard usa su propio requiremen
+       9 dependencies = [
+      10   # Base
+     … +49 lines (ctrl+o to expand)
+
+● Bash(uv lock --python 3.12 2>&1 | tail -15)
+  ⎿  Using CPython 3.12.15
+     Resolved 231 packages in 2.00s
+  ⎿  1 file changed (binary, mode only or too large to show)
+
+  Searched for 1 pattern, ran 2 shell commands (ctrl+o to expand)
+
+● Instalación terminada. Además el disco ahora muestra 40 GB libres, así que
+  parece que ya liberaste espacio. Pruebo que todo importe bien.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Todos los imports funcionan. Ahora una prueba real: OCR sobre una imagen
+  generada, Whisper small sobre audio sintético y el modelo de hablantes. Esto
+  baja los modelos base por primera vez.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● PaddlePaddle 3.3 falla en CPU con oneDNN. Es un bug conocido de esa versión en
+  Windows. Lo fijo en 3.2.x, que es la mínima que pide la clase, y repito la
+  prueba.
+
+● Update(pyproject.toml)
+  ⎿  Added 1 line, removed 1 line
+      25    "nbclient>=0.10",
+      26    # OCR (Sesión 10): PaddleOCR con PaddlePaddle o PyTorch (engi
+          ne="transformers") + Tesseract
+      27    "paddleocr>=3.7",
+      28 -  "paddlepaddle>=3.2.1",                                       
+      28 +  "paddlepaddle>=3.2.1,<3.3",   # 3.3 en CPU/Windows falla con 
+         +oneDNN (ConvertPirAttribute2RuntimeAttribute)                  
+      29    "pillow>=10",
+      30    "pymupdf>=1.24",
+      31    "pytesseract>=0.3.13",
+
+● Bash(SP="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHu
+      b-python-interm-dip-qlab-tarea-2/f1c03ef4-16d3-4c41-a256-74c94d205fa3/scra
+      tchpad"; uv s…)  ⎿  Downloading paddlepaddle (97.0MiB)
+      Downloaded paddlepaddle
+      - paddlepaddle==3.3.1
+     … +13 lines (ctrl+o to expand)
+  ⎿  Updated uv.lock (+6 -6)
+      1901  
+      1902  [[package]]
+      1903  name = "paddlepaddle"
+      1904 -version = "3.3.1"                                            
+      1904 +version = "3.2.2"                                            
+      1905  source = { registry = "https://pypi.org/simple" }
+      1906  dependencies = [
+      1907      { name = "httpx" },
+     ...
+      1911      { name = "pillow" },
+      1912      { name = "protobuf" },
+      1913      { name = "safetensors" },
+      1914 -    { name = "setuptools" },                                 
+      1914      { name = "typing-extensions" },
+      1915  ]
+      1916  wheels = [
+      1918 -    { url = "https://files.pythonhosted.org/packages/3b/97/62
+           -d061b4700a7020506f4db80c4721100b5b2fa0709f4e999c38dc7e2293/pa
+           -ddlepaddle-3.3.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "
+           -sha256:d7827d867503b502a881c718e3743d9b91648a62d01f93bcd5ba3d
+           -7846de5ab5", size = 104546703, upload-time = "2026-03-26T11:1
+           -8:20.499Z" },                                                
+      1919 -    { url = "https://files.pythonhosted.org/packages/a0/03/f5
+           -9f706902aad55a1f216c98fc55187945d6ccda6fdeccd226928bcc06c6/pa
+           -ddlepaddle-3.3.1-cp312-cp312-manylinux1_x86_64.whl", hash = "
+           -sha256:9016fc497213e1101261684321fbb31ef5960019ef39cb07ded27b
+           -c70e2a9858", size = 194839332, upload-time = "2026-03-24T08:0
+           -2:17.755Z" },                                                
+      1920 -    { url = "https://files.pythonhosted.org/packages/47/1b/66
+           -e269a6fffecc887a87c1ea2c72fdb31f9cafb2f40dc24c639f35010527/pa
+           -ddlepaddle-3.3.1-cp312-cp312-win_amd64.whl", hash = "sha256:3
+           -24b5122cf3887dfbd15db17f36e2421ef923fd4569d26111bf1a21fe84d44
+           -2b", size = 104794793, upload-time = "2026-03-26T11:11:37.18Z
+           -" },                                                         
+      1917 +    { url = "https://files.pythonhosted.org/packages/2a/3a/84
+           +204351f84bc837c6bc95592f3b4bf71487f4a99e72a5bc7027d2fe1ba8/pa
+           +ddlepaddle-3.2.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "
+           +sha256:c62dab0d4df6de2978960832f0015a145c23cd379418d932ddd8f5
+           +46629d1fe4", size = 99510113, upload-time = "2025-11-14T13:27
+           +:27.71Z" },                                                  
+      1918 +    { url = "https://files.pythonhosted.org/packages/7f/2d/f4
+           +6a5f5464c7d31e9e067e173a449cff8c0d96f7f7282b9454650901fe3c/pa
+           +ddlepaddle-3.2.2-cp312-cp312-manylinux1_x86_64.whl", hash = "
+           +sha256:f6b3b73d47acc82cf545896e6e5c31b55a7f9a26dc0acb28abcc24
+           +069d9396dd", size = 189280697, upload-time = "2025-11-19T11:5
+           +2:09.004Z" },                                                
+      1919 +    { url = "https://files.pythonhosted.org/packages/e8/e1/2f
+           +410bed4271df98ab2a720caa59ff408f8e8ca5daa6089b78b4326b8d10/pa
+           +ddlepaddle-3.2.2-cp312-cp312-manylinux2014_aarch64.whl", hash
+           + = "sha256:a59d9020ba160fa7f5aefcb30e4a6329390a635d1a0b511f64
+           +58139376c03f99", size = 88147129, upload-time = "2025-11-19T1
+           +1:18:34.59Z" },                                              
+      1920 +    { url = "https://files.pythonhosted.org/packages/ec/ff/ed
+           +7598e52e3ad2ebd8202076b4d2412e5e605a15b9ba03ab0cec6edf824e/pa
+           +ddlepaddle-3.2.2-cp312-cp312-win_amd64.whl", hash = "sha256:8
+           +83954ea41fb1cccd022ac351f164b7a9f5cbc94be24223ce8bd981ddee93e
+           +b3", size = 101725915, upload-time = "2025-11-14T13:15:13.643
+           +Z" },                                                        
+      1921  ]
+      1922  
+      1923  [[package]]
+     ...
+      3103      { name = "nbformat", specifier = ">=5.10" },
+      3104      { name = "numpy", specifier = ">=1.26,<3" },
+      3105      { name = "paddleocr", specifier = ">=3.7" },
+      3106 -    { name = "paddlepaddle", specifier = ">=3.2.1" },        
+      3106 +    { name = "paddlepaddle", specifier = ">=3.2.1,<3.3" },   
+      3107      { name = "pandas", specifier = ">=2.2,<3" },
+      3108      { name = "pillow", specifier = ">=10" },
+      3109      { name = "plotly", specifier = ">=5.24" },
+  ⎿  (timeout 10m)
+
+● El OCR con PaddlePaddle ya funciona correctamente con tildes, eñes y «N°».
+  Para el motor PyTorch de la clase falta torchvision (incluido en el grupo
+  docai), así que lo voy a agregar.
+
+● Update(pyproject.toml)
+  ⎿  Added 1 line
+      31    "pytesseract>=0.3.13",
+      32    # ASR (Sesión 13): faster-whisper, Qwen3-ASR / Parakeet / MMS
+           vía transformers, huellas de voz
+      33    "torch>=2.8",
+      34 +  "torchvision>=0.28.0",          # procesadores de imagen de P
+         +addleOCR con engine="transformers"                             
+      35    "transformers>=5.16",
+      36    "accelerate>=1.10",
+      37    "faster-whisper>=1.2.1",
+
+● Bash(SP="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHu
+      b-python-interm-dip-qlab-tarea-2/f1c03ef4-16d3-4c41-a256-74c94d205fa3/scra
+      tchpad"; uv s…)
+  ⎿   + torchvision==0.29.1
+     exit=0
+     OCR [paddle] 5.7s: ['Resoluci�n de Alcald�a N� 018-2016', 'Se�or alcal
+     … +5 lines (ctrl+o to expand)
+  ⎿  Updated uv.lock (+18 -0)
+      3084      { name = "soundfile" },
+      3085      { name = "streamlit" },
+      3086      { name = "torch" },
+      3087 +    { name = "torchvision" },                                
+      3088      { name = "tqdm" },
+      3089      { name = "transformers" },
+      3090  ]
+     ...
+      3119      { name = "soundfile", specifier = ">=0.13" },
+      3120      { name = "streamlit", specifier = ">=1.38" },
+      3121      { name = "torch", specifier = ">=2.8" },
+      3122 +    { name = "torchvision", specifier = ">=0.28.0" },        
+      3123      { name = "tqdm", specifier = ">=4.67" },
+      3124      { name = "transformers", specifier = ">=5.16" },
+      3125  ]
+     ...
+      3263      { url = "https://files.pythonhosted.org/packages/c3/a2/c7
+            f6ebf546f8f644edf0f999aa98ece106986a77a7b922316bf6414ff825/to
+            rchmetrics-1.9.0-py3-none-any.whl", hash = "sha256:bfdcbff3dd
+            1d96b3374bb2496eb39f23c4b28b8a845b6a18c313688e0d2d9ca1", size
+             = 983384, upload-time = "2026-03-09T17:41:19.756Z" },
+      3264  ]
+      3265  
+      3266 +[[package]]                                                  
+      3267 +name = "torchvision"                                         
+      3268 +version = "0.29.1"                                           
+      3269 +source = { registry = "https://pypi.org/simple" }            
+      3270 +dependencies = [                                             
+      3271 +    { name = "numpy" },                                      
+      3272 +    { name = "pillow" },                                     
+      3273 +    { name = "torch" },                                      
+      3274 +]                                                            
+      3275 +wheels = [                                                   
+      3276 +    { url = "https://files.pythonhosted.org/packages/f3/f8/85
+           +5c7b326ed17a8dac4a03e8e6fec33ef6728e4baa00d816cf1227bb6681/to
+           +rchvision-0.29.1-cp312-cp312-macosx_14_0_arm64.whl", hash = "
+           +sha256:3b6eb9d2f8fe9b93d9d37637749df361efeed133d96ddd503184a1
+           +b5b12bb27f", size = 1813847, upload-time = "2026-09-30T17:57:
+           +01.009Z" },                                                  
+      3277 +    { url = "https://files.pythonhosted.org/packages/a7/bf/d1
+           +e40adbd5e54c2ca24d22f0e76f7bc23e8e76b7e3c694d5153a14aa83b8/to
+           +rchvision-0.29.1-cp312-cp312-manylinux_2_28_aarch64.whl", has
+           +h = "sha256:6e111c6ead37ba63347548c5bd84e1b6a60b187854a19bc2c
+           +87c9a48396888d9", size = 7586198, upload-time = "2026-09-30T1
+           +7:57:07.559Z" },                                             
+      3278 +    { url = "https://files.pythonhosted.org/packages/22/6f/78
+           +267c9791b5b883421fe4dbba6041f06b59c01d43dbe0f57b4497a74f59/to
+           +rchvision-0.29.1-cp312-cp312-manylinux_2_28_x86_64.whl", hash
+           + = "sha256:6c717bd68dddaebbd9525377a17a84e38a291a33a218f59fdb
+           +76e8bb41e61c99", size = 7430669, upload-time = "2026-09-30T17
+           +:57:11.471Z" },                                              
+      3279 +    { url = "https://files.pythonhosted.org/packages/fa/67/c8
+           +cbf53a525ac2fba5d68e36c61636fa08297001a008b151f06c2c0c564a/to
+           +rchvision-0.29.1-cp312-cp312-win_amd64.whl", hash = "sha256:5
+           +51c567fd39581570bf553c8df58895d567258b9997760179719f205ec5cd8
+           +59", size = 1376794, upload-time = "2026-09-30T17:57:09.109Z"
+           + },                                                          
+      3280 +]                                                            
+      3281 +                                                             
+      3282  [[package]]
+      3283  name = "tornado"
+      3284  version = "6.6"
+  ⎿  (timeout 10m)
+
+● Las tres pruebas pasaron: PaddleOCR, Whisper small con VAD y el modelo de
+  huellas de voz. Ahora instalaré Tesseract con winget, ya que es un programa de
+  Windows y no un paquete de Python.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Windows canceló la instalación de Tesseract porque la ventana de permisos de
+  administrador (UAC) no se aceptó. Mientras resolvemos eso, registro el kernel
+  de Jupyter del entorno.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● User answered Claude's questions:
+  ⎿  · Tesseract (el OCR alternativo que sugiere el issue) necesita permiso de 
+     administrador y la ventana de UAC se canceló. ¿Qué hacemos? → Usar EasyOCR 
+     en su lugar
+
+● Cambio Tesseract por EasyOCR.
+
+● Update(pyproject.toml)
+  ⎿  Added 1 line, removed 1 line
+      23    "ipywidgets>=8.1",
+      24    "nbformat>=5.10",
+      25    "nbclient>=0.10",
+      26 -  # OCR (Sesión 10): PaddleOCR con PaddlePaddle o PyTorch (engi
+         -ne="transformers") + Tesseract                                 
+      26 +  # OCR (Sesión 10): PaddleOCR con PaddlePaddle o PyTorch (engi
+         +ne="transformers") + EasyOCR como alternativo                  
+      27    "paddleocr>=3.7",
+      28    "paddlepaddle>=3.2.1,<3.3",   # 3.3 en CPU/Windows falla con 
+          oneDNN (ConvertPirAttribute2RuntimeAttribute)
+      29    "pillow>=10",
+
+● Update(pyproject.toml)
+  ⎿  Added 1 line, removed 1 line
+      28    "paddlepaddle>=3.2.1,<3.3",   # 3.3 en CPU/Windows falla con 
+          oneDNN (ConvertPirAttribute2RuntimeAttribute)
+      29    "pillow>=10",
+      30    "pymupdf>=1.24",
+      31 -  "pytesseract>=0.3.13",                                       
+      31 +  "easyocr>=1.7.2",                                            
+      32    # ASR (Sesión 13): faster-whisper, Qwen3-ASR / Parakeet / MMS
+           vía transformers, huellas de voz
+      33    "torch>=2.8",
+      34    "torchvision>=0.28.0",          # procesadores de imagen de P
+          addleOCR con engine="transformers"
+
+● Bash(SP="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHu
+      b-python-interm-dip-qlab-tarea-2/f1c03ef4-16d3-4c41-a256-74c94d205fa3/scra
+      tchpad"; uv s…)
+  ⎿   + easyocr==1.7.2
+      + imageio==2.38.1
+      + ninja==1.13.2
+     … +8 lines (ctrl+o to expand)
+  ⎿  Updated uv.lock (+118 -15)
+      594      { url = "https://files.pythonhosted.org/packages/12/b3/231
+           ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/dist
+           ro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f8502
+           7d8da9af6bddab658135b840670a223589bc0c8ef02b2", size = 20277, 
+           upload-time = "2023-12-24T09:54:30.421Z" },
+      595  ]
+      596  
+      597 +[[package]]                                                   
+      598 +name = "easyocr"                                              
+      599 +version = "1.7.2"                                             
+      600 +source = { registry = "https://pypi.org/simple" }             
+      601 +dependencies = [                                              
+      602 +    { name = "ninja" },                                       
+      603 +    { name = "numpy" },                                       
+      604 +    { name = "opencv-python-headless" },                      
+      605 +    { name = "pillow" },                                      
+      606 +    { name = "pyclipper" },                                   
+      607 +    { name = "python-bidi" },                                 
+      608 +    { name = "pyyaml" },                                      
+      609 +    { name = "scikit-image" },                                
+      610 +    { name = "scipy" },                                       
+      611 +    { name = "shapely" },                                     
+      612 +    { name = "torch" },                                       
+      613 +    { name = "torchvision" },                                 
+      614 +]                                                             
+      615 +wheels = [                                                    
+      616 +    { url = "https://files.pythonhosted.org/packages/bb/84/4a2
+          +cab0e6adde6a85e7ba543862e5fc0250c51f3ac721a078a55cdcff250/easy
+          +ocr-1.7.2-py3-none-any.whl", hash = "sha256:5be12f9b0e595d443c
+          +9c3d10b0542074b50f0ec2d98b141a109cd961fd1c177c", size = 287017
+          +8, upload-time = "2024-09-24T11:34:43.554Z" },                
+      617 +]                                                             
+      618 +                                                              
+      619  [[package]]
+      620  name = "einops"
+      621  version = "0.8.2"
+     ...
+      934      { url = "https://files.pythonhosted.org/packages/58/a2/bb0
+           81bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna
+           -3.20-py3-none-any.whl", hash = "sha256:ab7ae7122974553370f0bd
+           b919e1a960b2cd1bc1ef0276416d896db81c14582c", size = 69583, upl
+           oad-time = "2026-09-17T14:11:03.168Z" },
+      935  ]
+      936  
+      937 +[[package]]                                                   
+      938 +name = "imageio"                                              
+      939 +version = "2.38.1"                                            
+      940 +source = { registry = "https://pypi.org/simple" }             
+      941 +dependencies = [                                              
+      942 +    { name = "numpy" },                                       
+      943 +    { name = "pillow" },                                      
+      944 +]                                                             
+      945 +sdist = { url = "https://files.pythonhosted.org/packages/f3/cd
+          +/69e4ac55b6dafdd2b5f32075236841a3945dea7323d0232d80f28c37cea8/
+          +imageio-2.38.1.tar.gz", hash = "sha256:6769f1f01c4dd4644830786
+          +3a787c9a22fa4dbe11c0c88f525c6e410fdfd7983", size = 403667, upl
+          +oad-time = "2026-10-08T14:35:32.961Z" }                       
+     … 159 more lines (ctrl+o to expand)
+  ⎿  (timeout 10m)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+❯ recuerda que los archivos de clases y el pyproject son solo de guia, no       
+  edites encima de ninguno de esos archivos                                     
+
+  Listed 1 directory, ran 1 shell command, wrote 1 memory (ctrl+o to expand)
+
+● Confirmo que no modifiqué nada en clases/: esos tres archivos mantienen su
+  fecha original. El pyproject.toml nuevo quedó en tarea_2/, ya anotado, y ahora
+  espero a que termine la última prueba.
+
+  Read 1 file, wrote 1 memory (ctrl+o to expand)
+
+● Ya está creado el entorno exclusivo de la Tarea 2 y probé que funciona. No he
+  hecho ningún commit.
+
+  Qué es y dónde está
+  - Es un entorno uv con Python 3.12, igual que en clase, en tarea_2/.venv. Esa
+    carpeta ya está excluida de Git por el .gitignore de la raíz.
+  - La lista de paquetes está en un archivo nuevo, tarea_2/pyproject.toml, con
+    sus versiones fijadas en tarea_2/uv.lock. Lo armé a partir de los grupos
+    docai y audio del de clase, que sigue intacto.
+  - En VS Code elige el kernel "Python 3.12 (tarea2)".
+  - Por terminal: uv run jupyter lab, uv run streamlit run app.py, etc.
+
+  Qué incluye
+  - OCR: PaddleOCR 3.7, que corre con PaddlePaddle o con PyTorch
+    (engine="transformers"), y EasyOCR como OCR alternativo.
+  - Audio: faster-whisper con VAD y los modelos Qwen3-ASR, Parakeet y MMS.
+    También pyannote para separar hablantes, jiwer para el WER/CER y rapidfuzz
+    para seudonimizar.
+  - Resto: Gemini para la extracción con LLM, Plotly, Streamlit, pandas y
+    scikit-learn.
+
+  Prueba real: el OCR leyó bien tildes, eñes y «N° 018-2016» con los dos motores
+  de PaddleOCR. EasyOCR también funciona, aunque leyó «N'» en lugar de «N°».
+  Whisper small con VAD no inventó texto en el silencio, y el modelo de
+  hablantes funciona.
+
+  Cambios respecto a la clase:
+  - PaddlePaddle fijado en 3.2.x: la 3.3 falla en Windows al correr en CPU.
+  - Agregué torchvision: el motor PyTorch de PaddleOCR no arranca sin él.
+  - Quité TensorFlow, Gradio, el micrófono y PaddleOCR-VL, que en CPU no es
+    práctico y pesa unos 2 GB.
+
+  A tener en cuenta:
+  - Disco: borré los cachés de pip, conda y uv, y con el espacio que liberaste
+    quedan 37 GB libres.
+  - Lo que no probé todavía:
+    - Qwen3-ASR, Parakeet y MMS se instalaron, pero sus modelos se bajan recién
+      la primera vez que se usen.
+    - voz.py y datos.py de la Sesión 13 no están en tu carpeta. Los descargué
+      solo para revisarlos y los traeremos cuando armemos el notebook de audio.
+
+✻ Churned for 25m 39s · done 8:06 PM
+
+● Background command "Re-verify PaddleOCR/Whisper after adding EasyOCR; check
+git status and sizes" completed (exit code 0)
+
+● Esa notificación es de la verificación final, cuyo resultado ya te conté: todo
+  pasó y no hay nada nuevo que reportar. El entorno está listo para empezar la
+  Parte 1 cuando quieras.
+
+✻ Baked for 2s · done 8:10 PM
+
+❯ Ok, Claude, ya que instalaste todo y generaste el environment, quiero que por 
+  favor me des las instrucciones de la tarea, las más relevantes y sobre todo   
+  las que tengan que ver más que con tu ejecución, que tengan que ver conmigo,  
+  es decir, qué cosas tengo que yo hacer manualmente para que se considere un   
+  trabajo de los dos y no solamente tú que te lleves todo el crédito, ¿no es    
+  cierto? Entonces quiero que me des esas indicaciones y aparte quiero que me   
+  des un cronograma de trabajo de 3 días empezando desde hoy para ver qué       
+  puedes hacer tú y qué puedo hacer yo para empezar con esto. Ahora, recuerda   
+  también que en las indicaciones de trabajo me piden que tome screenshots de   
+  lo que te esté consultando o lo que estemos haciendo. Entonces también quiero 
+  que tomes en consideración eso para que yo también haga esos screenshots      
+  aparte, ¿no? Y lo suba a la carpeta correspondiente. O si es que tú lo puedes 
+  hacer también sería genial, pero déjame saber cómo lo vas a hacer.            
+
+  Wrote 1 memory (ctrl+o to expand)
+
+● Tarea 2: lo que tienes que hacer tú y cronograma
+
+  1. Lo esencial del issue
+
+  Pregunta del trabajo: convertir documentos escaneados y audios peruanos en
+  texto estructurado y buscable.
+
+  Entrega:
+  - Fecha límite: domingo 25/10 a las 23:59 (hora de Perú).
+  - Contenido: dos notebooks ejecutados, una app de Streamlit desplegada y los
+    CSV.
+  - Cómo se entrega: con un comentario tuyo en el issue #190.
+
+  ┌────────────────┬─────┬──────────────────────────────────────────────────┐
+  │     Parte      │ Pts │                   Qué incluye                    │
+  ├────────────────┼─────┼──────────────────────────────────────────────────┤
+  │ Flujo de       │     │ 3 Issues como bitácora, cerrados; commits        │
+  │ trabajo en     │ 2   │ repartidos en varios días                        │
+  │ GitHub         │     │                                                  │
+  ├────────────────┼─────┼──────────────────────────────────────────────────┤
+  │                │     │ 25 documentos (8 impresos, 8 fotos, 9            │
+  │ 1 · Extracción │ 6   │ manuscritos) y 30 min de audio (≥20 clips, ≥1    │
+  │                │     │ con 2+ hablantes); OCR, ASR, seudonimización y 3 │
+  │                │     │  gráficos                                        │
+  ├────────────────┼─────┼──────────────────────────────────────────────────┤
+  │                │     │ 10 documentos y 10 clips con transcripción       │
+  │ 2 · Evaluación │ 8   │ manual; CER y WER base contra un modelo          │
+  │                │     │ alternativo; extracción con LLM y auditoría      │
+  │                │     │ humana de 20 casos                               │
+  ├────────────────┼─────┼──────────────────────────────────────────────────┤
+  │ 3 · Dashboard  │ 4   │ App pública con métricas, filtros, exploradores  │
+  │                │     │ de documentos y audios, y README                 │
+  └────────────────┴─────┴──────────────────────────────────────────────────┘
+
+  Reglas que anulan puntos si se rompen:
+  - Publicar datos personales sin seudonimizar.
+  - Usar material sin licencia.
+  - Usar referencias automáticas como si fueran manuales.
+  - Ajustar parámetros mirando los resultados de la muestra de evaluación.
+
+  2. Lo que te toca hacer a ti
+
+  Esto es lo que hace que el trabajo sea tuyo y no solo mío. Varias de estas
+  cosas el issue exige expresamente que las haga una persona.
+
+  Obligatorio:
+
+  1. Transcribir a mano las referencias de 10 documentos y 10 clips (la columna
+     texto_referencia). Es lo más importante.
+     - Transcribe mirando la imagen o escuchando el audio original. No corrijas
+       lo que sacó el modelo, porque eso infla las métricas.
+     - Yo te preparo una plantilla y una forma cómoda de ir clip por clip.
+  2. Auditar las 20 extracciones del LLM.
+     - Primero defines tus criterios de lo que cuenta como correcto.
+     - Luego revisas campo por campo y das el resultado (por ejemplo, 17/20) con
+       ejemplos de errores.
+  3. Revisar la seudonimización. La herramienta reemplaza nombres, pero el issue
+     dice que el método automático no sustituye la revisión humana.
+  4. Aprobar la muestra de evaluación antes de ver cualquier métrica. Yo te
+     propongo 10 documentos que cubran los 3 tipos y 10 clips de distintas
+     fuentes, y tú confirmas o cambias.
+  5. Crear, documentar y cerrar los 3 Issues en tu repo. Yo te redacto el texto
+     de cada avance y tú lo publicas.
+  6. Escribir con tus palabras las conclusiones: los 2 hallazgos y las 2
+     limitaciones del README y la reflexión por tipo de documento y de audio. Yo
+     te paso los datos y un borrador si quieres.
+  7. Desplegar en Streamlit Cloud con tu cuenta y comprobar que el enlace
+     público funciona.
+  8. Publicar el comentario de entrega en el issue #190.
+  9. Tomar las capturas de nuestra conversación (ver sección 4).
+
+  Recomendado, para darle más sello personal:
+  - Fotos tuyas con el celular de documentos públicos sin datos personales:
+    carteles, avisos, un periódico. Así cubres la categoría de "fotos con sombra
+    o inclinación", y la licencia es tuya.
+  - Algunos manuscritos tuyos, por ejemplo copiando a mano un texto peruano de
+    dominio público, mezclados con manuscritos históricos de Wikimedia Commons.
+  - Opcional: una grabación propia de una conversación entre 2 personas, con
+    consentimiento firmado. Si no, usamos las entrevistas de Wikimedia Commons,
+    que ya traen varios hablantes.
+
+  3. Cronograma de 3 días (+ domingo de reserva)
+
+  Día: Hoy, jueves 22 (noche)
+  Yo (Claude): Armo la estructura de tarea_2/, el .gitignore y la base de
+  voz.py/datos.py de la Sesión 13. Busco documentos peruanos con licencia en
+  Wikimedia Commons y archive.org, y audios en OpenSLR 73 y Commons. Armo el
+  script de descarga con pausas de 1–2 s. Primer commit.
+  Tú: Creas los 3 Issues. Copias tu API key de Gemini al .env (la misma de la
+  Tarea 1). Empiezas las capturas desde el inicio de esta conversación. Si te
+  animas: fotos y manuscritos propios.
+  ────────────────────────────────────────
+  Día: Viernes 23 — Parte 1
+  Yo (Claude): OCR de los 25 documentos y ASR de 30 min con VAD y separación de
+  hablantes. Seudonimización, limpieza, los 3 gráficos de Plotly, exportación
+  de los CSV y notebook 01 ejecutado. Te propongo la muestra de evaluación.
+  Tú: Me pasas tus fotos y manuscritos temprano. Revisas la seudonimización.
+  Apruebas la muestra. Empiezas a transcribir las 10 referencias de 
+  documentos. Cierras el Issue 1.
+  ────────────────────────────────────────
+  Día: Sábado 24 — Partes 2 y 3
+  Yo (Claude): Línea base (PaddleOCR y Whisper small) y modelos alternativos
+  (EasyOCR; Qwen3-ASR o Parakeet). Extracción con Gemini y tabla comparativa.
+  app.py, requirements.txt y borrador del README.
+  Tú: Mañana: transcribes los 10 clips. Tarde: auditas las 20 extracciones,
+  escribes tus conclusiones y despliegas en Streamlit Cloud. Cierras los Issues
+   2 y 3.
+  ────────────────────────────────────────
+  Día: Domingo 25 (reserva)
+  Yo (Claude): Repaso de la lista de verificación del issue: archivos pesados,
+  claves, enlaces rotos.
+  Tú: Últimas capturas y comentario de entrega en el #190.
+
+  Para que tu parte manual no se haga eterna, armaré el corpus con clips de unos
+  1–1.5 minutos. Así transcribir 10 clips te toma alrededor de 1 hora, y no 4.
+
+  4. Capturas de pantalla (evidencias_ia/)
+
+  No tengo forma de capturar tu pantalla desde aquí, así que las capturas las
+  tomas tú.
+
+  Cómo hacerlo:
+  - Usa Win + Shift + S y guarda cada imagen en tarea_2/evidencias_ia/ con
+    cualquier nombre.
+  - Hazlo al final de cada bloque de trabajo, mientras la conversación todavía
+    está en pantalla. No uses /clear, porque perderías lo que falta capturar.
+  - Empieza ya con esta conversación, desde tu primer mensaje.
+  - Como respaldo, /export guarda la conversación en un archivo de texto. Sirve
+    para no perder nada, aunque el issue pide imágenes.
+
+  Lo que hago yo después:
+  - Ordeno las capturas por fecha y las renombro 01.png, 02.png, etc.
+  - Reviso cada imagen, porque sí puedo verlas, para detectar claves de API,
+    rutas con tu nombre o datos personales antes de subirlas.
+  - Te aviso si falta algún tramo de la conversación.
+
+  ¿Empiezo con lo de hoy (estructura de carpetas y búsqueda de fuentes) mientras
+  creas los Issues?
+
+✻ Cooked for 1m 10s · done 8:21 PM
+
+❯ /btw a qué te refieres con sesión 13?                                         
+  ⎿  /btw isn't available over Remote Control.
+
+※ recap: Estamos preparando la Tarea 2: el entorno ya está instalado y probado, y te pasé las tareas manuales y el cronograma de 3 días. Lo siguiente es que me confirmes si empiezo con la estructura y las fuentes mientras tú creas los 3 Issues. (disable recaps in /config)
+
+❯ Antes de eso, dime qué cosas manuales debo hacer hoy. Paso a paso             
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Sobre la "Sesión 13": es la clase 13 de tu curso, "De la voz al texto". Así
+  figura en el repo del curso (d2cml-ai/Data-Science-Python, en
+  sessions/13-audio-a-texto/). De ahí salen tu notebook
+  tutorial_corto_audio_a_texto.ipynb y los archivos voz.py y datos.py, que el
+  issue pide reutilizar. La "Sesión 10" es la de OCR, de donde viene el notebook
+  de PaddleOCR.
+
+  Lo que tienes que hacer hoy, paso a paso
+
+  Paso 1 · Capturas (10–15 min)
+
+  1. Crea la carpeta tarea_2/evidencias_ia/.
+  2. Sube hasta tu primer mensaje de esta conversación ("hola claude, haré a
+     continuación una tarea…").
+  3. Captura la conversación de arriba hacia abajo con Win + Shift + S y guarda
+     cada imagen en esa carpeta. Puedes usar cualquier nombre; luego yo las
+     ordeno.
+  4. Si me estás escribiendo desde el celular por Remote Control, también vale
+     capturar desde ahí. Lo importante es que se lea bien y no falte ningún
+     tramo.
+
+  Paso 2 · Crear los 3 Issues en tu repo (5 min)
+
+  En github.com/LuisGuevaraVega/python_interm_dip_qlab, entra a Issues → New 
+  issue y crea tres con estos títulos exactos:
+  - T2 – Parte 1: Corpus y extracción (OCR + ASR)
+  - T2 – Parte 2: Evaluación y extracción estructurada
+  - T2 – Parte 3: Dashboard y despliegue
+
+  En la descripción basta con 2–3 líneas tuyas: qué incluye esa parte y la fecha
+  prevista (viernes 23, sábado 24, sábado 24). Durante la tarea irás agregando
+  comentarios como bitácora. No los cierres todavía.
+
+  Paso 3 · Tu API key de Gemini (2 min)
+
+  Copia el archivo tarea_1/.env a tarea_2/.env. Ya tiene GEMINI_API_KEY y
+  HF_TOKEN, y el .gitignore evita que se suba a GitHub. No me pegues la clave en
+  el chat.
+
+  Paso 4 · Decidir tu material propio (opcional, pero suma)
+
+  Dime cuáles de estas opciones vas a hacer, para buscar en internet solo lo que
+  falte:
+  - a) Fotos con el celular (hasta 8) de documentos impresos con sombra o
+    inclinación: avisos, carteles, una página de periódico, un afiche. Que no
+    salgan nombres de personas, DNI, teléfonos ni direcciones particulares.
+  - b) Manuscritos tuyos (algunos de los 9): por ejemplo, una página copiada a
+    mano de un texto peruano de dominio público, como un poema de Vallejo. Los
+    demás los saco de Wikimedia Commons.
+  - c) Grabación propia de una conversación entre 2 personas (5–10 min): solo si
+    la otra persona firma un consentimiento, que yo te redacto. Si no, usamos
+    entrevistas de Wikimedia Commons.
+
+  Si haces a) o b), guarda los archivos en tarea_2/datos/raw/documentos/propios/
+  (esa carpeta no se sube a Git). Puedes hacerlo hoy en la noche o mañana
+  temprano.
+
+  Paso 5 · Avisarme
+
+  Cuando termines los pasos 2 y 3, avísame con un "listo" y dime qué decidiste
+  en el paso 4. Mientras tanto ya puedo ir armando la estructura de carpetas y
+  buscando fuentes con licencia. ¿Arranco?
+✻ Worked for 22s · done 8:31 PM
+
+※ recap: Estamos preparando la Tarea 2 (OCR + audio a texto + dashboard); el entorno ya está instalado y probado. Siguiente paso: crea los 3 Issues, copia tu `.env` a `tarea_2/` y avísame si traerás fotos o manuscritos propios. (disable recaps in /config)
+
+❯ La parte 4 la tengo que hacer manualmente obligatoriamente o lo puedes buscar 
+  tú? No me queda claro                                                         
+
+● No es obligatorio. El issue acepta tres orígenes para los documentos:
+  Wikimedia Commons, archive.org o colecciones públicas, o capturas propias.
+  Puedo buscar los 25 documentos y los 30 minutos de audio yo, todos con
+  licencia libre.
+
+  El paso 4 solo era una opción para que el trabajo tenga más aporte tuyo. Lo
+  obligatorio de tu parte sigue siendo lo de la lista anterior: transcripciones
+  manuales, auditoría, Issues, capturas, despliegue y conclusiones.
+
+  Te recomiendo que yo busque todo. Si de algún tipo no encuentro suficiente con
+  buena licencia, te aviso para completarlo con fotos tuyas. El tipo más
+  difícil de llenar suele ser "fotos con sombra o inclinación", porque en
+  Wikimedia Commons hay pocas de documentos peruanos.
+
+  Entonces hoy solo tienes que hacer los pasos 1, 2 y 3: capturas, Issues y
+  copiar el .env. Arranco ahora con la estructura de carpetas y la búsqueda de
+  fuentes.
+
+✻ Worked for 8s · done 8:42 PM
+
+❯ Listo, ya hice los primeros 3 pasos. De hecho, al finalizar todo lo planeado  
+  de hoy recién tomaré imágenes de la conversación y exportaré la misma         
+
+● Perfecto. Primero verifico que los Issues y el .env estén bien, y reviso
+  datos.py para reutilizar las fuentes de audio de la clase.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+● Confirmado: los Issues #6, #7 y #8 están creados y el .env queda fuera de Git.
+  Ahora buscaré fuentes en la API de Wikimedia Commons, con pausas de cortesía,
+  y revisaré la licencia de cada archivo.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Encontré bastante material en Commons: entrevistas en español peruano de
+  Wikimedia Perú y la UNMSM con licencia CC BY-SA 4.0, ya llevo unos 35 minutos
+  en 15 audios. Sigo buscando más hasta superar los 20 clips.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Commons me pidió bajar el ritmo (error 429). Subo la pausa a 2 segundos,
+  agrego espera y reintento ante ese error, y sigo con los documentos.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● La búsqueda por texto en Commons da poco para manuscritos. Busco mejor por
+  categorías.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● Encontré cartas manuscritas de Grau, Salaverry y Gamarra, además de cartas a
+  Ricardo Palma (dominio público o CC0) y documentos mecanografiados. Ahora
+  continúo buscando impresos y fotos de carteles y placas.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Ya tengo unos 45 candidatos entre impresos, fotos de placas y manuscritos.
+  Ahora bajo las miniaturas para revisarlos visualmente y confirmar cuánto texto
+  tiene cada uno y si realmente es manuscrito o solo una foto inclinada.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Me faltan 3 miniaturas por el límite de Commons; las bajo después. Armo hojas
+  de contacto para revisar las 41 que sí llegaron.
+
+  Read 6 files, ran 2 shell commands (ctrl+o to expand)
+
+● Confirmo que las cartas "AR-ANH" del Archivo General de la Nación argentino,
+  pese a su origen, contienen en su sección II documentos peruanos (decreto
+  virreinal y notas de los presidentes Balta, Menéndez y Vivanco). Ahora
+  generaré las miniaturas faltantes, las 3 que quedaban pendientes, usando los
+  tamaños estándar requeridos por Wikimedia.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+● Ya completé la selección de documentos. Los manuscritos del archivo argentino
+  sirven: son documentos de gobierno peruanos. Antes de programar la descarga
+  reviso cómo carga audio voz.py.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Voy a armar la estructura de tarea_2/: copio voz.py del curso con nota de
+  origen, y escribo corpus.py con el catálogo de 25 documentos y 23 audios,
+  incluyendo descarga con User-Agent descriptivo, pausas de 2 s y lectura de
+  licencia desde Commons.
+
+● Bash(SP="C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-GitHu
+      b-python-interm-dip-qlab-tarea-2/f1c03ef4-16d3-4c41-a256-74c94d205fa3/scra
+      tchpad"; cd /…)
+  ⎿  """Herramientas de la sesión 13: de audio a texto, solo con modelos ab
+     iertos y locales.
+     … +16 lines (ctrl+o to expand)
+  ⎿  1 file changed (binary, mode only or too large to show)
+
+● Write(corpus.py)
+  ⎿  Wrote 188 lines to corpus.py
+       1 """Corpus de la Tarea 2: catálogo de documentos y audios peruano
+       2 
+       3     uv run python corpus.py
+       5 Todo viene de Wikimedia Commons con licencia libre (dominio públ
+         ico, CC0, CC BY o CC BY-SA).
+         ons al momento de bajarlo y
+       7 quedan en datos/fuentes.csv. Los archivos van a datos/raw/, que 
+       8 es la forma de recuperarlos.
+       9 
+         pedidos. Las imágenes se piden
+     … +276 lines (ctrl+o to expand)
+
+● Write(.gitignore)
+  ⎿  Wrote 20 lines to .gitignore
+       1 # Corpus original y salidas pesadas (se recuperan con `uv run py
+         thon corpus.py`)
+       3 
+       4 # Pesos y checkpoints de modelos (GitHub rechaza archivos > 100 
+         MB)
+       6 modelos/*.bin
+       7 modelos/*.pt
+       8 modelos/checkpoint-*/
+      10 # Material de clase: solo de referencia, no forma parte de la en
+         trega
+     … +12 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● La descarga corre en segundo plano y tarda unos minutos por las pausas de
+  cortesía. Cuando termine verifico que todo esté completo y hago el primer
+  commit.
+
+✻ Sautéed for 28m 51s · done 9:12 PM
+
+● Background command "Download the 25 documents and 23 audio clips" was stopped
+because the system is running low on memory
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Windows se quedó con poca memoria RAM y Claude Code detuvo la descarga, que
+  corría en segundo plano. No fue un error del script. Alcanzaron a bajarse 21 
+  de los 25 documentos; todavía no se bajó ningún audio.
+
+  No la vuelvo a lanzar por mi cuenta, por si la memoria sigue justa. El script
+  retoma donde quedó, así que no repite lo ya descargado.
+
+  Antes de reanudar:
+  1. Si puedes, cierra programas pesados (pestañas del navegador, por ejemplo).
+     Tu equipo tiene 8 GB de RAM y la descarga de audio necesita algo de memoria
+     para convertir los archivos.
+  2. Avísame con un "dale" y la relanzo. Esta vez la corro en primer plano, para
+     que no la detengan.
+
+  Mientras tanto, esto es lo que ya está seleccionado (todo de Wikimedia
+  Commons, con licencia libre):
+
+  ┌─────────────┬──────────┬────────────────────────────────────────────────┐
+  │    Tipo     │  Cant.   │                    Ejemplos                    │
+  ├─────────────┼──────────┼────────────────────────────────────────────────┤
+  │             │          │ Nota del Perú a la OEA (2001), carta de la     │
+  │ Impresos    │ 8        │ Presidencia (1956), resolución de Moyobamba,   │
+  │             │          │ El Peruano, Constitución de 1856, revista      │
+  │             │          │ Variedades (1909), Cachivaches de Palma        │
+  ├─────────────┼──────────┼────────────────────────────────────────────────┤
+  │             │          │ Placas de la Catedral de Lima, de bronce y de  │
+  │ Fotos       │ 8        │ mármol, cartel de árbol patrimonial con        │
+  │             │          │ reflejos, carta de Grau grabada en piedra      │
+  ├─────────────┼──────────┼────────────────────────────────────────────────┤
+  │             │          │ Cartas de Grau (1879), Gamarra (1822), San     │
+  │ Manuscritos │ 9        │ Román, Piérola, Balta y Menéndez; carta de un  │
+  │             │          │ soldado (1880); decreto del virrey (1642)      │
+  ├─────────────┼──────────┼────────────────────────────────────────────────┤
+  │             │ 23       │ 15 entrevistas: El Agustino, estudiantes       │
+  │ Audios      │ clips,   │ UNMSM, marchas con ruido, conferencia de       │
+  │             │ ~44 min  │ prensa, fiestas en Áncash. Más 8 lecturas de   │
+  │             │          │ artículos sobre huacas de Lima                 │
+  └─────────────┴──────────┴────────────────────────────────────────────────┘
+
+✻ Cogitated for 13s · done 9:14 PM
+❯ ya cerré algunas cosas, retoma desde donde te quedaste                        
+
+● Bash(powershell.exe -NoProfile -Command "\$o=Get-CimInstance
+      Win32_OperatingSystem; 'RAM libre: {0:N1} GB de {1:N1} GB' -f
+      (\$o.FreePhysicalMemory/1MB), (\$o.TotalVi…)
+  ⎿  RAM libre: 2.4 GB de 7.9 GB
+     Documentos:
+       doc_001 impreso    CC BY-SA 4.0     Nota de la Representaci�n del Pe
+     … +54 lines (ctrl+o to expand)
+  ⎿  Created datos\fuentes.csv (+49 -0)
+       1 +id,modalidad,fuente_url,licencia,autor,acceso,titulo_original,f
+         +echa_descarga                                                  
+       2 +doc_001,documento,https://commons.wikimedia.org/wiki/File:Carta
+         +_Democr%C3%A1tica_Interamericana.jpg,CC BY-SA 4.0,Elypress,Desc
+         +arga pública desde Wikimedia Commons; se recupera con `uv run p
+         +ython corpus.py` ,Carta Democrática Interamericana.jpg,2026-10-
+         +22                                                             
+       3 +doc_002,documento,https://commons.wikimedia.org/wiki/File:Carta
+         +_de_agradecimiento_del_secretario_de_la_Presidencia_de_la_Rep%C
+         +3%BAblica_Nazario_Ch%C3%A1vez_Aliaga_al_pintor_Segundo_Ciro_Gal
+         +lardo_Gallo_en_nombre_del_presidente_Manuel_Prado_Ugarteche.jpg
+         +,CC0,Anderson Reyes Trillo,Descarga pública desde Wikimedia Com
+         +mons; se recupera con `uv run python corpus.py` ,Carta de agrad
+         +ecimiento del secretario de la Presidencia de la República Naza
+         +rio Chávez Aliaga al pintor Segundo Ciro Gallardo Gallo en nomb
+         +re del presidente Manuel Prado Ugarteche.jpg,2026-10-22        
+       4 +doc_003,documento,https://commons.wikimedia.org/wiki/File:Otorg
+         +amiento_Municipal.jpg,CC0,Ing. Oswaldo Jiménez Salas,Descarga p
+         +ública desde Wikimedia Commons; se recupera con `uv run python 
+         +corpus.py` ,Otorgamiento Municipal.jpg,2026-10-22              
+       5 +doc_004,documento,https://commons.wikimedia.org/wiki/File:NOMBR
+         +AMIENTO_JAVIER_DAVID_HABICH.pdf,CC BY-SA 4.0,El Peruano,Descarg
+         +a pública desde Wikimedia Commons; se recupera con `uv run pyth
+         +on corpus.py` ,NOMBRAMIENTO JAVIER DAVID HABICH.pdf,2026-10-22 
+       6 +doc_005,documento,https://commons.wikimedia.org/wiki/File:Const
+         +ituci%C3%B3n_Pol%C3%ADtica_del_Per%C3%BA_%281856%29.pdf,Public 
+         +domain,Varios,Descarga pública desde Wikimedia Commons; se recu
+         +pera con `uv run python corpus.py` ,Constitución Política del P
+         +erú (1856).pdf,2026-10-22                                      
+       7 +doc_006,documento,https://commons.wikimedia.org/wiki/File:Varie
+         +dades_No._67.pdf,Public domain,"Palma, Clemente, dir. (Director
+         +).Moral, M. ed. (Editor).",Descarga pública desde Wikimedia Com
+         +mons; se recupera con `uv run python corpus.py` ,Variedades No.
+         + 67.pdf,2026-10-22                                             
+       8 +doc_007,documento,https://commons.wikimedia.org/wiki/File:Cachi
+         +vaches.djvu,Public domain,Ricardo Palma,Descarga pública desde 
+         +Wikimedia Commons; se recupera con `uv run python corpus.py` ,C
+         +achivaches.djvu,2026-10-22                                     
+       9 +doc_008,documento,https://commons.wikimedia.org/wiki/File:40000
+         +04161-0016_-_Carta_de_Carlos_J._Bachmann._1914_julio_4%2C_Maldo
+         +nado%3B_para_Ricardo_Palma%2C_Lima.pdf,CC0,"Bachmann, Carlos J.
+         +, 1869-",Descarga pública desde Wikimedia Commons; se recupera 
+         +con `uv run python corpus.py` ,"4000004161-0016 - Carta de Carl
+         +os J. Bachmann. 1914 julio 4, Maldonado; para Ricardo Palma, Li
+         +ma.pdf",2026-10-22                                             
+      10 +doc_009,documento,https://commons.wikimedia.org/wiki/File:LimaP
+         +lacaCatedral1988.JPG,CC BY-SA 3.0,Miguel Angel Chong,Descarga p
+         +ública desde Wikimedia Commons; se recupera con `uv run python 
+         +corpus.py` ,LimaPlacaCatedral1988.JPG,2026-10-22               
+      11 +doc_010,documento,https://commons.wikimedia.org/wiki/File:Placa
+         +_de_la_Casa_Federico_Elguera%2C_Calle_La_Virreyna%2C_Lima.jpg,C
+         +C BY-SA 4.0,AlejandroFC,Descarga pública desde Wikimedia Common
+         +s; se recupera con `uv run python corpus.py` ,"Placa de la Casa
+         + Federico Elguera, Calle La Virreyna, Lima.jpg",2026-10-22     
+      12 +doc_011,documento,https://commons.wikimedia.org/wiki/File:Pasaj
+         +e_Acisclo_Villar%C3%A1n_-_Placa_conmemorativa.jpg,CC BY-SA 4.0,
+         +AlejandroFC,Descarga pública desde Wikimedia Commons; se recupe
+         +ra con `uv run python corpus.py` ,Pasaje Acisclo Villarán - Pla
+         +ca conmemorativa.jpg,2026-10-22                                
+      13 +doc_012,documento,https://commons.wikimedia.org/wiki/File:Placa
+         +_conmemorativa_Mercado_Minorista_La_Parada.jpg,CC0,El Surquilla
+         +no,Descarga pública desde Wikimedia Commons; se recupera con `u
+         +v run python corpus.py` ,Placa conmemorativa Mercado Minorista 
+         +La Parada.jpg,2026-10-22                                       
+      14 +doc_013,documento,https://commons.wikimedia.org/wiki/File:Centr
+         +o_Espa%C3%B1ol%2C_Lima_01.jpg,CC BY-SA 4.0,AlejandroFC,Descarga
+         + pública desde Wikimedia Commons; se recupera con `uv run pytho
+         +n corpus.py` ,"Centro Español, Lima 01.jpg",2026-10-22         
+      15 +doc_014,documento,https://commons.wikimedia.org/wiki/File:Comme
+         +morative_plaque_to_Ioannes_Paulus_II_in_the_Cathedral_of_Lima.j
+         +pg,CC BY 4.0,Happa,Descarga pública desde Wikimedia Commons; se
+         + recupera con `uv run python corpus.py` ,Commemorative plaque t
+         +o Ioannes Paulus II in the Cathedral of Lima.jpg,2026-10-22    
+      16 +doc_015,documento,https://commons.wikimedia.org/wiki/File:Arauc
+         +aria_patrimonial_de_San_Isidro_06.jpg,CC BY-SA 4.0,Guillermo Ca
+         +rlos Gómez,Descarga pública desde Wikimedia Commons; se recuper
+         +a con `uv run python corpus.py` ,Araucaria patrimonial de San I
+         +sidro 06.jpg,2026-10-22                                        
+      17 +doc_016,documento,https://commons.wikimedia.org/wiki/File:Carta
+         +_de_Grau_a_viuda_de_Prat_en_monumento_chileno.JPG,CC BY-SA 4.0,
+         +Ciberprofe,Descarga pública desde Wikimedia Commons; se recuper
+         +a con `uv run python corpus.py` ,Carta de Grau a viuda de Prat 
+         +en monumento chileno.JPG,2026-10-22                            
+      18 +doc_017,documento,https://commons.wikimedia.org/wiki/File:Migue
+         +l_Grau_-_Brev.jpg,Public domain,Miguel Grau (1834-1879),Descarg
+         +a pública desde Wikimedia Commons; se recupera con `uv run pyth
+         +on corpus.py` ,Miguel Grau - Brev.jpg,2026-10-22               
+      19 +doc_018,documento,https://commons.wikimedia.org/wiki/File:AR-AN
+         +H-EF-Secc.II-53-2.jpg,Public domain,Agustín Gamarra,Descarga pú
+         +blica desde Wikimedia Commons; se recupera con `uv run python c
+         +orpus.py` ,AR-ANH-EF-Secc.II-53-2.jpg,2026-10-22               
+      20 +doc_019,documento,https://commons.wikimedia.org/wiki/File:AR-AN
+         +H-EF-Secc.II-64.jpg,Public domain,Miguel de San Román,Descarga 
+         +pública desde Wikimedia Commons; se recupera con `uv run python
+         + corpus.py` ,AR-ANH-EF-Secc.II-64.jpg,2026-10-22               
+      21 +doc_020,documento,https://commons.wikimedia.org/wiki/File:AR-AN
+         +H-EF-Secc.II-69.jpg,Public domain,Nicolás de Piérola,Descarga p
+         +ública desde Wikimedia Commons; se recupera con `uv run python 
+         +corpus.py` ,AR-ANH-EF-Secc.II-69.jpg,2026-10-22                
+      22 +doc_021,documento,https://commons.wikimedia.org/wiki/File:AAMSM
+         +_carta_a_hermano_31072010.jpg,CC BY-SA 3.0,Dtarazona,Descarga p
+         +ública desde Wikimedia Commons; se recupera con `uv run python 
+         +corpus.py` ,AAMSM carta a hermano 31072010.jpg,2026-10-22      
+      23 +doc_022,documento,https://commons.wikimedia.org/wiki/File:40000
+         +04161-0003_-_Carta_de_Carlos_J._Bachmann._1912_junio_10%2C_Ribe
+         +ralta%3B_para_Ricardo_Palma%2C_Lima.pdf,CC0,"Bachmann, Carlos J
+         +., 1869-",Descarga pública desde Wikimedia Commons; se recupera
+         + con `uv run python corpus.py` ,"4000004161-0003 - Carta de Car
+         +los J. Bachmann. 1912 junio 10, Riberalta; para Ricardo Palma, 
+         +Lima.pdf",2026-10-22                                           
+      24 +doc_023,documento,https://commons.wikimedia.org/wiki/File:AR-AN
+         +H-EF-Secc.II-57.pdf,Public domain,Manuel Menéndez,Descarga públ
+         +ica desde Wikimedia Commons; se recupera con `uv run python cor
+         +pus.py` ,AR-ANH-EF-Secc.II-57.pdf,2026-10-22                   
+      25 +doc_024,documento,https://commons.wikimedia.org/wiki/File:AR-AN
+         +H-EF-Secc.II-67.jpg,Public domain,José Balta,Descarga pública d
+         +esde Wikimedia Commons; se recupera con `uv run python corpus.p
+         +y` ,AR-ANH-EF-Secc.II-67.jpg,2026-10-22                        
+      26 +doc_025,documento,https://commons.wikimedia.org/wiki/File:AR-AN
+         +H-EF-Secc.II-17.pdf,Public domain,"Pedro de Toledo, 1st Marquis
+         + of Mancera, Juan de Cáceres y Ulloa",Descarga pública desde Wi
+         +kimedia Commons; se recupera con `uv run python corpus.py` ,AR-
+         +ANH-EF-Secc.II-17.pdf,2026-10-22                               
+      27 +clip_001,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_1_en_la_Av._Rivag%C3%BCero_-_El_Agustino.ogg,CC BY-SA 4.0,Jo
+         +rgeFlores-pe,Descarga pública desde Wikimedia Commons; se recup
+         +era con `uv run python corpus.py` ,Entrevista 1 en la Av. Rivag
+         +üero - El Agustino.ogg,2026-10-22                              
+      28 +clip_002,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_2_en_la_Av._Rivag%C3%BCero_-_El_Agustino.ogg,CC BY-SA 4.0,Jo
+         +rgeFlores-pe,Descarga pública desde Wikimedia Commons; se recup
+         +era con `uv run python corpus.py` ,Entrevista 2 en la Av. Rivag
+         +üero - El Agustino.ogg,2026-10-22                              
+      29 +clip_003,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_en_el_medio_tiempo.opus,CC BY-SA 4.0,Ariana Lucero De La Cru
+         +z Guerrero,Descarga pública desde Wikimedia Commons; se recuper
+         +a con `uv run python corpus.py` ,Entrevista en el medio tiempo.
+         +opus,2026-10-22                                                
+      30 +clip_004,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_1%2C.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga p
+         +ública desde Wikimedia Commons; se recupera con `uv run python 
+         +corpus.py` ,"Entrevista 1,.wav",2026-10-22                     
+      31 +clip_005,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_2.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+         +ica desde Wikimedia Commons; se recupera con `uv run python cor
+         +pus.py` ,Entrevista 2.wav,2026-10-22                           
+      32 +clip_006,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_3.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+         +ica desde Wikimedia Commons; se recupera con `uv run python cor
+         +pus.py` ,Entrevista 3.wav,2026-10-22                           
+      33 +clip_007,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_4.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+         +ica desde Wikimedia Commons; se recupera con `uv run python cor
+         +pus.py` ,Entrevista 4.wav,2026-10-22                           
+      34 +clip_008,audio,https://commons.wikimedia.org/wiki/File:Audio_de
+         +_la_entrevista_a_una_chica_que_participaba_de_la_marcha.ogg,CC 
+         +BY-SA 4.0,Joaquin Canales,Descarga pública desde Wikimedia Comm
+         +ons; se recupera con `uv run python corpus.py` ,Audio de la ent
+         +revista a una chica que participaba de la marcha.ogg,2026-10-22
+      35 +clip_009,audio,https://commons.wikimedia.org/wiki/File:UNMSM_En
+         +trevista_realizada_en_la_marcha_por_Cristopher_Serrano_P%C3%A9r
+         +ez.wav,CC BY-SA 4.0,Hellloff233,Descarga pública desde Wikimedi
+         +a Commons; se recupera con `uv run python corpus.py` ,UNMSM Ent
+         +revista realizada en la marcha por Cristopher Serrano Pérez.wav
+         +,2026-10-22                                                    
+      36 +clip_010,audio,https://commons.wikimedia.org/wiki/File:UNMSM_En
+         +trevistas_en_la_marcha_1_por_Cristopher_Serrano_P%C3%A9rez.wav,
+         +CC BY-SA 4.0,Hellloff233,Descarga pública desde Wikimedia Commo
+         +ns; se recupera con `uv run python corpus.py` ,UNMSM Entrevista
+         +s en la marcha 1 por Cristopher Serrano Pérez.wav,2026-10-22   
+      37 +clip_011,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta-Aurora_Coronado-organizaci%C3%B3n_de_mujeres_ind%C3%ADgenas-
+         +fiestas_patrias.ogg,CC BY-SA 4.0,QM Keen,Descarga pública desde
+         + Wikimedia Commons; se recupera con `uv run python corpus.py` ,
+         +Entrevista-Aurora Coronado-organización de mujeres indígenas-fi
+         +estas patrias.ogg,2026-10-22                                   
+      38 +clip_012,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_a_Luz_Merida-Organizaci%C3%B3n_de_mujeres_ind%C3%ADgenas-fie
+         +stas_patrias-protesta.ogg,CC BY-SA 4.0,QM Keen,Descarga pública
+         + desde Wikimedia Commons; se recupera con `uv run python corpus
+         +.py` (recorte 0-240 s) ,Entrevista a Luz Merida-Organización de
+         + mujeres indígenas-fiestas patrias-protesta.ogg,2026-10-22     
+      39 +clip_013,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_a_la_se%C3%B1ora_Dina_Espinoza%2C_mujer_pomabambina.ogg,CC B
+         +Y-SA 4.0,Rashelley Perez,Descarga pública desde Wikimedia Commo
+         +ns; se recupera con `uv run python corpus.py` ,"Entrevista a la
+         + señora Dina Espinoza, mujer pomabambina.ogg",2026-10-22       
+      40 +clip_014,audio,https://commons.wikimedia.org/wiki/File:Entrevis
+         +ta_a_la_se%C3%B1ora_Aurelia%2C_mujer_shuyasina.ogg,CC BY-SA 4.0
+         +,Rashelley Perez,Descarga pública desde Wikimedia Commons; se r
+         +ecupera con `uv run python corpus.py` ,"Entrevista a la señora 
+         +Aurelia, mujer shuyasina.ogg",2026-10-22                       
+     … 9 more lines (ctrl+o to expand)
+  ⎿  (timeout 10m)
+
+● Descarga completa: 25 documentos y 23 clips de audio (42.4 min), todos con
+  licencia libre; los caracteres raros son solo de la consola, el CSV está bien
+  en UTF-8. Ahora reviso los archivos y preparo lo que entraría al commit.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● pyproject.toml y uv.lock no aparecen en el estado de Git. Reviso por qué.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● Ya existe un commit con el entorno y la carpeta clases/ subido a
+  origin/tarea-2, así que la línea clases/ en el .gitignore no tendría efecto.
+  Voy a quitarla para evitar confusiones.
+
+● Update(.gitignore)
+  ⎿  Removed 3 lines
+       7  modelos/*.pt
+       8  modelos/checkpoint-*/
+       9  
+      10 -# Material de clase: solo de referencia, no forma parte de la e
+         -ntrega                                                         
+      11 -clases/                                                        
+      12 -                                                               
+      10  # Credenciales (API key de Gemini, token de Hugging Face)
+      11  .env
+      12  
+
+  Ran 1 shell command, wrote 1 memory (ctrl+o to expand)
+  ⎿  PostToolUse:Bash says: Tip: Run /ultrareview before you push to catch bugs 
+     with a cloud-based multi-agent review — 3 free reviews left.
+
+● Ya terminé mi parte de hoy: bajé el corpus completo y lo dejé en un commit
+  local, todavía sin subir a GitHub.
+
+  El corpus:
+  - Documentos (25): 8 impresos, 8 fotos y 9 manuscritos.
+  - Audio (23 clips, 42.4 min): el mínimo era 30 min y 20 clips. Uno de los
+    clips (El Agustino 2) tiene varias hablantes, para la separación de
+    hablantes.
+  - Licencias: 30 CC BY-SA 4.0, 10 de dominio público, 5 CC0, 2 CC BY-SA 3.0 y 1
+    CC BY 4.0. Todas permiten usar el material.
+  - Dónde están los archivos: en datos/raw/, que no se sube a Git.
+    datos/fuentes.csv registra de dónde sale cada uno, y uv run python corpus.py
+    los vuelve a descargar.
+
+  Commit e0cb5ca: incluye corpus.py, datos/fuentes.csv, voz.py (copiado de la
+  Sesión 13, con nota de origen) y el .gitignore. Va encima del tuyo, "creacion
+  de enviroment". ¿Lo subo con git push, o lo subes tú?
+
+  Lo que te queda a ti hoy
+
+  1. Comentario de bitácora en el Issue #6. Puedes pegar este texto o escribirlo
+  con tus palabras:
+
+  ▎ Avance 22/10: Entorno uv listo (Python 3.12, PaddleOCR, faster-whisper, 
+  ▎ EasyOCR, pyannote). Corpus definido y descargado de Wikimedia Commons: 25 
+  ▎ documentos (8 impresos, 8 fotos, 9 manuscritos) y 23 clips de audio (42.4 
+  ▎ min, entrevistas y lecturas en español peruano), con licencias en 
+  ▎ datos/fuentes.csv. Siguiente: OCR, ASR, seudonimización y EDA.
+
+  2. Capturas y /export de la conversación, como planeaste. Guárdalas en
+  tarea_2/evidencias_ia/ y mañana yo las ordeno y reviso.
+
+  Una decisión tuya para mañana: la seudonimización
+
+  Varios documentos y audios tienen nombres reales:
+  - personajes históricos ya fallecidos, como Grau, Piérola o Ricardo Palma;
+  - autoridades en funciones públicas, como alcaldes, jueces o embajadores;
+  - personas privadas, como el homenajeado de la resolución de Moyobamba o las
+    entrevistadas.
+
+  Las opciones son:
+  - a) Seudonimizar solo a las personas privadas y dejar a los personajes
+    históricos y a las autoridades en su rol público. El criterio queda
+    documentado en el notebook.
+  - b) Seudonimizar todos los nombres de personas. Es lo más seguro frente a la
+    regla del issue, pero textos como la carta de Grau pierden sentido.
+
+  Te recomiendo la a. Igual es tu decisión, y cuenta como parte de la revisión
+  humana que pide el issue.
+
+✻ Baked for 4m 40s · done 9:22 PM
+
+❯ haré la parte a. Pero por hoy es todo?                                        
+
+  Wrote 1 memory (ctrl+o to expand)
+
+● Anotada la opción a: se seudonimiza solo a personas privadas, y el criterio
+  quedará documentado en el notebook 01.
+
+  Sí, por hoy es todo. Ya cumplimos lo del día 1: entorno, Issues y corpus
+  descargado con sus fuentes. Solo te quedan:
+  - el comentario de bitácora en el Issue #6;
+  - las capturas y el /export de la conversación;
+  - decirme si subo el commit o lo subes tú.
+
+  Mañana viernes (Parte 1):
+  - Yo: OCR de los 25 documentos y transcripción de los 23 clips, con detección
+    de voz (VAD) y separación de hablantes. Además, seudonimización, limpieza,
+    los 3 gráficos y el notebook 01 ejecutado.
+    - La transcripción en CPU tarda: calculo 30–60 min para los 42 min de audio.
+      Conviene lanzarla temprano y con pocos programas abiertos, por la RAM.
+  - Tú:
+    a. Revisar la lista de nombres que voy a seudonimizar.
+    b. Aprobar la muestra de evaluación de 10 documentos y 10 clips que te
+       propondré.
+    c. Empezar a transcribir a mano los 10 documentos, mirando la imagen
+       original.
+    d. Cerrar el Issue #6.
+
+✻ Churned for 11s · done 9:24 PM
