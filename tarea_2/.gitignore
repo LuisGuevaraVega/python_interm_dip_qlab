@@ -21,3 +21,6 @@ datos/referencias/
 
 # Lock del entorno de los notebooks: Streamlit Cloud lo preferiría a requirements.txt
 uv.lock
+
+# Guías de clase (solo consulta local, no se versionan)
+clases/
