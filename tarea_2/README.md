@@ -37,7 +37,7 @@ La evaluación usa **10 documentos y 10 clips** del corpus, transcritos a mano p
 | Documentos | EasyOCR | CER 0,300 | 17 s por documento |
 | Audio | **faster-whisper small** | **WER 0,218** | factor de tiempo real 0,36 |
 | Audio | Qwen3-ASR 0,6B | WER 0,228 | factor de tiempo real 0,84 |
-| Extracción LLM | Gemini 3.5 Flash-Lite | acuerdo con la auditoría humana: _(pendiente)_/20 | — |
+| Extracción LLM | Gemini 3.5 Flash-Lite | acuerdo con la auditoría humana: **10/20** fichas completamente correctas (impresos y fotos 5/5, manuscritos 0/5, audios 5/10) | — |
 
 ### Hallazgos
 
