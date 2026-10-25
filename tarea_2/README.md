@@ -19,6 +19,62 @@ Todos los archivos vienen de **Wikimedia Commons** y se descargaron el **22 de o
 - **Muestra publicable** (`datos/ejemplos/`): 23 imágenes reducidas y 9 audios en OGG, solo de los archivos donde no aparecen personas privadas. El resto se consulta como texto y metadatos.
 - **No se versionan** los originales, las salidas crudas ni los pesos de los modelos (`datos/raw/`, ver `.gitignore`).
 
+<details>
+<summary><b>Fuente, licencia y autor de cada archivo (48)</b></summary>
+
+| id | Tipo o condición | Licencia | Autor | Fuente |
+|---|---|---|---|---|
+| doc_001 | impreso | CC BY-SA 4.0 | Elypress | [Commons](https://commons.wikimedia.org/wiki/File:Carta_Democr%C3%A1tica_Interamericana.jpg) |
+| doc_002 | impreso | CC0 | Anderson Reyes Trillo | [Commons](https://commons.wikimedia.org/wiki/File:Carta_de_agradecimiento_del_secretario_de_la_Presidencia_de_la_Rep%C3%BAblica_Nazario_Ch%C3%A1vez_Aliaga_al_pintor_Segundo_Ciro_Gallardo_Gallo_en_nombre_del_presidente_Manuel_Prado_Ugarteche.jpg) |
+| doc_003 | impreso | CC0 | Ing. Oswaldo Jiménez Salas | [Commons](https://commons.wikimedia.org/wiki/File:Otorgamiento_Municipal.jpg) |
+| doc_004 | impreso | CC BY-SA 4.0 | El Peruano | [Commons](https://commons.wikimedia.org/wiki/File:NOMBRAMIENTO_JAVIER_DAVID_HABICH.pdf) |
+| doc_005 | impreso | Public domain | Varios | [Commons](https://commons.wikimedia.org/wiki/File:Constituci%C3%B3n_Pol%C3%ADtica_del_Per%C3%BA_%281856%29.pdf) |
+| doc_006 | impreso | Public domain | Palma, Clemente, dir. (Director).Moral, M. ed. (Editor). | [Commons](https://commons.wikimedia.org/wiki/File:Variedades_No._67.pdf) |
+| doc_007 | impreso | Public domain | Ricardo Palma | [Commons](https://commons.wikimedia.org/wiki/File:Cachivaches.djvu) |
+| doc_008 | impreso | CC0 | Bachmann, Carlos J., 1869- | [Commons](https://commons.wikimedia.org/wiki/File:4000004161-0016_-_Carta_de_Carlos_J._Bachmann._1914_julio_4%2C_Maldonado%3B_para_Ricardo_Palma%2C_Lima.pdf) |
+| doc_009 | foto | CC BY-SA 3.0 | Miguel Angel Chong | [Commons](https://commons.wikimedia.org/wiki/File:LimaPlacaCatedral1988.JPG) |
+| doc_010 | foto | CC BY-SA 4.0 | AlejandroFC | [Commons](https://commons.wikimedia.org/wiki/File:Placa_de_la_Casa_Federico_Elguera%2C_Calle_La_Virreyna%2C_Lima.jpg) |
+| doc_011 | foto | CC BY-SA 4.0 | AlejandroFC | [Commons](https://commons.wikimedia.org/wiki/File:Pasaje_Acisclo_Villar%C3%A1n_-_Placa_conmemorativa.jpg) |
+| doc_012 | foto | CC0 | El Surquillano | [Commons](https://commons.wikimedia.org/wiki/File:Placa_conmemorativa_Mercado_Minorista_La_Parada.jpg) |
+| doc_013 | foto | CC BY-SA 4.0 | AlejandroFC | [Commons](https://commons.wikimedia.org/wiki/File:Centro_Espa%C3%B1ol%2C_Lima_01.jpg) |
+| doc_014 | foto | CC BY 4.0 | Happa | [Commons](https://commons.wikimedia.org/wiki/File:Commemorative_plaque_to_Ioannes_Paulus_II_in_the_Cathedral_of_Lima.jpg) |
+| doc_015 | foto | CC BY-SA 4.0 | Guillermo Carlos Gómez | [Commons](https://commons.wikimedia.org/wiki/File:Araucaria_patrimonial_de_San_Isidro_06.jpg) |
+| doc_016 | foto | CC BY-SA 4.0 | Ciberprofe | [Commons](https://commons.wikimedia.org/wiki/File:Carta_de_Grau_a_viuda_de_Prat_en_monumento_chileno.JPG) |
+| doc_017 | manuscrito | Public domain | Miguel Grau (1834-1879) | [Commons](https://commons.wikimedia.org/wiki/File:Miguel_Grau_-_Brev.jpg) |
+| doc_018 | manuscrito | Public domain | Agustín Gamarra | [Commons](https://commons.wikimedia.org/wiki/File:AR-ANH-EF-Secc.II-53-2.jpg) |
+| doc_019 | manuscrito | Public domain | Miguel de San Román | [Commons](https://commons.wikimedia.org/wiki/File:AR-ANH-EF-Secc.II-64.jpg) |
+| doc_020 | manuscrito | Public domain | Nicolás de Piérola | [Commons](https://commons.wikimedia.org/wiki/File:AR-ANH-EF-Secc.II-69.jpg) |
+| doc_021 | manuscrito | CC BY-SA 3.0 | Dtarazona | [Commons](https://commons.wikimedia.org/wiki/File:AAMSM_carta_a_hermano_31072010.jpg) |
+| doc_022 | manuscrito | CC0 | Bachmann, Carlos J., 1869- | [Commons](https://commons.wikimedia.org/wiki/File:4000004161-0003_-_Carta_de_Carlos_J._Bachmann._1912_junio_10%2C_Riberalta%3B_para_Ricardo_Palma%2C_Lima.pdf) |
+| doc_023 | manuscrito | Public domain | Manuel Menéndez | [Commons](https://commons.wikimedia.org/wiki/File:AR-ANH-EF-Secc.II-57.pdf) |
+| doc_024 | manuscrito | Public domain | José Balta | [Commons](https://commons.wikimedia.org/wiki/File:AR-ANH-EF-Secc.II-67.jpg) |
+| doc_025 | manuscrito | Public domain | Pedro de Toledo, 1st Marquis of Mancera, Juan de Cáceres y Ulloa | [Commons](https://commons.wikimedia.org/wiki/File:AR-ANH-EF-Secc.II-17.pdf) |
+| clip_001 | entrevista en la calle | CC BY-SA 4.0 | JorgeFlores-pe | [Commons](https://commons.wikimedia.org/wiki/File:Entrevista_1_en_la_Av._Rivag%C3%BCero_-_El_Agustino.ogg) |
+| clip_002 | entrevista en la calle, varias hablantes | CC BY-SA 4.0 | JorgeFlores-pe | [Commons](https://commons.wikimedia.org/wiki/File:Entrevista_2_en_la_Av._Rivag%C3%BCero_-_El_Agustino.ogg) |
+| clip_003 | entrevista durante un partido, ruido de fondo | CC BY-SA 4.0 | Ariana Lucero De La Cruz Guerrero | [Commons](https://commons.wikimedia.org/wiki/File:Entrevista_en_el_medio_tiempo.opus) |
+| clip_004 | entrevista grabada por estudiante UNMSM | CC BY-SA 4.0 | Gianpier Yair Venegas Ambia | [Commons](https://commons.wikimedia.org/wiki/File:Entrevista_1%2C.wav) |
+| clip_005 | entrevista grabada por estudiante UNMSM | CC BY-SA 4.0 | Gianpier Yair Venegas Ambia | [Commons](https://commons.wikimedia.org/wiki/File:Entrevista_2.wav) |
+| clip_006 | entrevista grabada por estudiante UNMSM | CC BY-SA 4.0 | Gianpier Yair Venegas Ambia | [Commons](https://commons.wikimedia.org/wiki/File:Entrevista_3.wav) |
+| clip_007 | entrevista grabada por estudiante UNMSM | CC BY-SA 4.0 | Gianpier Yair Venegas Ambia | [Commons](https://commons.wikimedia.org/wiki/File:Entrevista_4.wav) |
+| clip_008 | entrevista en una marcha, ruido de multitud | CC BY-SA 4.0 | Joaquin Canales | [Commons](https://commons.wikimedia.org/wiki/File:Audio_de_la_entrevista_a_una_chica_que_participaba_de_la_marcha.ogg) |
+| clip_009 | entrevista en una marcha, ruido de multitud | CC BY-SA 4.0 | Hellloff233 | [Commons](https://commons.wikimedia.org/?curid=133964620) |
+| clip_010 | entrevistas en una marcha, ruido de multitud | CC BY-SA 4.0 | Hellloff233 | [Commons](https://commons.wikimedia.org/?curid=133964621) |
+| clip_011 | declaraciones en conferencia de prensa | CC BY-SA 4.0 | QM Keen | [Commons](https://commons.wikimedia.org/?curid=121219890) |
+| clip_012 | declaraciones en conferencia de prensa | CC BY-SA 4.0 | QM Keen | [Commons](https://commons.wikimedia.org/?curid=121219891) |
+| clip_013 | entrevista en una fiesta patronal (Áncash) | CC BY-SA 4.0 | Rashelley Perez | [Commons](https://commons.wikimedia.org/?curid=149433722) |
+| clip_014 | entrevista en una fiesta patronal (Áncash) | CC BY-SA 4.0 | Rashelley Perez | [Commons](https://commons.wikimedia.org/?curid=149433723) |
+| clip_015 | entrevista en una fiesta patronal (Áncash) | CC BY-SA 4.0 | GFSA01 | [Commons](https://commons.wikimedia.org/?curid=149445104) |
+| clip_016 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Melvin Ramos Gonzales | [Commons](https://commons.wikimedia.org/wiki/File:Es-Huaca_El_Retablo-Comas-article2.oga) |
+| clip_017 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Jhoe Pari | [Commons](https://commons.wikimedia.org/wiki/File:Huaca_Mateo_Salado%2C_cultura_Yschma_en_4_minutos_audio.ogg) |
+| clip_018 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Jhon Manayay | [Commons](https://commons.wikimedia.org/wiki/File:Es-Huaca_Puente_Inca-article.ogg) |
+| clip_019 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Ariana zafra | [Commons](https://commons.wikimedia.org/wiki/File:Es-Huaca_Santa_Rosa-article.ogg) |
+| clip_020 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Yasser Toledo | [Commons](https://commons.wikimedia.org/wiki/File:Audio_de_la_Huaca_Sinchi_Roca.ogg) |
+| clip_021 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Samanta Sahory | [Commons](https://commons.wikimedia.org/wiki/File:Es-Huaca_Garagay-article.ogg) |
+| clip_022 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Sheyla F. Crovetto | [Commons](https://commons.wikimedia.org/wiki/File:Es-Huaca_El_Sauce-article.ogg) |
+| clip_023 | lectura de artículo de Wikipedia | CC BY-SA 4.0 | Soto Caldas Cesar | [Commons](https://commons.wikimedia.org/wiki/File:Es-Huaca_Tambo_Inga_20-article.oga) |
+
+</details>
+
 ## Método
 
 | Etapa | Modelo base | Modelo alternativo |
