@@ -2,7 +2,7 @@
 
 **Pregunta:** ¿podemos convertir documentos escaneados y entrevistas en audio en un archivo de texto estructurado y buscable?
 
-**Dashboard público:** _(pendiente: enlace de Streamlit Community Cloud)_
+**Dashboard público:** https://tarea-2-texto-audio.streamlit.app/
 
 Tarea 2 del curso Data Science con Python. Es un pipeline de IA que extrae texto de documentos peruanos con OCR, transcribe entrevistas en español peruano con ASR, seudonimiza a las personas privadas, extrae campos estructurados con un LLM y publica los resultados en un dashboard de Streamlit.
 
