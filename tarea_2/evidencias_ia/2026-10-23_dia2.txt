@@ -66,7 +66,7 @@
      mejor texto, pero tarda bastante más y podría quedarse sin memoria.
   2. Nombres de entrevistadas en fuentes.csv, que ya está subido a GitHub. Las
      URL de Commons de clip_011, clip_012, clip_013 y clip_015 llevan nombres de
-     personas privadas, como "Dina Espinoza" o "María Romero". Esto choca con
+     personas privadas, como "[ENTREVISTADA_3]" o "[ENTREVISTADA_5]". Esto choca con
      tu criterio de seudonimización.
      - Opción A: mantenerlas, porque son títulos públicos de Commons y sirven
        para rastrear el origen. Lo dejaría documentado.
@@ -364,7 +364,7 @@
 
 ● Ya tengo los números. Ahora modifico corpus.py para identificar esos 5 clips
   por su número interno en lugar del nombre del archivo, incluyendo también
-  clip_014 por mencionar a "la señora Aurelia", otra persona privada.
+  clip_014 por mencionar a "la señora [ENTREVISTADA_4]", otra persona privada.
 ● Bash(cd "C:/Users/user/Documents/GitHub/python_interm_dip_qlab/tarea_2" &&
       .venv/Scripts/python.exe - <<'EOF'
       from pathlib import Path…)
@@ -483,7 +483,7 @@
          -achivaches.djvu,2026-10-22                                     
        9 -doc_008,documento,https://commons.wikimedia.org/wiki/File:40000
          -04161-0016_-_Carta_de_Carlos_J._Bachmann._1914_julio_4%2C_Maldo
-         -nado%3B_para_Ricardo_Palma%2C_Lima.pdf,CC0,"Bachmann, Carlos J.
+         -nado%3B_para_Ricardo_Palma%2C_Lima.pdf,CC0,"Bachmann, [ENTREVISTADO_2] J.
          -, 1869-",Descarga pública desde Wikimedia Commons; se recupera 
          -con `uv run python corpus.py` ,"4000004161-0016 - Carta de Carl
          -os J. Bachmann. 1914 julio 4, Maldonado; para Ricardo Palma, Li
@@ -548,7 +548,7 @@
          -corpus.py` ,AAMSM carta a hermano 31072010.jpg,2026-10-22      
       23 -doc_022,documento,https://commons.wikimedia.org/wiki/File:40000
          -04161-0003_-_Carta_de_Carlos_J._Bachmann._1912_junio_10%2C_Ribe
-         -ralta%3B_para_Ricardo_Palma%2C_Lima.pdf,CC0,"Bachmann, Carlos J
+         -ralta%3B_para_Ricardo_Palma%2C_Lima.pdf,CC0,"Bachmann, [ENTREVISTADO_2] J
          -., 1869-",Descarga pública desde Wikimedia Commons; se recupera
          - con `uv run python corpus.py` ,"4000004161-0003 - Carta de Car
          -los J. Bachmann. 1912 junio 10, Riberalta; para Ricardo Palma, 
@@ -563,7 +563,7 @@
          -y` ,AR-ANH-EF-Secc.II-67.jpg,2026-10-22                        
       26 -doc_025,documento,https://commons.wikimedia.org/wiki/File:AR-AN
          -H-EF-Secc.II-17.pdf,Public domain,"Pedro de Toledo, 1st Marquis
-         - of Mancera, Juan de Cáceres y Ulloa",Descarga pública desde Wi
+         - of Mancera, [ENTREVISTADOR_3] de Cáceres y Ulloa",Descarga pública desde Wi
          -kimedia Commons; se recupera con `uv run python corpus.py` ,AR-
          -ANH-EF-Secc.II-17.pdf,2026-10-22                               
       27 -clip_001,audio,https://commons.wikimedia.org/wiki/File:Entrevis
@@ -582,19 +582,19 @@
          -a con `uv run python corpus.py` ,Entrevista en el medio tiempo.
          -opus,2026-10-22                                                
       30 -clip_004,audio,https://commons.wikimedia.org/wiki/File:Entrevis
-         -ta_1%2C.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga p
+         -ta_1%2C.wav,CC BY-SA 4.0,Gianpier Yair [ENTREVISTADOR_2] Ambia,Descarga p
          -ública desde Wikimedia Commons; se recupera con `uv run python 
          -corpus.py` ,"Entrevista 1,.wav",2026-10-22                     
       31 -clip_005,audio,https://commons.wikimedia.org/wiki/File:Entrevis
-         -ta_2.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+         -ta_2.wav,CC BY-SA 4.0,Gianpier Yair [ENTREVISTADOR_2] Ambia,Descarga públ
          -ica desde Wikimedia Commons; se recupera con `uv run python cor
          -pus.py` ,Entrevista 2.wav,2026-10-22                           
       32 -clip_006,audio,https://commons.wikimedia.org/wiki/File:Entrevis
-         -ta_3.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+         -ta_3.wav,CC BY-SA 4.0,Gianpier Yair [ENTREVISTADOR_2] Ambia,Descarga públ
          -ica desde Wikimedia Commons; se recupera con `uv run python cor
          -pus.py` ,Entrevista 3.wav,2026-10-22                           
       33 -clip_007,audio,https://commons.wikimedia.org/wiki/File:Entrevis
-         -ta_4.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+         -ta_4.wav,CC BY-SA 4.0,Gianpier Yair [ENTREVISTADOR_2] Ambia,Descarga públ
          -ica desde Wikimedia Commons; se recupera con `uv run python cor
          -pus.py` ,Entrevista 4.wav,2026-10-22                           
       34 -clip_008,audio,https://commons.wikimedia.org/wiki/File:Audio_de
@@ -606,35 +606,35 @@
          -trevista_realizada_en_la_marcha_por_Cristopher_Serrano_P%C3%A9r
          -ez.wav,CC BY-SA 4.0,Hellloff233,Descarga pública desde Wikimedi
          -a Commons; se recupera con `uv run python corpus.py` ,UNMSM Ent
-         -revista realizada en la marcha por Cristopher Serrano Pérez.wav
+         -revista realizada en la marcha por Cristopher [ENTREVISTADOR_4].wav
          -,2026-10-22                                                    
       36 -clip_010,audio,https://commons.wikimedia.org/wiki/File:UNMSM_En
          -trevistas_en_la_marcha_1_por_Cristopher_Serrano_P%C3%A9rez.wav,
          -CC BY-SA 4.0,Hellloff233,Descarga pública desde Wikimedia Commo
          -ns; se recupera con `uv run python corpus.py` ,UNMSM Entrevista
-         -s en la marcha 1 por Cristopher Serrano Pérez.wav,2026-10-22   
+         -s en la marcha 1 por Cristopher [ENTREVISTADOR_4].wav,2026-10-22   
       37 -clip_011,audio,https://commons.wikimedia.org/wiki/File:Entrevis
          -ta-Aurora_Coronado-organizaci%C3%B3n_de_mujeres_ind%C3%ADgenas-
          -fiestas_patrias.ogg,CC BY-SA 4.0,QM Keen,Descarga pública desde
          - Wikimedia Commons; se recupera con `uv run python corpus.py` ,
-         -Entrevista-Aurora Coronado-organización de mujeres indígenas-fi
+         -Entrevista-[ENTREVISTADA_1]-organización de mujeres indígenas-fi
          -estas patrias.ogg,2026-10-22                                   
       38 -clip_012,audio,https://commons.wikimedia.org/wiki/File:Entrevis
          -ta_a_Luz_Merida-Organizaci%C3%B3n_de_mujeres_ind%C3%ADgenas-fie
          -stas_patrias-protesta.ogg,CC BY-SA 4.0,QM Keen,Descarga pública
          - desde Wikimedia Commons; se recupera con `uv run python corpus
-         -.py` (recorte 0-240 s) ,Entrevista a Luz Merida-Organización de
+         -.py` (recorte 0-240 s) ,Entrevista a [ENTREVISTADA_2]-Organización de
          - mujeres indígenas-fiestas patrias-protesta.ogg,2026-10-22     
       39 -clip_013,audio,https://commons.wikimedia.org/wiki/File:Entrevis
          -ta_a_la_se%C3%B1ora_Dina_Espinoza%2C_mujer_pomabambina.ogg,CC B
          -Y-SA 4.0,Rashelley Perez,Descarga pública desde Wikimedia Commo
          -ns; se recupera con `uv run python corpus.py` ,"Entrevista a la
-         - señora Dina Espinoza, mujer pomabambina.ogg",2026-10-22       
+         - señora [ENTREVISTADA_3], mujer pomabambina.ogg",2026-10-22       
       40 -clip_014,audio,https://commons.wikimedia.org/wiki/File:Entrevis
          -ta_a_la_se%C3%B1ora_Aurelia%2C_mujer_shuyasina.ogg,CC BY-SA 4.0
          -,Rashelley Perez,Descarga pública desde Wikimedia Commons; se r
          -ecupera con `uv run python corpus.py` ,"Entrevista a la señora 
-         -Aurelia, mujer shuyasina.ogg",2026-10-22                       
+         -[ENTREVISTADA_4], mujer shuyasina.ogg",2026-10-22                       
      … 58 more lines (ctrl+o to expand)
 
 ● La extensión "org&" venía de los parámetros del enlace de descarga, pero
@@ -769,9 +769,9 @@
 
   Ran 1 shell command (ctrl+o to expand)
 
-● Encontré dos casos más: en clip_002 el ASR confunde a Elsa Barrientos con
-  "Isabel Rientos"/"sabarrientos"/"Esa barrientos", y en clip_008 escribe "el
-  pancini" en vez de "Juan". Voy a armar el diccionario de seudónimos por clip
+● Encontré dos casos más: en clip_002 el ASR confunde a [ENTREVISTADA_8] con
+  "[ENTREVISTADA_8]"/"sabarrientos"/"[ENTREVISTADA_8]", y en clip_008 escribe "el
+  [ENTREVISTADOR_3]" en vez de "[ENTREVISTADOR_3]". Voy a armar el diccionario de seudónimos por clip
   con todas las variantes mal escritas, guardándolo en datos/raw/seudonimos.json
   (no versionado, por contener nombres reales), mientras el notebook solo
   muestra conteos y etiquetas.
@@ -779,7 +779,7 @@
   Ran 1 shell command (ctrl+o to expand)
 
 ● Confirmo que ningún nombre real quedó en las salidas ni en las referencias,
-  salvo "Jorge" en doc_004, que corresponde a un juez nombrado en El Peruano y
+  salvo "[ENTREVISTADO_5]" en doc_004, que corresponde a un juez nombrado en El Peruano y
   por tanto se mantiene. Ahora reviso el contexto de algunos reemplazos para
   verificar que no haya restos de nombres.
 
@@ -1133,8 +1133,8 @@
 ● Encontré algunos nombres sensibles que hay que corregir: quitaré los ejemplos
   mal transcritos del notebook y reemplazaré la URL de clip_009/clip_010 por el
   enlace curid para no exponer el nombre del estudiante entrevistador,
-  manteniendo la atribución por Hellloff233. El resto de nombres (Venegas,
-  Jorge, Espinoza, Juan, Carlos) son legítimos y quedan como están.
+  manteniendo la atribución por Hellloff233. El resto de nombres ([ENTREVISTADOR_2],
+  [ENTREVISTADO_5], [ENTREVISTADA_3], [ENTREVISTADOR_3], [ENTREVISTADO_2]) son legítimos y quedan como están.
 
   Ran 1 shell command (ctrl+o to expand)
 
@@ -1172,10 +1172,10 @@
           ipaba de la marcha.ogg", None, "entrevista en una marcha, ruido
            de multitud"),
       81 -    "clip_009": ("UNMSM Entrevista realizada en la marcha por C
-         -ristopher Serrano Pérez.wav", None, "entrevista en una marcha, 
+         -ristopher [ENTREVISTADOR_4].wav", None, "entrevista en una marcha, 
          -ruido de multitud"),                                           
       82 -    "clip_010": ("UNMSM Entrevistas en la marcha 1 por Cristoph
-         -er Serrano Pérez.wav", None, "entrevistas en una marcha, ruido 
+         -er [ENTREVISTADOR_4].wav", None, "entrevistas en una marcha, ruido 
          -de multitud"),                                                 
       81 +    "clip_009": (133964620, None, "entrevista en una marcha, ru
          +ido de multitud"),                                             
@@ -1204,11 +1204,11 @@
            r pomabambina.ogg",
   ⎿  Updated datos\fuentes.csv (+2 -2)
       32  clip_006,audio,https://commons.wikimedia.org/wiki/File:Entrevis
-          ta_3.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+          ta_3.wav,CC BY-SA 4.0,Gianpier Yair [ENTREVISTADOR_2] Ambia,Descarga públ
           ica desde Wikimedia Commons; se recupera con `uv run python cor
           pus.py` ,Entrevista 3.wav,2026-10-22
       33  clip_007,audio,https://commons.wikimedia.org/wiki/File:Entrevis
-          ta_4.wav,CC BY-SA 4.0,Gianpier Yair Venegas Ambia,Descarga públ
+          ta_4.wav,CC BY-SA 4.0,Gianpier Yair [ENTREVISTADOR_2] Ambia,Descarga públ
           ica desde Wikimedia Commons; se recupera con `uv run python cor
           pus.py` ,Entrevista 4.wav,2026-10-22
       34  clip_008,audio,https://commons.wikimedia.org/wiki/File:Audio_de
@@ -1220,13 +1220,13 @@
          -trevista_realizada_en_la_marcha_por_Cristopher_Serrano_P%C3%A9r
          -ez.wav,CC BY-SA 4.0,Hellloff233,Descarga pública desde Wikimedi
          -a Commons; se recupera con `uv run python corpus.py` ,UNMSM Ent
-         -revista realizada en la marcha por Cristopher Serrano Pérez.wav
+         -revista realizada en la marcha por Cristopher [ENTREVISTADOR_4].wav
          -,2026-10-22                                                    
       36 -clip_010,audio,https://commons.wikimedia.org/wiki/File:UNMSM_En
          -trevistas_en_la_marcha_1_por_Cristopher_Serrano_P%C3%A9rez.wav,
          -CC BY-SA 4.0,Hellloff233,Descarga pública desde Wikimedia Commo
          -ns; se recupera con `uv run python corpus.py` ,UNMSM Entrevista
-         -s en la marcha 1 por Cristopher Serrano Pérez.wav,2026-10-22   
+         -s en la marcha 1 por Cristopher [ENTREVISTADOR_4].wav,2026-10-22   
       35 +clip_009,audio,https://commons.wikimedia.org/?curid=133964620,C
          +C BY-SA 4.0,Hellloff233,Descarga pública desde Wikimedia Common
          +s; se recupera con `uv run python corpus.py` ,UNMSM Entrevista 
