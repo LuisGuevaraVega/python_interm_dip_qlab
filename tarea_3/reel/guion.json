@@ -1,0 +1,198 @@
+{
+  "titulo": "Aprender después de la pandemia",
+  "subtitulo": "Lo que perdieron los escolares del Perú, y lo que aún no recuperan",
+  "fuente": "MINEDU – UMC, evaluaciones nacionales 2015–2025",
+  "enlace": "luisguevaravega.github.io/python_interm_dip_qlab/tarea_3/web",
+  "escenas": [
+    {
+      "frase": "En dos mil diecinueve, uno de cada tres niños de cuarto de primaria alcanzaba el nivel esperado en matemática. Después del cierre de escuelas, menos de uno de cada cuatro.",
+      "cifra": "34 % a 23 %",
+      "etiqueta": "4.º de primaria en nivel satisfactorio en matemática, 2019 y 2022",
+      "figura": "f1_caida",
+      "datos": [
+        {
+          "dice": "uno de cada tres (34,0 %)",
+          "ruta": "combinaciones.4P|Matemática.kpis.satisfactorio_antes",
+          "valor": 34.0
+        },
+        {
+          "dice": "menos de uno de cada cuatro (23,3 %)",
+          "ruta": "combinaciones.4P|Matemática.kpis.satisfactorio_pandemia",
+          "valor": 23.3
+        }
+      ]
+    },
+    {
+      "frase": "En dos mil veinticinco llegó a treinta por ciento. Recuperó más de la mitad de lo perdido, pero sigue cuatro puntos por debajo de antes.",
+      "cifra": "30 %",
+      "etiqueta": "en 2025: se recuperó el 62,5 % de lo perdido",
+      "figura": "f2_recuperacion",
+      "datos": [
+        {
+          "dice": "treinta por ciento",
+          "ruta": "combinaciones.4P|Matemática.kpis.satisfactorio_ahora",
+          "valor": 30.0
+        },
+        {
+          "dice": "más de la mitad (62,5 %)",
+          "ruta": "combinaciones.4P|Matemática.kpis.recuperado.pct",
+          "valor": 62.5
+        },
+        {
+          "dice": "cuatro puntos por debajo",
+          "ruta": "combinaciones.4P|Matemática.kpis.neto.pp",
+          "valor": -4.0
+        }
+      ]
+    },
+    {
+      "frase": "En segundo de secundaria no hubo rebote. Dieciocho de las veintiséis regiones siguen peor que en dos mil diecinueve.",
+      "cifra": "18 de 26",
+      "etiqueta": "regiones con matemática de 2.º de secundaria aún peor que en 2019",
+      "figura": "f3_mapa",
+      "datos": [
+        {
+          "dice": "dieciocho de las veintiséis regiones",
+          "ruta": "combinaciones.2S|Matemática.kpis.regiones_debajo",
+          "valor": 18
+        },
+        {
+          "dice": "no hubo rebote (12,7 % en 2022 y en 2025)",
+          "ruta": "combinaciones.2S|Matemática.kpis.recuperacion.pp",
+          "valor": 0.0
+        }
+      ]
+    },
+    {
+      "frase": "Y se abrió una brecha que casi no existía. Las niñas bajaron de treinta y tres a veinticinco por ciento; los niños se quedaron donde estaban.",
+      "cifra": "9,4 puntos",
+      "etiqueta": "de ventaja de los niños sobre las niñas en 2025 (en 2019: 1,3)",
+      "figura": "f4_genero",
+      "datos": [
+        {
+          "dice": "brecha de 9,4 puntos en 2025",
+          "ruta": "combinaciones.4P|Matemática.brechas.sexo.ahora",
+          "valor": 9.4
+        },
+        {
+          "dice": "casi no existía (1,3 en 2019)",
+          "ruta": "combinaciones.4P|Matemática.brechas.sexo.antes",
+          "valor": 1.3
+        },
+        {
+          "dice": "niñas: de treinta y tres (33,3 %)",
+          "resultado": [
+            "4P",
+            "Matemática",
+            "sexo",
+            "Mujer",
+            2019
+          ],
+          "valor": 33.3
+        },
+        {
+          "dice": "a veinticinco por ciento (25,2 %)",
+          "resultado": [
+            "4P",
+            "Matemática",
+            "sexo",
+            "Mujer",
+            2025
+          ],
+          "valor": 25.2
+        },
+        {
+          "dice": "los niños se quedaron donde estaban (34,7 %)",
+          "resultado": [
+            "4P",
+            "Matemática",
+            "sexo",
+            "Hombre",
+            2019
+          ],
+          "valor": 34.7
+        },
+        {
+          "dice": "los niños se quedaron donde estaban (34,6 %)",
+          "resultado": [
+            "4P",
+            "Matemática",
+            "sexo",
+            "Hombre",
+            2025
+          ],
+          "valor": 34.6
+        }
+      ]
+    },
+    {
+      "frase": "Las regiones que estaban más arriba cayeron más. Tacna, la primera en matemática, sigue casi nueve puntos abajo. Solo Ucayali ya superó su nivel de antes.",
+      "cifra": "–8,9 puntos",
+      "etiqueta": "Tacna, 4.º de primaria, matemática, 2019–2025",
+      "figura": "f5_regiones",
+      "datos": [
+        {
+          "dice": "Tacna, la primera en matemática en 2019 (63,5 %)",
+          "resultado": [
+            "4P",
+            "Matemática",
+            "region",
+            "Tacna",
+            2019
+          ],
+          "valor": 63.5
+        },
+        {
+          "dice": "la primera en matemática en 2019",
+          "maximo": [
+            "4P",
+            "Matemática",
+            2019
+          ],
+          "valor": "Tacna"
+        },
+        {
+          "dice": "casi nueve puntos abajo",
+          "region": [
+            "4P|Matemática",
+            "Tacna",
+            "neto"
+          ],
+          "valor": -8.9
+        },
+        {
+          "dice": "solo Ucayali ya superó su nivel",
+          "region": [
+            "4P|Matemática",
+            "Ucayali",
+            "estado"
+          ],
+          "valor": "supera 2019"
+        },
+        {
+          "dice": "solo una región",
+          "ruta": "combinaciones.4P|Matemática.kpis.regiones_supera",
+          "valor": 1
+        }
+      ]
+    },
+    {
+      "frase": "Lectura resistió mejor. Busca tu región en el tablero interactivo; el enlace está en la descripción.",
+      "cifra": "",
+      "etiqueta": "Explora las 26 regiones, por grado, área y brecha",
+      "figura": "f6_tablero",
+      "datos": [
+        {
+          "dice": "lectura resistió mejor: en 4.º de primaria cayó 4,5 puntos (matemática, 10,7)",
+          "ruta": "combinaciones.4P|Lectura.kpis.perdida.pp",
+          "valor": -4.5
+        },
+        {
+          "dice": "en 2.º de secundaria lectura subió 4 puntos entre 2019 y 2025",
+          "ruta": "combinaciones.2S|Lectura.kpis.neto.pp",
+          "valor": 4.0
+        }
+      ]
+    }
+  ]
+}
