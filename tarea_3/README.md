@@ -69,7 +69,7 @@ Las evaluaciones son censales (ECE: 4.º de primaria 2016, 2018 y 2024; 2.º de 
    - En 2.º de secundaria no hubo recuperación (17,7 % → 12,7 % → 12,7 %), y 18 de las 26 regiones siguen significativamente por debajo de 2019.
 2. **Se abrió una brecha de género en matemática.**
    - En 4.º de primaria, niños y niñas estaban casi iguales en 2019 (34,7 % y 33,3 % en satisfactorio).
-   - En 2025, los niños están en 34,6 % y las niñas en 25,2 %: la brecha pasó de 1,3 a 9,4 pp.
+   - En 2025, los niños están en 34,6 % y las niñas en 25,2 %: la brecha pasó de 1,3 a 9,4 pp (con los valores sin redondear: 34,66 − 33,33 en 2019).
    - En 2.º de secundaria creció de 4,1 a 6,2 pp. En lectura, las niñas siguen por delante.
 3. **Las regiones que estaban más arriba cayeron más; varias del sur andino y la Amazonía ya superan 2019.**
    - En matemática de 4.º de primaria, Tacna pasó de 63,5 % a 48,1 % y está en 54,6 % (−8,9 pp frente a 2019); Ica sigue −8,1 pp.
