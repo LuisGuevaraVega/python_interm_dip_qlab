@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aprender después de la pandemia</title>
+  <meta name="description" content="¿Cuánto aprendizaje se perdió con la pandemia en el Perú, qué regiones se recuperaron y quiénes se quedan atrás? Dashboard con los resultados de las evaluaciones nacionales de la UMC del MINEDU, 2015–2025.">
+  <meta property="og:title" content="Aprender después de la pandemia · Perú 2015–2025">
+  <meta property="og:description" content="Pérdida y recuperación de aprendizajes por región y brechas, con datos de la UMC del MINEDU.">
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script>
+    // tema guardado por el visitante (claro u oscuro); si no hay, se sigue al dispositivo
+    try { const t = localStorage.getItem("tema"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+<header class="portada">
+  <div class="contenedor">
+    <div class="barra-superior">
+      <span class="etiqueta">Perú · Evaluaciones nacionales de aprendizaje · 2015–2025</span>
+      <button class="boton-tema" id="boton-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">◐ Tema</button>
+    </div>
+    <h1>Aprender después de la pandemia</h1>
+    <p class="pregunta">¿Cuánto aprendizaje se perdió con la pandemia en el Perú, qué regiones se recuperaron y quiénes se quedan atrás?</p>
+    <p class="descripcion">Entre marzo de 2020 y fines de 2021, casi dos años, las escuelas peruanas estuvieron cerradas o en clases a distancia, y no hubo evaluaciones nacionales.
+      Este tablero compara los resultados de las evaluaciones nacionales de 4.º de primaria y 2.º de secundaria antes del cierre (2019),
+      en la primera medición posterior (2022) y en la más reciente (2025), región por región y según el área, la gestión de la escuela y el sexo del estudiante.</p>
+    <ul class="fichas">
+      <li><strong>Cobertura:</strong> Perú, 26 regiones educativas</li>
+      <li><strong>Periodo:</strong> 2015–2025 (sin evaluaciones en 2020, 2021; 4.º prim. sin 2015 ni 2017)</li>
+      <li><strong>Fuente:</strong> <a href="http://umc.minedu.gob.pe/bases-de-datos/" target="_blank" rel="noopener">MINEDU – UMC, bases de datos</a></li>
+      <li><strong>Indicador central:</strong> % de estudiantes en nivel satisfactorio</li>
+    </ul>
+  </div>
+</header>
+
+<nav class="filtros" aria-label="Filtros del tablero">
+  <div class="contenedor">
+    <div class="control"><span>Grado</span>
+      <div class="segmentado" id="f-grado" role="group" aria-label="Grado">
+        <button type="button" data-valor="4P" aria-pressed="true">4.º primaria</button>
+        <button type="button" data-valor="2S" aria-pressed="false">2.º secundaria</button>
+      </div></div>
+    <div class="control"><span>Área</span>
+      <div class="segmentado" id="f-area" role="group" aria-label="Área">
+        <button type="button" data-valor="Matemática" aria-pressed="true">Matemática</button>
+        <button type="button" data-valor="Lectura" aria-pressed="false">Lectura</button>
+      </div></div>
+    <label class="control"><span>Indicador</span>
+      <select id="f-indicador">
+        <option value="satisfactorio">% en nivel satisfactorio</option>
+        <option value="debajo">% debajo de lo esperado (inicio y previo)</option>
+        <option value="medida">Puntaje promedio (medida)</option>
+      </select></label>
+    <label class="control"><span>Región</span>
+      <select id="f-region"><option value="">Todo el país</option></select></label>
+    <label class="control"><span>Mapa</span>
+      <select id="f-mapa"></select></label>
+    <label class="control"><span>Brecha</span>
+      <select id="f-brecha">
+        <option value="area">Urbano y rural</option>
+        <option value="gestion">Pública y privada</option>
+        <option value="sexo">Niños y niñas</option>
+      </select></label>
+    <button class="boton-limpiar" id="limpiar" type="button">Restablecer</button>
+  </div>
+</nav>
+
+<main class="contenedor">
+  <div class="kpis" id="kpis" aria-live="polite"></div>
+  <p class="contexto" id="kpi-contexto"></p>
+
+  <div class="rejilla">
+    <article class="tarjeta siete">
+      <h2 id="t-evolucion">Evolución</h2>
+      <p class="sub" id="s-evolucion"></p>
+      <div class="grafico" id="g-evolucion"></div>
+      <p class="nota">La franja gris marca 2020–2021: escuelas cerradas y sin evaluación nacional. Los años muestrales (2019, 2022, 2023, 2025) muestran su intervalo de confianza al 95 %.</p>
+    </article>
+    <article class="tarjeta cinco">
+      <h2 id="t-niveles">Niveles de logro</h2>
+      <p class="sub" id="s-niveles"></p>
+      <div class="leyenda-html" id="leyenda-niveles"></div>
+      <div class="grafico" id="g-niveles"></div>
+    </article>
+
+    <article class="tarjeta cinco">
+      <h2 id="t-mapa">Mapa</h2>
+      <p class="sub" id="s-mapa"></p>
+      <div class="grafico mapa" id="g-mapa"></div>
+      <p class="nota">Toca una región para seleccionarla. Lima Metropolitana es la provincia de Lima; Lima Provincias, las otras nueve provincias del departamento.</p>
+    </article>
+    <article class="tarjeta siete">
+      <h2>Antes, durante y después, región por región</h2>
+      <p class="sub" id="s-regiones"></p>
+      <div class="leyenda-html" id="leyenda-regiones"></div>
+      <div class="grafico alto" id="g-regiones"></div>
+    </article>
+
+    <article class="tarjeta media">
+      <h2>¿Quién recuperó lo que perdió?</h2>
+      <p class="sub" id="s-dispersion"></p>
+      <div class="grafico" id="g-dispersion"></div>
+      <p class="nota">Sobre la diagonal, la región recuperó en 2022–2025 todo lo que perdió en 2019–2022.</p>
+    </article>
+    <article class="tarjeta media">
+      <h2 id="t-brecha">Brechas</h2>
+      <p class="sub" id="s-brecha"></p>
+      <div class="grafico" id="g-brecha"></div>
+    </article>
+
+    <article class="tarjeta">
+      <h2>Tabla por región</h2>
+      <p class="sub" id="s-tabla"></p>
+      <div class="tabla-envoltura"><table id="tabla"></table></div>
+      <p class="nota">«Significativo»: la diferencia supera 1,96 veces su error estándar combinado (95 % de confianza). Haz clic en un encabezado para ordenar.</p>
+      <p><button class="boton-descarga" id="descargar" type="button">Descargar datos filtrados (CSV)</button></p>
+    </article>
+  </div>
+
+  <section class="texto" id="hallazgos">
+    <h2>Tres hallazgos (y uno más)</h2>
+    <div class="hallazgos">
+      <div class="hallazgo">
+        <h3>Matemática fue el área más golpeada y no ha vuelto a su nivel</h3>
+        <p>En 4.º de primaria, los estudiantes en nivel satisfactorio bajaron de 34,0 % (2019) a 23,3 % (2022): 10,7 puntos menos.
+          En 2025 llegan a 30,0 %; se recuperó el 62,5 % de lo perdido, pero siguen 4,0 puntos debajo de 2019.
+          En 2.º de secundaria no hubo recuperación (17,7 % → 12,7 % → 12,7 %) y 18 de las 26 regiones siguen por debajo de 2019.</p>
+      </div>
+      <div class="hallazgo">
+        <h3>Se abrió una brecha de género en matemática</h3>
+        <p>Antes de la pandemia, niños y niñas de 4.º de primaria tenían resultados casi iguales en matemática (34,7 % y 33,3 % en satisfactorio).
+          En 2025 los niños están en 34,6 % y las niñas en 25,2 %: la brecha pasó de 1,3 a 9,4 puntos.
+          En 2.º de secundaria también creció (de 4,1 a 6,2 puntos). En lectura, en cambio, las niñas siguen por delante.</p>
+      </div>
+      <div class="hallazgo">
+        <h3>Las regiones que estaban arriba cayeron más; varias del sur andino y la Amazonía ya superan 2019</h3>
+        <p>En matemática de 4.º de primaria, Tacna pasó de 63,5 % a 48,1 % y en 2025 está en 54,6 %, 8,9 puntos debajo de 2019; Ica sigue 8,1 puntos abajo.
+          En secundaria, Apurímac, Huancavelica y Ucayali ya superan su nivel de 2019.
+          La brecha urbano–rural en matemática de primaria se acortó de 20,5 a 13,7 puntos, en parte porque bajó el resultado urbano.</p>
+      </div>
+      <div class="hallazgo">
+        <h3>Lectura resistió mejor</h3>
+        <p>En 4.º de primaria, lectura bajó menos (34,5 % → 30,0 %) y en 2025 está en 32,7 %.
+          En 2.º de secundaria subió: de 14,5 % en 2019 a 18,5 % en 2025; 19 regiones están por encima de 2019 y ninguna por debajo.
+          La pérdida de la pandemia se concentró en matemática.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="texto" id="metodologia">
+    <h2>Metodología, fuentes y limitaciones</h2>
+    <div class="columnas">
+      <div>
+        <h3>Metodología</h3>
+        <ul>
+          <li><strong>Datos:</strong> 12 bases en Excel de la UMC del MINEDU (por región y por estrato; nivel de logro y medida promedio) para Lectura y Matemática de 4.º de primaria (2016–2025) y 2.º de secundaria (2015–2025).</li>
+          <li><strong>Limpieza:</strong> los Excel se pasan a una tabla larga (grado, área, grupo, año); se verifica que los cuatro niveles sumen 100 % y que las 26 regiones estén en todos los años.</li>
+          <li><strong>Indicadores:</strong> pérdida = 2022 − 2019; recuperación = 2025 − 2022; cambio neto = 2025 − 2019, en puntos porcentuales; «recuperado» = recuperación ÷ pérdida. Las brechas restan el % satisfactorio de dos grupos.</li>
+          <li><strong>Significancia:</strong> con los errores estándar que publica la UMC para los años muestrales; los censales se tratan sin error muestral.</li>
+          <li><strong>Mapa:</strong> límites de github.com/juaneladio/peru-geojson; Lima se divide en la provincia de Lima (Lima Metropolitana) y el resto (Lima Provincias), como en las bases de la UMC.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Fuentes</h3>
+        <ul>
+          <li>MINEDU – Oficina de Medición de la Calidad de los Aprendizajes (UMC). <a href="http://umc.minedu.gob.pe/bases-de-datos/" target="_blank" rel="noopener">Bases de datos de las evaluaciones nacionales</a>: ECE 2015–2019 y 2024 (censales); EM 2019, ENLA 2022, 2023 y 2025 (muestrales). Descargadas el 30/10/2026.</li>
+          <li>Límites de las regiones: <a href="https://github.com/juaneladio/peru-geojson" target="_blank" rel="noopener">juaneladio/peru-geojson</a>, solo para dibujar el mapa.</li>
+        </ul>
+        <h3 style="margin-top:16px">Limitaciones</h3>
+        <ul>
+          <li>No hubo evaluaciones en 2020 ni 2021: no se ve el punto más bajo, solo 2022.</li>
+          <li>Se mezclan años censales y muestrales: las diferencias pequeñas en años muestrales pueden ser ruido (la tabla marca cuáles son significativas).</li>
+          <li>La UMC publica 2.º de secundaria en dos archivos (2015–2022 y 2023–2025); aquí se leen como una sola serie.</li>
+          <li>Quién rinde la prueba también cambió: la deserción y los traslados de la pandemia pueden mover los promedios sin que cambie el aprendizaje de cada estudiante.</li>
+          <li>Es descriptivo, no causal: la caída coincide con el cierre de escuelas, pero en el periodo también hubo otros cambios.</li>
+          <li>Solo Lectura y Matemática; 2.º de secundaria también evalúa Ciencias Sociales y Ciencia y Tecnología.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <p><strong>Luis Gabriel Guevara Vega</strong> · Tarea 3 · Python Intermedio · Diplomatura de QLab, PUCP · Octubre de 2026.
+      Código y datos: <a href="https://github.com/LuisGuevaraVega/python_interm_dip_qlab/tree/main/tarea_3" target="_blank" rel="noopener">GitHub</a>.</p>
+    <p><strong>Uso de IA:</strong> el código del análisis y del tablero se escribió con ayuda de Claude Code (Anthropic). Las cifras salen de los scripts y las revisé contra las bases originales de la UMC.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

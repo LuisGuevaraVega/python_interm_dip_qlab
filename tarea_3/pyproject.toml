@@ -1,0 +1,14 @@
+[project]
+name = "tarea-3-aprendizajes"
+version = "2026.3"
+description = "Tarea 3 — Aprendizajes en el Perú antes y después de la pandemia: datos, dashboard y reel"
+requires-python = "==3.12.*"
+
+# Entorno de los scripts de datos. El reel va en otro entorno (qwen-tts fija transformers==4.57.3); ver reel/.
+dependencies = [
+  "pandas>=2.2,<3",
+  "numpy>=1.26,<3",
+  "httpx>=0.28",
+  "openpyxl>=3.1.5",          # leer los Excel de la UMC
+  "shapely>=2.0",             # separar Lima Metropolitana de Lima Provincias en el mapa
+]

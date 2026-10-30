@@ -1,0 +1,1646 @@
+{
+ "combinaciones": {
+  "2S|Lectura": {
+   "grado": "2S",
+   "grado_nombre": "2.º de secundaria",
+   "area": "Lectura",
+   "kpis": {
+    "satisfactorio_ahora": 18.5,
+    "satisfactorio_antes": 14.5,
+    "satisfactorio_pandemia": 19.1,
+    "neto": {
+     "pp": 4.0,
+     "significativo": true
+    },
+    "perdida": {
+     "pp": 4.6,
+     "significativo": true
+    },
+    "recuperacion": {
+     "pp": -0.7,
+     "significativo": false
+    },
+    "recuperado": {
+     "pct": null,
+     "texto": "no hubo caída en 2022"
+    },
+    "debajo_ahora": 49.2,
+    "debajo_antes": 59.7,
+    "regiones_debajo": 0,
+    "regiones_supera": 19,
+    "region_mayor_perdida": {
+     "region": "Lambayeque",
+     "pp": 1.3
+    },
+    "brecha_mayor": "Privada − pública"
+   },
+   "regiones": [
+    {
+     "region": "Tumbes",
+     "antes": 8.1,
+     "pandemia": 9.5,
+     "ahora": 8.8,
+     "perdida": 1.4,
+     "recuperacion": -0.8,
+     "neto": 0.7,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 15.5
+    },
+    {
+     "region": "Madre de Dios",
+     "antes": 7.0,
+     "pandemia": 11.4,
+     "ahora": 8.0,
+     "perdida": 4.4,
+     "recuperacion": -3.4,
+     "neto": 1.0,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 13.4
+    },
+    {
+     "region": "La Libertad",
+     "antes": 13.1,
+     "pandemia": 16.5,
+     "ahora": 14.2,
+     "perdida": 3.4,
+     "recuperacion": -2.4,
+     "neto": 1.1,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 12.0
+    },
+    {
+     "region": "Loreto",
+     "antes": 3.1,
+     "pandemia": 5.1,
+     "ahora": 4.2,
+     "perdida": 2.1,
+     "recuperacion": -1.0,
+     "neto": 1.1,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 19.7
+    },
+    {
+     "region": "San Martín",
+     "antes": 6.9,
+     "pandemia": 9.2,
+     "ahora": 8.7,
+     "perdida": 2.3,
+     "recuperacion": -0.4,
+     "neto": 1.8,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 11.4
+    },
+    {
+     "region": "Cajamarca",
+     "antes": 7.8,
+     "pandemia": 10.1,
+     "ahora": 9.7,
+     "perdida": 2.3,
+     "recuperacion": -0.4,
+     "neto": 1.9,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 16.8
+    },
+    {
+     "region": "Lambayeque",
+     "antes": 12.6,
+     "pandemia": 13.9,
+     "ahora": 14.6,
+     "perdida": 1.3,
+     "recuperacion": 0.7,
+     "neto": 2.0,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 12.5
+    },
+    {
+     "region": "Lima Provincias",
+     "antes": 13.6,
+     "pandemia": 19.4,
+     "ahora": 15.7,
+     "perdida": 5.8,
+     "recuperacion": -3.7,
+     "neto": 2.1,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 13.6
+    },
+    {
+     "region": "Callao",
+     "antes": 18.0,
+     "pandemia": 24.3,
+     "ahora": 20.3,
+     "perdida": 6.3,
+     "recuperacion": -4.0,
+     "neto": 2.3,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 9.3
+    },
+    {
+     "region": "Pasco",
+     "antes": 9.9,
+     "pandemia": 16.3,
+     "ahora": 12.3,
+     "perdida": 6.4,
+     "recuperacion": -4.1,
+     "neto": 2.3,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 14.7
+    },
+    {
+     "region": "Piura",
+     "antes": 11.7,
+     "pandemia": 13.9,
+     "ahora": 14.0,
+     "perdida": 2.3,
+     "recuperacion": 0.0,
+     "neto": 2.3,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 13.5
+    },
+    {
+     "region": "Huánuco",
+     "antes": 6.4,
+     "pandemia": 9.9,
+     "ahora": 8.9,
+     "perdida": 3.6,
+     "recuperacion": -1.1,
+     "neto": 2.5,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 22.0
+    },
+    {
+     "region": "Junín",
+     "antes": 15.7,
+     "pandemia": 19.7,
+     "ahora": 18.3,
+     "perdida": 4.0,
+     "recuperacion": -1.4,
+     "neto": 2.6,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 13.8
+    },
+    {
+     "region": "Ica",
+     "antes": 15.6,
+     "pandemia": 23.2,
+     "ahora": 18.9,
+     "perdida": 7.6,
+     "recuperacion": -4.3,
+     "neto": 3.3,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 14.7
+    },
+    {
+     "region": "Ucayali",
+     "antes": 4.8,
+     "pandemia": 7.3,
+     "ahora": 8.5,
+     "perdida": 2.5,
+     "recuperacion": 1.1,
+     "neto": 3.7,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 30.4
+    },
+    {
+     "region": "Amazonas",
+     "antes": 7.5,
+     "pandemia": 9.6,
+     "ahora": 11.3,
+     "perdida": 2.1,
+     "recuperacion": 1.7,
+     "neto": 3.8,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 34.5
+    },
+    {
+     "region": "Tacna",
+     "antes": 27.0,
+     "pandemia": 36.6,
+     "ahora": 30.8,
+     "perdida": 9.6,
+     "recuperacion": -5.8,
+     "neto": 3.8,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 7.3
+    },
+    {
+     "region": "Arequipa",
+     "antes": 24.1,
+     "pandemia": 31.6,
+     "ahora": 29.0,
+     "perdida": 7.4,
+     "recuperacion": -2.6,
+     "neto": 4.8,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 11.8
+    },
+    {
+     "region": "Áncash",
+     "antes": 10.2,
+     "pandemia": 14.6,
+     "ahora": 15.3,
+     "perdida": 4.3,
+     "recuperacion": 0.8,
+     "neto": 5.1,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 26.6
+    },
+    {
+     "region": "Lima Metropolitana",
+     "antes": 22.5,
+     "pandemia": 29.6,
+     "ahora": 27.9,
+     "perdida": 7.1,
+     "recuperacion": -1.7,
+     "neto": 5.3,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 15.9
+    },
+    {
+     "region": "Ayacucho",
+     "antes": 10.0,
+     "pandemia": 13.9,
+     "ahora": 16.1,
+     "perdida": 3.9,
+     "recuperacion": 2.2,
+     "neto": 6.1,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 30.8
+    },
+    {
+     "region": "Huancavelica",
+     "antes": 4.5,
+     "pandemia": 8.3,
+     "ahora": 10.8,
+     "perdida": 3.8,
+     "recuperacion": 2.6,
+     "neto": 6.3,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 33.6
+    },
+    {
+     "region": "Moquegua",
+     "antes": 24.6,
+     "pandemia": 34.6,
+     "ahora": 31.1,
+     "perdida": 10.0,
+     "recuperacion": -3.5,
+     "neto": 6.5,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 11.5
+    },
+    {
+     "region": "Puno",
+     "antes": 10.1,
+     "pandemia": 14.4,
+     "ahora": 17.4,
+     "perdida": 4.3,
+     "recuperacion": 3.1,
+     "neto": 7.4,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 29.2
+    },
+    {
+     "region": "Apurímac",
+     "antes": 7.4,
+     "pandemia": 12.2,
+     "ahora": 17.1,
+     "perdida": 4.8,
+     "recuperacion": 4.9,
+     "neto": 9.7,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 46.7
+    },
+    {
+     "region": "Cusco",
+     "antes": 11.7,
+     "pandemia": 18.2,
+     "ahora": 21.9,
+     "perdida": 6.5,
+     "recuperacion": 3.7,
+     "neto": 10.2,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 36.7
+    }
+   ],
+   "brechas": {
+    "area": {
+     "nombre": "Urbano − rural",
+     "referencia": "Urbano",
+     "comparado": "Rural",
+     "serie": {
+      "2015": 14.4,
+      "2016": 13.9,
+      "2018": 15.0,
+      "2019": 13.6,
+      "2022": 17.7,
+      "2023": 13.9,
+      "2025": 14.9
+     },
+     "antes": 13.6,
+     "ahora": 14.9
+    },
+    "gestion": {
+     "nombre": "Privada − pública",
+     "referencia": "No estatal",
+     "comparado": "Estatal",
+     "serie": {
+      "2015": 19.7,
+      "2016": 16.5,
+      "2018": 16.0,
+      "2019": 16.1,
+      "2022": 20.1,
+      "2023": 15.5,
+      "2025": 20.4
+     },
+     "antes": 16.1,
+     "ahora": 20.4
+    },
+    "sexo": {
+     "nombre": "Niños − niñas",
+     "referencia": "Hombre",
+     "comparado": "Mujer",
+     "serie": {
+      "2015": -1.6,
+      "2016": -3.4,
+      "2018": -1.9,
+      "2019": -3.0,
+      "2022": -3.0,
+      "2023": -2.3,
+      "2025": -1.0
+     },
+     "antes": -3.0,
+     "ahora": -1.0
+    }
+   }
+  },
+  "2S|Matemática": {
+   "grado": "2S",
+   "grado_nombre": "2.º de secundaria",
+   "area": "Matemática",
+   "kpis": {
+    "satisfactorio_ahora": 12.7,
+    "satisfactorio_antes": 17.7,
+    "satisfactorio_pandemia": 12.7,
+    "neto": {
+     "pp": -5.0,
+     "significativo": true
+    },
+    "perdida": {
+     "pp": -5.0,
+     "significativo": true
+    },
+    "recuperacion": {
+     "pp": -0.0,
+     "significativo": false
+    },
+    "recuperado": {
+     "pct": -0.8,
+     "texto": "de lo perdido"
+    },
+    "debajo_ahora": 69.0,
+    "debajo_antes": 65.1,
+    "regiones_debajo": 18,
+    "regiones_supera": 3,
+    "region_mayor_perdida": {
+     "region": "Tacna",
+     "pp": -10.9
+    },
+    "brecha_mayor": "Privada − pública"
+   },
+   "regiones": [
+    {
+     "region": "Tacna",
+     "antes": 38.0,
+     "pandemia": 27.1,
+     "ahora": 27.7,
+     "perdida": -10.9,
+     "recuperacion": 0.6,
+     "neto": -10.3,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -23.8
+    },
+    {
+     "region": "Moquegua",
+     "antes": 34.1,
+     "pandemia": 26.3,
+     "ahora": 24.6,
+     "perdida": -7.8,
+     "recuperacion": -1.7,
+     "neto": -9.5,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -20.2
+    },
+    {
+     "region": "Arequipa",
+     "antes": 30.9,
+     "pandemia": 22.4,
+     "ahora": 22.0,
+     "perdida": -8.5,
+     "recuperacion": -0.4,
+     "neto": -8.9,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -16.6
+    },
+    {
+     "region": "Callao",
+     "antes": 20.3,
+     "pandemia": 15.2,
+     "ahora": 12.1,
+     "perdida": -5.1,
+     "recuperacion": -3.1,
+     "neto": -8.2,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -14.2
+    },
+    {
+     "region": "Junín",
+     "antes": 23.6,
+     "pandemia": 15.1,
+     "ahora": 15.3,
+     "perdida": -8.5,
+     "recuperacion": 0.2,
+     "neto": -8.2,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -13.9
+    },
+    {
+     "region": "Lima Provincias",
+     "antes": 17.9,
+     "pandemia": 13.6,
+     "ahora": 10.5,
+     "perdida": -4.2,
+     "recuperacion": -3.1,
+     "neto": -7.4,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -11.4
+    },
+    {
+     "region": "Lima Metropolitana",
+     "antes": 24.9,
+     "pandemia": 19.6,
+     "ahora": 17.7,
+     "perdida": -5.4,
+     "recuperacion": -1.8,
+     "neto": -7.2,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -11.4
+    },
+    {
+     "region": "La Libertad",
+     "antes": 14.9,
+     "pandemia": 9.5,
+     "ahora": 8.5,
+     "perdida": -5.4,
+     "recuperacion": -0.9,
+     "neto": -6.3,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -8.9
+    },
+    {
+     "region": "Lambayeque",
+     "antes": 15.2,
+     "pandemia": 9.1,
+     "ahora": 9.1,
+     "perdida": -6.0,
+     "recuperacion": -0.1,
+     "neto": -6.1,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -10.2
+    },
+    {
+     "region": "Cajamarca",
+     "antes": 12.0,
+     "pandemia": 7.5,
+     "ahora": 6.7,
+     "perdida": -4.4,
+     "recuperacion": -0.8,
+     "neto": -5.2,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -8.7
+    },
+    {
+     "region": "Ica",
+     "antes": 20.0,
+     "pandemia": 15.3,
+     "ahora": 14.8,
+     "perdida": -4.7,
+     "recuperacion": -0.5,
+     "neto": -5.2,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -7.5
+    },
+    {
+     "region": "Piura",
+     "antes": 13.4,
+     "pandemia": 7.4,
+     "ahora": 8.3,
+     "perdida": -6.0,
+     "recuperacion": 0.9,
+     "neto": -5.1,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -7.7
+    },
+    {
+     "region": "Madre de Dios",
+     "antes": 9.9,
+     "pandemia": 7.5,
+     "ahora": 6.0,
+     "perdida": -2.4,
+     "recuperacion": -1.5,
+     "neto": -3.9,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -1.3
+    },
+    {
+     "region": "Pasco",
+     "antes": 14.0,
+     "pandemia": 13.0,
+     "ahora": 10.3,
+     "perdida": -1.0,
+     "recuperacion": -2.7,
+     "neto": -3.7,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -2.6
+    },
+    {
+     "region": "San Martín",
+     "antes": 8.6,
+     "pandemia": 5.4,
+     "ahora": 5.2,
+     "perdida": -3.2,
+     "recuperacion": -0.2,
+     "neto": -3.4,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -6.8
+    },
+    {
+     "region": "Tumbes",
+     "antes": 8.2,
+     "pandemia": 4.3,
+     "ahora": 5.8,
+     "perdida": -3.9,
+     "recuperacion": 1.5,
+     "neto": -2.4,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": 4.6
+    },
+    {
+     "region": "Amazonas",
+     "antes": 11.7,
+     "pandemia": 6.3,
+     "ahora": 9.6,
+     "perdida": -5.3,
+     "recuperacion": 3.3,
+     "neto": -2.0,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": 21.2
+    },
+    {
+     "region": "Áncash",
+     "antes": 12.7,
+     "pandemia": 8.6,
+     "ahora": 10.7,
+     "perdida": -4.1,
+     "recuperacion": 2.0,
+     "neto": -2.0,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": 12.8
+    },
+    {
+     "region": "Huánuco",
+     "antes": 8.4,
+     "pandemia": 6.7,
+     "ahora": 7.0,
+     "perdida": -1.8,
+     "recuperacion": 0.4,
+     "neto": -1.4,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 9.5
+    },
+    {
+     "region": "Puno",
+     "antes": 16.6,
+     "pandemia": 11.9,
+     "ahora": 15.8,
+     "perdida": -4.7,
+     "recuperacion": 4.0,
+     "neto": -0.8,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 12.6
+    },
+    {
+     "region": "Loreto",
+     "antes": 2.2,
+     "pandemia": 2.1,
+     "ahora": 2.1,
+     "perdida": -0.1,
+     "recuperacion": 0.0,
+     "neto": -0.1,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 8.8
+    },
+    {
+     "region": "Ayacucho",
+     "antes": 13.6,
+     "pandemia": 10.0,
+     "ahora": 13.6,
+     "perdida": -3.7,
+     "recuperacion": 3.7,
+     "neto": -0.0,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 16.6
+    },
+    {
+     "region": "Cusco",
+     "antes": 16.1,
+     "pandemia": 12.5,
+     "ahora": 16.9,
+     "perdida": -3.6,
+     "recuperacion": 4.4,
+     "neto": 0.8,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 18.4
+    },
+    {
+     "region": "Ucayali",
+     "antes": 4.7,
+     "pandemia": 4.2,
+     "ahora": 6.8,
+     "perdida": -0.6,
+     "recuperacion": 2.6,
+     "neto": 2.1,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 24.0
+    },
+    {
+     "region": "Huancavelica",
+     "antes": 8.1,
+     "pandemia": 7.0,
+     "ahora": 11.2,
+     "perdida": -1.1,
+     "recuperacion": 4.1,
+     "neto": 3.1,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 24.3
+    },
+    {
+     "region": "Apurímac",
+     "antes": 10.5,
+     "pandemia": 9.8,
+     "ahora": 14.3,
+     "perdida": -0.7,
+     "recuperacion": 4.5,
+     "neto": 3.8,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 37.8
+    }
+   ],
+   "brechas": {
+    "area": {
+     "nombre": "Urbano − rural",
+     "referencia": "Urbano",
+     "comparado": "Rural",
+     "serie": {
+      "2015": 8.5,
+      "2016": 10.2,
+      "2018": 12.3,
+      "2019": 14.5,
+      "2022": 11.1,
+      "2023": 8.7,
+      "2025": 7.7
+     },
+     "antes": 14.5,
+     "ahora": 7.7
+    },
+    "gestion": {
+     "nombre": "Privada − pública",
+     "referencia": "No estatal",
+     "comparado": "Estatal",
+     "serie": {
+      "2015": 13.0,
+      "2016": 11.2,
+      "2018": 13.3,
+      "2019": 16.4,
+      "2022": 14.8,
+      "2023": 9.6,
+      "2025": 12.7
+     },
+     "antes": 16.4,
+     "ahora": 12.7
+    },
+    "sexo": {
+     "nombre": "Niños − niñas",
+     "referencia": "Hombre",
+     "comparado": "Mujer",
+     "serie": {
+      "2015": 3.0,
+      "2016": 2.6,
+      "2018": 3.5,
+      "2019": 4.1,
+      "2022": 5.3,
+      "2023": 5.6,
+      "2025": 6.2
+     },
+     "antes": 4.1,
+     "ahora": 6.2
+    }
+   }
+  },
+  "4P|Lectura": {
+   "grado": "4P",
+   "grado_nombre": "4.º de primaria",
+   "area": "Lectura",
+   "kpis": {
+    "satisfactorio_ahora": 32.7,
+    "satisfactorio_antes": 34.5,
+    "satisfactorio_pandemia": 30.0,
+    "neto": {
+     "pp": -1.9,
+     "significativo": true
+    },
+    "perdida": {
+     "pp": -4.5,
+     "significativo": true
+    },
+    "recuperacion": {
+     "pp": 2.6,
+     "significativo": true
+    },
+    "recuperado": {
+     "pct": 58.1,
+     "texto": "de lo perdido"
+    },
+    "debajo_ahora": 27.0,
+    "debajo_antes": 29.9,
+    "regiones_debajo": 5,
+    "regiones_supera": 1,
+    "region_mayor_perdida": {
+     "region": "San Martín",
+     "pp": -10.7
+    },
+    "brecha_mayor": "Urbano − rural"
+   },
+   "regiones": [
+    {
+     "region": "Ica",
+     "antes": 39.1,
+     "pandemia": 30.3,
+     "ahora": 32.6,
+     "perdida": -8.8,
+     "recuperacion": 2.2,
+     "neto": -6.5,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -7.8
+    },
+    {
+     "region": "Arequipa",
+     "antes": 46.4,
+     "pandemia": 44.7,
+     "ahora": 41.1,
+     "perdida": -1.8,
+     "recuperacion": -3.5,
+     "neto": -5.3,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -8.2
+    },
+    {
+     "region": "Tacna",
+     "antes": 53.7,
+     "pandemia": 49.3,
+     "ahora": 49.0,
+     "perdida": -4.4,
+     "recuperacion": -0.3,
+     "neto": -4.7,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -8.6
+    },
+    {
+     "region": "San Martín",
+     "antes": 24.2,
+     "pandemia": 13.5,
+     "ahora": 19.7,
+     "perdida": -10.7,
+     "recuperacion": 6.3,
+     "neto": -4.5,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -1.8
+    },
+    {
+     "region": "Madre de Dios",
+     "antes": 23.4,
+     "pandemia": 15.5,
+     "ahora": 18.9,
+     "perdida": -7.9,
+     "recuperacion": 3.4,
+     "neto": -4.4,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -4.1
+    },
+    {
+     "region": "Lima Metropolitana",
+     "antes": 44.4,
+     "pandemia": 40.5,
+     "ahora": 40.8,
+     "perdida": -3.9,
+     "recuperacion": 0.3,
+     "neto": -3.6,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -6.9
+    },
+    {
+     "region": "Moquegua",
+     "antes": 52.0,
+     "pandemia": 51.8,
+     "ahora": 48.8,
+     "perdida": -0.2,
+     "recuperacion": -3.0,
+     "neto": -3.3,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -7.4
+    },
+    {
+     "region": "Piura",
+     "antes": 30.1,
+     "pandemia": 24.8,
+     "ahora": 27.0,
+     "perdida": -5.3,
+     "recuperacion": 2.3,
+     "neto": -3.0,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 2.1
+    },
+    {
+     "region": "Huánuco",
+     "antes": 26.7,
+     "pandemia": 20.5,
+     "ahora": 24.2,
+     "perdida": -6.2,
+     "recuperacion": 3.7,
+     "neto": -2.5,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 0.9
+    },
+    {
+     "region": "Junín",
+     "antes": 34.1,
+     "pandemia": 31.7,
+     "ahora": 31.6,
+     "perdida": -2.4,
+     "recuperacion": -0.1,
+     "neto": -2.5,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 2.7
+    },
+    {
+     "region": "Callao",
+     "antes": 43.5,
+     "pandemia": 38.3,
+     "ahora": 41.3,
+     "perdida": -5.2,
+     "recuperacion": 3.0,
+     "neto": -2.2,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -4.0
+    },
+    {
+     "region": "Puno",
+     "antes": 36.0,
+     "pandemia": 29.3,
+     "ahora": 34.1,
+     "perdida": -6.8,
+     "recuperacion": 4.8,
+     "neto": -1.9,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 4.2
+    },
+    {
+     "region": "La Libertad",
+     "antes": 28.7,
+     "pandemia": 26.6,
+     "ahora": 27.1,
+     "perdida": -2.1,
+     "recuperacion": 0.5,
+     "neto": -1.6,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 2.4
+    },
+    {
+     "region": "Lambayeque",
+     "antes": 31.1,
+     "pandemia": 25.2,
+     "ahora": 29.6,
+     "perdida": -5.9,
+     "recuperacion": 4.5,
+     "neto": -1.5,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 1.5
+    },
+    {
+     "region": "Pasco",
+     "antes": 29.3,
+     "pandemia": 24.2,
+     "ahora": 27.8,
+     "perdida": -5.0,
+     "recuperacion": 3.6,
+     "neto": -1.4,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 5.1
+    },
+    {
+     "region": "Cajamarca",
+     "antes": 23.9,
+     "pandemia": 16.5,
+     "ahora": 22.7,
+     "perdida": -7.4,
+     "recuperacion": 6.2,
+     "neto": -1.2,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 6.3
+    },
+    {
+     "region": "Cusco",
+     "antes": 37.3,
+     "pandemia": 32.7,
+     "ahora": 37.8,
+     "perdida": -4.6,
+     "recuperacion": 5.1,
+     "neto": 0.5,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 5.3
+    },
+    {
+     "region": "Lima Provincias",
+     "antes": 32.4,
+     "pandemia": 28.2,
+     "ahora": 33.0,
+     "perdida": -4.3,
+     "recuperacion": 4.9,
+     "neto": 0.6,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 3.2
+    },
+    {
+     "region": "Áncash",
+     "antes": 30.2,
+     "pandemia": 27.1,
+     "ahora": 31.2,
+     "perdida": -3.1,
+     "recuperacion": 4.1,
+     "neto": 1.0,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 8.1
+    },
+    {
+     "region": "Tumbes",
+     "antes": 19.4,
+     "pandemia": 16.6,
+     "ahora": 20.4,
+     "perdida": -2.8,
+     "recuperacion": 3.9,
+     "neto": 1.1,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 6.4
+    },
+    {
+     "region": "Apurímac",
+     "antes": 31.3,
+     "pandemia": 27.4,
+     "ahora": 32.5,
+     "perdida": -3.9,
+     "recuperacion": 5.1,
+     "neto": 1.2,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 8.1
+    },
+    {
+     "region": "Ayacucho",
+     "antes": 31.7,
+     "pandemia": 27.5,
+     "ahora": 32.8,
+     "perdida": -4.2,
+     "recuperacion": 5.3,
+     "neto": 1.2,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 7.4
+    },
+    {
+     "region": "Amazonas",
+     "antes": 26.9,
+     "pandemia": 18.1,
+     "ahora": 28.2,
+     "perdida": -8.8,
+     "recuperacion": 10.1,
+     "neto": 1.3,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 6.9
+    },
+    {
+     "region": "Huancavelica",
+     "antes": 28.2,
+     "pandemia": 25.3,
+     "ahora": 29.7,
+     "perdida": -2.9,
+     "recuperacion": 4.4,
+     "neto": 1.6,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 7.6
+    },
+    {
+     "region": "Loreto",
+     "antes": 9.1,
+     "pandemia": 9.6,
+     "ahora": 11.7,
+     "perdida": 0.6,
+     "recuperacion": 2.1,
+     "neto": 2.7,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 17.5
+    },
+    {
+     "region": "Ucayali",
+     "antes": 17.3,
+     "pandemia": 14.9,
+     "ahora": 20.8,
+     "perdida": -2.4,
+     "recuperacion": 5.9,
+     "neto": 3.4,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": 14.9
+    }
+   ],
+   "brechas": {
+    "area": {
+     "nombre": "Urbano − rural",
+     "referencia": "Urbano",
+     "comparado": "Rural",
+     "serie": {
+      "2016": 23.2,
+      "2018": 24.8,
+      "2019": 25.6,
+      "2022": 21.5,
+      "2023": 22.9,
+      "2024": 18.5,
+      "2025": 18.6
+     },
+     "antes": 25.6,
+     "ahora": 18.6
+    },
+    "gestion": {
+     "nombre": "Privada − pública",
+     "referencia": "No estatal",
+     "comparado": "Estatal",
+     "serie": {
+      "2016": 15.3,
+      "2018": 11.1,
+      "2019": 15.4,
+      "2022": 20.3,
+      "2023": 13.7,
+      "2024": 14.2,
+      "2025": 12.8
+     },
+     "antes": 15.4,
+     "ahora": 12.8
+    },
+    "sexo": {
+     "nombre": "Niños − niñas",
+     "referencia": "Hombre",
+     "comparado": "Mujer",
+     "serie": {
+      "2016": -3.5,
+      "2018": -2.8,
+      "2019": -4.4,
+      "2022": -3.1,
+      "2023": -2.4,
+      "2024": -1.4,
+      "2025": -1.8
+     },
+     "antes": -4.4,
+     "ahora": -1.8
+    }
+   }
+  },
+  "4P|Matemática": {
+   "grado": "4P",
+   "grado_nombre": "4.º de primaria",
+   "area": "Matemática",
+   "kpis": {
+    "satisfactorio_ahora": 30.0,
+    "satisfactorio_antes": 34.0,
+    "satisfactorio_pandemia": 23.3,
+    "neto": {
+     "pp": -4.0,
+     "significativo": true
+    },
+    "perdida": {
+     "pp": -10.7,
+     "significativo": true
+    },
+    "recuperacion": {
+     "pp": 6.7,
+     "significativo": true
+    },
+    "recuperado": {
+     "pct": 62.5,
+     "texto": "de lo perdido"
+    },
+    "debajo_ahora": 30.9,
+    "debajo_antes": 24.0,
+    "regiones_debajo": 11,
+    "regiones_supera": 1,
+    "region_mayor_perdida": {
+     "region": "Amazonas",
+     "pp": -16.4
+    },
+    "brecha_mayor": "Urbano − rural"
+   },
+   "regiones": [
+    {
+     "region": "Tacna",
+     "antes": 63.5,
+     "pandemia": 48.1,
+     "ahora": 54.6,
+     "perdida": -15.3,
+     "recuperacion": 6.5,
+     "neto": -8.9,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -22.8
+    },
+    {
+     "region": "Ica",
+     "antes": 40.5,
+     "pandemia": 24.8,
+     "ahora": 32.4,
+     "perdida": -15.7,
+     "recuperacion": 7.6,
+     "neto": -8.1,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -26.5
+    },
+    {
+     "region": "La Libertad",
+     "antes": 30.8,
+     "pandemia": 20.0,
+     "ahora": 23.3,
+     "perdida": -10.8,
+     "recuperacion": 3.3,
+     "neto": -7.5,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -21.8
+    },
+    {
+     "region": "Huánuco",
+     "antes": 29.6,
+     "pandemia": 18.3,
+     "ahora": 23.2,
+     "perdida": -11.4,
+     "recuperacion": 4.9,
+     "neto": -6.4,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -21.3
+    },
+    {
+     "region": "Piura",
+     "antes": 31.3,
+     "pandemia": 18.4,
+     "ahora": 25.3,
+     "perdida": -12.9,
+     "recuperacion": 6.9,
+     "neto": -6.0,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -19.7
+    },
+    {
+     "region": "Cajamarca",
+     "antes": 28.7,
+     "pandemia": 14.4,
+     "ahora": 22.8,
+     "perdida": -14.2,
+     "recuperacion": 8.4,
+     "neto": -5.9,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -22.3
+    },
+    {
+     "region": "Pasco",
+     "antes": 34.5,
+     "pandemia": 22.5,
+     "ahora": 28.5,
+     "perdida": -12.0,
+     "recuperacion": 6.0,
+     "neto": -5.9,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -18.6
+    },
+    {
+     "region": "Arequipa",
+     "antes": 44.2,
+     "pandemia": 39.0,
+     "ahora": 38.5,
+     "perdida": -5.1,
+     "recuperacion": -0.5,
+     "neto": -5.7,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -17.3
+    },
+    {
+     "region": "Junín",
+     "antes": 38.1,
+     "pandemia": 29.6,
+     "ahora": 32.6,
+     "perdida": -8.5,
+     "recuperacion": 2.9,
+     "neto": -5.5,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -15.0
+    },
+    {
+     "region": "San Martín",
+     "antes": 24.1,
+     "pandemia": 10.9,
+     "ahora": 19.2,
+     "perdida": -13.3,
+     "recuperacion": 8.4,
+     "neto": -4.9,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -17.4
+    },
+    {
+     "region": "Lima Metropolitana",
+     "antes": 39.1,
+     "pandemia": 27.9,
+     "ahora": 34.6,
+     "perdida": -11.2,
+     "recuperacion": 6.7,
+     "neto": -4.5,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -17.3
+    },
+    {
+     "region": "Callao",
+     "antes": 38.9,
+     "pandemia": 26.3,
+     "ahora": 34.7,
+     "perdida": -12.6,
+     "recuperacion": 8.4,
+     "neto": -4.2,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -17.1
+    },
+    {
+     "region": "Lambayeque",
+     "antes": 28.9,
+     "pandemia": 18.4,
+     "ahora": 25.1,
+     "perdida": -10.5,
+     "recuperacion": 6.7,
+     "neto": -3.8,
+     "neto_significativo": true,
+     "estado": "debajo de 2019",
+     "medida_neto": -14.2
+    },
+    {
+     "region": "Cusco",
+     "antes": 41.7,
+     "pandemia": 30.4,
+     "ahora": 38.2,
+     "perdida": -11.3,
+     "recuperacion": 7.8,
+     "neto": -3.5,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -7.1
+    },
+    {
+     "region": "Madre de Dios",
+     "antes": 20.1,
+     "pandemia": 13.0,
+     "ahora": 16.7,
+     "perdida": -7.0,
+     "recuperacion": 3.6,
+     "neto": -3.4,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -17.3
+    },
+    {
+     "region": "Puno",
+     "antes": 45.6,
+     "pandemia": 31.1,
+     "ahora": 42.1,
+     "perdida": -14.4,
+     "recuperacion": 11.0,
+     "neto": -3.4,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -11.2
+    },
+    {
+     "region": "Amazonas",
+     "antes": 31.4,
+     "pandemia": 15.0,
+     "ahora": 28.3,
+     "perdida": -16.4,
+     "recuperacion": 13.3,
+     "neto": -3.2,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -13.6
+    },
+    {
+     "region": "Lima Provincias",
+     "antes": 34.1,
+     "pandemia": 21.4,
+     "ahora": 31.5,
+     "perdida": -12.7,
+     "recuperacion": 10.1,
+     "neto": -2.6,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -13.9
+    },
+    {
+     "region": "Apurímac",
+     "antes": 35.6,
+     "pandemia": 26.6,
+     "ahora": 33.3,
+     "perdida": -9.0,
+     "recuperacion": 6.8,
+     "neto": -2.3,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -8.3
+    },
+    {
+     "region": "Moquegua",
+     "antes": 53.6,
+     "pandemia": 51.3,
+     "ahora": 52.0,
+     "perdida": -2.4,
+     "recuperacion": 0.7,
+     "neto": -1.7,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -10.0
+    },
+    {
+     "region": "Huancavelica",
+     "antes": 36.9,
+     "pandemia": 26.4,
+     "ahora": 35.5,
+     "perdida": -10.6,
+     "recuperacion": 9.2,
+     "neto": -1.4,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -12.9
+    },
+    {
+     "region": "Áncash",
+     "antes": 30.5,
+     "pandemia": 21.3,
+     "ahora": 30.1,
+     "perdida": -9.2,
+     "recuperacion": 8.8,
+     "neto": -0.4,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -4.2
+    },
+    {
+     "region": "Tumbes",
+     "antes": 16.7,
+     "pandemia": 11.6,
+     "ahora": 16.7,
+     "perdida": -5.1,
+     "recuperacion": 5.1,
+     "neto": -0.0,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -10.0
+    },
+    {
+     "region": "Ayacucho",
+     "antes": 34.5,
+     "pandemia": 26.1,
+     "ahora": 34.7,
+     "perdida": -8.4,
+     "recuperacion": 8.6,
+     "neto": 0.2,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -1.4
+    },
+    {
+     "region": "Loreto",
+     "antes": 5.7,
+     "pandemia": 5.2,
+     "ahora": 6.4,
+     "perdida": -0.5,
+     "recuperacion": 1.3,
+     "neto": 0.8,
+     "neto_significativo": false,
+     "estado": "igual a 2019",
+     "medida_neto": -11.7
+    },
+    {
+     "region": "Ucayali",
+     "antes": 13.0,
+     "pandemia": 9.1,
+     "ahora": 18.0,
+     "perdida": -3.9,
+     "recuperacion": 8.9,
+     "neto": 5.0,
+     "neto_significativo": true,
+     "estado": "supera 2019",
+     "medida_neto": 8.5
+    }
+   ],
+   "brechas": {
+    "area": {
+     "nombre": "Urbano − rural",
+     "referencia": "Urbano",
+     "comparado": "Rural",
+     "serie": {
+      "2016": 14.9,
+      "2018": 20.2,
+      "2019": 20.5,
+      "2022": 14.4,
+      "2023": 10.4,
+      "2024": 16.4,
+      "2025": 13.7
+     },
+     "antes": 20.5,
+     "ahora": 13.7
+    },
+    "gestion": {
+     "nombre": "Privada − pública",
+     "referencia": "No estatal",
+     "comparado": "Estatal",
+     "serie": {
+      "2016": 3.2,
+      "2018": 5.0,
+      "2019": 5.7,
+      "2022": 9.4,
+      "2023": 2.5,
+      "2024": 8.4,
+      "2025": 5.6
+     },
+     "antes": 5.7,
+     "ahora": 5.6
+    },
+    "sexo": {
+     "nombre": "Niños − niñas",
+     "referencia": "Hombre",
+     "comparado": "Mujer",
+     "serie": {
+      "2016": 3.7,
+      "2018": 3.6,
+      "2019": 1.3,
+      "2022": 4.4,
+      "2023": 6.0,
+      "2024": 8.6,
+      "2025": 9.4
+     },
+     "antes": 1.3,
+     "ahora": 9.4
+    }
+   }
+  }
+ },
+ "control": {
+  "niveles_suman_100": {
+   "filas": 952,
+   "desvio_maximo_pp": 0.0
+  },
+  "regiones_por_grado_anio": {
+   "2S 2015": 26,
+   "2S 2016": 26,
+   "2S 2018": 26,
+   "2S 2019": 26,
+   "2S 2022": 26,
+   "2S 2023": 26,
+   "2S 2025": 26,
+   "4P 2016": 26,
+   "4P 2018": 26,
+   "4P 2019": 26,
+   "4P 2022": 26,
+   "4P 2023": 26,
+   "4P 2024": 26,
+   "4P 2025": 26
+  },
+  "anios": {
+   "2S": [
+    2015,
+    2016,
+    2018,
+    2019,
+    2022,
+    2023,
+    2025
+   ],
+   "4P": [
+    2016,
+    2018,
+    2019,
+    2022,
+    2023,
+    2024,
+    2025
+   ]
+  },
+  "filas_sin_medida": 0,
+  "mapa": {
+   "regiones": 26
+  }
+ }
+}

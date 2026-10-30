@@ -1,0 +1,15 @@
+archivo,url,descargado,bytes
+datos/originales/geo/peru_departamental.geojson,https://raw.githubusercontent.com/juaneladio/peru-geojson/master/peru_departamental_simple.geojson,2026-10-30 11:04,139681
+datos/originales/geo/peru_provincial.geojson,https://raw.githubusercontent.com/juaneladio/peru-geojson/master/peru_provincial_simple.geojson,2026-10-30 11:04,825085
+datos/originales/umc/dre_2s_2015_2022_medida.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/2.-DRE-2S-2015-2022-2S-medida-promedio.xlsx,2026-10-30 11:04,27329
+datos/originales/umc/dre_2s_2015_2022_nivel.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/2.-DRE-2S-2015-2022-2S-Nivel-de-desempe%C3%B1o.xlsx,2026-10-30 11:04,49003
+datos/originales/umc/dre_2s_2023_2025_medida.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/2.-DRE-2S-2023-2025-2S-medida-promedio.xlsx,2026-10-30 11:04,21886
+datos/originales/umc/dre_2s_2023_2025_nivel.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/2.-DRE-2S-2023-2025-2S-Nivel-de-desempe%C3%B1o.xlsx,2026-10-30 11:04,37246
+datos/originales/umc/dre_4p_medida.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/2.-DRE-4P-2016-2025-medida-promedio.xlsx,2026-10-30 11:04,22614
+datos/originales/umc/dre_4p_nivel.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/2.-DRE-4P-2016-2025-Nivel-de-desempe%C3%B1o.xlsx,2026-10-30 11:04,53259
+datos/originales/umc/estratos_2s_2015_2022_medida.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/1.-Estratos-2S-2015-2022-2S-medida-promedio.xlsx,2026-10-30 11:04,21464
+datos/originales/umc/estratos_2s_2015_2022_nivel.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/1.-Estratos-2015-2022-2S-Nivel-de-desempe%C3%B1o.xlsx,2026-10-30 11:04,29069
+datos/originales/umc/estratos_2s_2023_2025_medida.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/1.-Estratos-2S-2023-2025-2S-medida-promedio.xlsx,2026-10-30 11:04,20294
+datos/originales/umc/estratos_2s_2023_2025_nivel.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/1.-Estratos-2023-2025-2S-Nivel-de-desempe%C3%B1o.xlsx,2026-10-30 11:04,25008
+datos/originales/umc/estratos_4p_medida.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/1.-Estratos-4P-2016-2025-medida-promedio.xlsx,2026-10-30 11:04,19203
+datos/originales/umc/estratos_4p_nivel.xlsx,http://umc.minedu.gob.pe/wp-content/uploads/2026/05/1.-Estratos-4P-2016-2025-Nivel-de-desempe%C3%B1o.xlsx,2026-10-30 11:04,30916

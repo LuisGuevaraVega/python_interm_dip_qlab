@@ -1,0 +1,6 @@
+# Entorno de los scripts de datos (Python 3.12). Con uv: uv sync (usa pyproject.toml y uv.lock).
+pandas==2.3.3
+numpy==2.5.4
+httpx==0.28.1
+openpyxl==3.1.5
+shapely==2.2.0
