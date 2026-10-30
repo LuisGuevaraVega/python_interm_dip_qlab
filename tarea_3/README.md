@@ -3,6 +3,7 @@
 **Luis Gabriel Guevara Vega** · Tarea 3 · Python Intermedio · Diplomatura de QLab, PUCP · octubre de 2026
 
 - **Dashboard público:** https://luisguevaravega.github.io/python_interm_dip_qlab/tarea_3/web/
+- **Repositorio:** https://github.com/LuisGuevaraVega/python_interm_dip_qlab/tree/main/tarea_3
 - **Publicación de LinkedIn:** _(pendiente)_
 - **Reel:** [`reel/salidas/reel.mp4`](reel/salidas/reel.mp4) (57 s, narrado con mi voz clonada con IA) · [cómo se hizo](reel/README.md)
 
