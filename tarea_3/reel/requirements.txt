@@ -1,0 +1,13 @@
+# Entorno del reel (Python 3.12), aparte del de los datos: qwen-tts fija transformers==4.57.3.
+# La primera corrida baja ~4 GB de modelos (Qwen3-TTS 0.6B y Whisper small/medium).
+qwen-tts==0.1.1
+faster-whisper==1.2.1
+torch==2.14.1
+transformers==4.57.3
+pillow==12.3.0
+imageio-ffmpeg==0.6.0
+soundfile==0.14.0
+jiwer==4.0.0
+num2words==0.5.14
+librosa==1.0.0
+numpy==2.5.4

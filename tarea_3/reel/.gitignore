@@ -1,0 +1,9 @@
+# Mi voz no se sube: con la grabación cualquiera podría clonarla
+privado/
+salidas/voz_ref.wav
+# audios intermedios (se regeneran con hacer_reel.py)
+salidas/escenas/
+salidas/reel_crudo.wav
+salidas/reel.wav
+salidas/reel_final.wav
+figuras/_tablero_crudo.png

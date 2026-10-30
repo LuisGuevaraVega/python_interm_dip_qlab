@@ -1,0 +1,51 @@
+[
+  {
+    "escena": 1,
+    "wer": 0.0,
+    "oido": "En 2019 uno de cada tres niños de cuarto de primaria alcanzaba el nivel esperado en matemática después del cierre de escuelas menos de uno de cada cuatro.",
+    "segundos_audio": 10.08,
+    "segundos_calculo": 141.3,
+    "intentos": 1
+  },
+  {
+    "escena": 2,
+    "wer": 0.0,
+    "oido": "En 2025 llegó a 30%, recuperó más de la mitad de lo perdido pero sigue 4 puntos por debajo de antes.",
+    "segundos_audio": 7.9,
+    "segundos_calculo": 93.3,
+    "intentos": 1
+  },
+  {
+    "escena": 3,
+    "wer": 0.0,
+    "oido": "En segundo de secundaria no hubo rebote, 18 de las 26 regiones siguen peor que en 2019.",
+    "segundos_audio": 6.62,
+    "segundos_calculo": 83.5,
+    "intentos": 1
+  },
+  {
+    "escena": 4,
+    "wer": 0.0,
+    "oido": "y se abrió una brecha que casi no existía, las niñas bajaron de 33 a 25%, los niños se quedaron donde estaban.",
+    "segundos_audio": 9.33,
+    "segundos_calculo": 104.2,
+    "intentos": 1
+  },
+  {
+    "escena": 5,
+    "wer": 0.0,
+    "oido": "Las regiones que estaban más arriba cayeron más. Tacna, la primera en matemática, sigue casi nueve puntos abajo. Solo Ukayali ya superó su nivel de antes.",
+    "segundos_audio": 9.52,
+    "segundos_calculo": 129.0,
+    "intentos": 3,
+    "nota": "Primera versión: Whisper oyó «Kajali» (se perdía la U de Ucayali). Se regeneró y se eligió la versión en que Whisper medium, sin contexto, oye «Ukayali» (misma pronunciación; solo cambia la ortografía del nombre propio)."
+  },
+  {
+    "escena": 6,
+    "wer": 0.0,
+    "oido": "Lectura resistió mejor. Busca tu región en el tablero interactivo, el enlace está en la descripción.",
+    "segundos_audio": 6.9,
+    "segundos_calculo": 82.2,
+    "intentos": 1
+  }
+]

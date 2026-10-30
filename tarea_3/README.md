@@ -4,7 +4,7 @@
 
 - **Dashboard público:** https://luisguevaravega.github.io/python_interm_dip_qlab/tarea_3/web/
 - **Publicación de LinkedIn:** _(pendiente)_
-- **Reel:** [`reel/`](reel/) _(en preparación)_
+- **Reel:** [`reel/salidas/reel.mp4`](reel/salidas/reel.mp4) (57 s, narrado con mi voz clonada con IA) · [cómo se hizo](reel/README.md)
 
 ![Resumen del dashboard: KPIs, evolución nacional y niveles de logro](figuras/dashboard_resumen.png)
 
@@ -116,9 +116,9 @@ tarea_3/
 ├── scripts/            obtener_datos.py → procesar_datos.py → analizar_datos.py
 ├── web/                el dashboard (index.html, assets/, data/)
 ├── figuras/            capturas del dashboard
-└── reel/               guion, subtítulos y recursos del reel
+└── reel/               guion verificado, figuras, música, subtítulos y el video (ver reel/README.md)
 ```
 
 ## 8. Uso de inteligencia artificial
 
-Usé **Claude Code** (Anthropic) para buscar las fuentes de datos, escribir los scripts de Python y el código del dashboard, y redactar los textos. Yo elegí el tema, la pregunta y los enfoques. Las cifras de los hallazgos salen de los scripts, no del modelo, y las revisé contra las bases originales de la UMC.
+Usé **Claude Code** (Anthropic) para buscar las fuentes de datos, escribir los scripts de Python, el código del dashboard y el del reel, y redactar los textos. La narración del reel es mi voz clonada con **Qwen3-TTS** (a partir de una grabación mía de 15 s), y los subtítulos y el control de la voz los hace **Whisper**. La música es «Clean Soul» de Kevin MacLeod (incompetech.com), con licencia CC BY 4.0. Yo elegí el tema, la pregunta y los enfoques. Las cifras de los hallazgos salen de los scripts, no del modelo, y las revisé contra las bases originales de la UMC.

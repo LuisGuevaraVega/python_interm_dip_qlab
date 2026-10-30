@@ -11,4 +11,6 @@ dependencies = [
   "httpx>=0.28",
   "openpyxl>=3.1.5",          # leer los Excel de la UMC
   "shapely>=2.0",             # separar Lima Metropolitana de Lima Provincias en el mapa
+  "matplotlib>=3.9",          # figuras del reel
+  "pillow>=10",               # recortar la captura del tablero para el reel
 ]
