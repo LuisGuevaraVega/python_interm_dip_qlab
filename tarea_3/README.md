@@ -4,7 +4,7 @@
 
 - **Dashboard público:** https://luisguevaravega.github.io/python_interm_dip_qlab/tarea_3/web/
 - **Repositorio:** https://github.com/LuisGuevaraVega/python_interm_dip_qlab/tree/main/tarea_3
-- **Publicación de LinkedIn:** _(pendiente)_
+- **Publicación de LinkedIn:** https://www.linkedin.com/feed/update/urn:li:activity:7522080940521771008/
 - **Reel:** [`reel/salidas/reel.mp4`](reel/salidas/reel.mp4) (57 s, narrado con mi voz clonada con IA) · [cómo se hizo](reel/README.md)
 
 ![Resumen del dashboard: KPIs, evolución nacional y niveles de logro](figuras/dashboard_resumen.png)
@@ -93,7 +93,7 @@ Todas las cifras salen de [`datos/procesados/indicadores.json`](datos/procesados
 ## 6. Enlaces
 
 - Dashboard: https://luisguevaravega.github.io/python_interm_dip_qlab/tarea_3/web/
-- LinkedIn: _(pendiente)_
+- LinkedIn: https://www.linkedin.com/feed/update/urn:li:activity:7522080940521771008/
 - Datos originales: http://umc.minedu.gob.pe/bases-de-datos/
 
 ## 7. Cómo reproducirlo
