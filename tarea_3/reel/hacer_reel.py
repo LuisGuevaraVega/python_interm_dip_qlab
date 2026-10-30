@@ -276,7 +276,7 @@ class Lienzo:
     def __init__(self, guion, autor, enlace):
         self.guion, self.autor, self.enlace = guion, autor, enlace
         self.f_autor = fuente(34, "SemiBold")
-        self.f_ia = fuente(28, "Bold")
+        self.f_ia = fuente(26, "SemiBold")
         self.f_cifra = fuente(190, "Bold Condensed")
         self.f_etiqueta = fuente(50, "SemiBold")
         self.f_sub = fuente(64, "Bold")
@@ -291,11 +291,10 @@ class Lienzo:
         img = Image.new("RGB", (ANCHO, ALTO), FONDO)
         d = ImageDraw.Draw(img)
         d.text((MARGEN, 150), self.autor, font=self.f_autor, fill=TENUE)
-        aviso = "VOZ GENERADA CON IA"
+        # aviso discreto pero visible todo el video (lo pide la tarea); también va en la tarjeta final
+        aviso = "Voz generada con IA"
         w = d.textlength(aviso, font=self.f_ia)
-        x = ANCHO - MARGEN - w - 28
-        d.rounded_rectangle((x, 144, ANCHO - MARGEN, 196), radius=26, outline=NARANJA, width=3)
-        d.text((x + 14, 154), aviso, font=self.f_ia, fill=NARANJA)
+        d.text((ANCHO - MARGEN - w, 156), aviso, font=self.f_ia, fill=TENUE)
         d.text((MARGEN, 1592), f"Datos: {self.guion['fuente']}", font=self.f_fuente, fill=TENUE)
         return img
 
@@ -408,11 +407,6 @@ def renderizar(guion, tiempos, total, marcas, autor, enlace, destino):
         elif habla:
             lienzo.subtitulo(d, habla[-1], t)
 
-        # Barra de avance por escena, arriba de la zona de botones (no va en la tarjeta final)
-        ancho_barra = (ANCHO - 2 * MARGEN) / len(tiempos)
-        for j in range(len(tiempos) if not (ultimo and t > tiempos[i][1] + 0.2) else 0):
-            x0 = MARGEN + j * ancho_barra
-            d.rectangle((x0 + 3, 1560, x0 + ancho_barra - 3, 1566), fill=AZUL if j <= i else (60, 60, 64))
 
         if portada is None and i == 0 and dentro >= 6:
             portada = img.copy()
