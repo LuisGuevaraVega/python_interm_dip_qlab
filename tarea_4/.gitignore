@@ -1,0 +1,11 @@
+# microdatos originales y descargas (se vuelven a bajar: ver README)
+datos/
+# bases intermedias pesadas
+salidas/*.parquet
+salidas/cache_bcrp/
+# entorno
+.venv/
+__pycache__/
+.pytest_cache/
+# borradores locales de evidencias sin anonimizar
+evidencias_ia/_crudo/
