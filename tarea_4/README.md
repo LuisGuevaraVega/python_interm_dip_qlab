@@ -131,6 +131,8 @@ recurso `bcrp://series-clave` y llamó a `comparar_series` y `resumen`
 
 ## 8. Reproducir el procesamiento y las pruebas
 
+**Demo guiada (recomendada para empezar):** `uv run scripts/demo.py` recorre en ~2 minutos las pruebas, el MCP por dentro, la limpieza validada, un gráfico, un mapa y una pregunta al agente que usa el MCP y una skill (pausa con Enter entre pasos; `--sin-agente` omite la llamada a Claude, `--sin-pausas` la corre de seguido).
+
 ```bash
 uv run pytest                                                         # 10 passed
 uv run .claude/skills/limpiando-enaho/scripts/limpiar.py --descargar  # bases + validacion.txt
