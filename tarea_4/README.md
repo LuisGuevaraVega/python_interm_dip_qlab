@@ -131,6 +131,8 @@ recurso `bcrp://series-clave` y llamó a `comparar_series` y `resumen`
 
 ## 8. Reproducir el procesamiento y las pruebas
 
+**Interfaz web (la forma más amigable de usarlo):** `uv run streamlit run app/app.py` abre en el navegador una app con cinco pestañas: un **chat con el agente** (muestra en vivo cada herramienta MCP y skill que usa, y los gráficos que genera; requiere Claude Code con sesión iniciada), **precios del BCRP en vivo**, **pobreza de la ENAHO** con gráficos y mapa interactivos, la **evaluación** y el **informe**.
+
 **Demo guiada (recomendada para empezar):** `uv run scripts/demo.py` recorre en ~2 minutos las pruebas, el MCP por dentro, la limpieza validada, un gráfico, un mapa y una pregunta al agente que usa el MCP y una skill (pausa con Enter entre pasos; `--sin-agente` omite la llamada a Claude, `--sin-pausas` la corre de seguido).
 
 ```bash
