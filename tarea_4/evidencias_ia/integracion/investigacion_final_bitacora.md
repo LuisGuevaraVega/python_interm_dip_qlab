@@ -2,7 +2,7 @@
 
 - Fecha: 2026-11-05 16:11 (hora local, UTC-5)
 - Modelo: claude-sonnet-5-5
-- Turnos: 19 · Tiempo: 103 s · Costo informado por Claude Code: US$ 0.33
+- Turnos: 19 · Tiempo: 95 s · Costo informado por Claude Code: US$ 0.33
 - Herramientas MCP distintas: 3 (comparar_series, grafico, resumen)
 - Skills distintas: 3 (limpiando-enaho, graficando-enaho, mapeando-enaho)
 - Registro completo: [investigacion_final.jsonl](investigacion_final.jsonl)
@@ -51,6 +51,32 @@ tú. Carga cada skill con la herramienta Skill (`limpiando-enaho`, `graficando-e
 sus instrucciones; no ejecutes sus scripts sin haberla cargado. Las cifras del BCRP salen solo de las herramientas
 del servidor `bcrp`.
 ```
+
+## Plan y mensajes del agente durante la ejecución
+
+**Antes de la llamada 1:**
+
+**Plan**
+
+1. **BCRP (servidor `bcrp`):** necesito los índices del IPC de Lima Metropolitana (total, alimentos y bebidas, sin alimentos y bebidas). Los ubico con `bcrp://series-clave` o `buscar_series`.
+2. **BCRP, variaciones:** uso `comparar_series` (dic. 2019 a dic. 2024) para saber cuánto subió cada índice. Uso `resumen` para el pico de la inflación interanual total y de alimentos en 2020-2024. Uso `grafico` para guardar la inflación a 12 meses en `figuras/`.
+3. **ENAHO 2024:** reviso si existe `salidas/personas_2024.parquet`. Si no existe, cargo `limpiando-enaho` y reviso su validación.
+4. **ENAHO, salidas:** con `graficando-enaho` hago el peso de los alimentos en el gasto y la pobreza urbana/rural. Con `mapeando-enaho` hago el mapa de pobreza por departamento. Las cifras salen de los .csv de las skills y de `salidas/indicadores.csv`.
+5. **Contraste e informe:** comparo con las referencias del INEI (27.6 / 24.8 / 39.3 %) y con `salidas/comparacion_mapa.csv`. Después escribo `informes/informe_final.md`.
+
+Empiezo cargando las herramientas del servidor BCRP y las skills.
+
+**Antes de la llamada 6:**
+
+La validación de la ENAHO quedó aprobada (23 de 23). Ahora hago las consultas al BCRP y cargo las otras dos skills.
+
+**Antes de la llamada 13:**
+
+Falta el peso de los alimentos por departamento. Genero ese mapa también y reviso los CSV.
+
+**Antes de la llamada 14:**
+
+Ya tengo todas las cifras. Escribo el informe.
 
 ## Llamadas a herramientas, en orden
 

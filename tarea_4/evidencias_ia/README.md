@@ -20,6 +20,7 @@ formato conocido y la carpeta del usuario de Windows; el razonamiento interno de
 | [`skills_mapa_sin_base`](integracion/skills_mapa_sin_base_bitacora.md) | Con la base apartada, «Haz un mapa de la pobreza monetaria por departamento con ENAHO 2024» activa `mapeando-enaho`, que llama primero a `limpiando-enaho` |
 | [`investigacion_intento1`](integracion/investigacion_intento1_bitacora.md) | **Intento descartado:** el agente usó 4 herramientas MCP pero leyó salidas de pruebas anteriores en vez de invocar las skills. Su informe quedó en [`informe_intento1.md`](integracion/informe_intento1.md) |
 | [`investigacion_final`](integracion/investigacion_final_bitacora.md) | **La ejecución del informe final:** desde cero, 3 herramientas MCP (`comparar_series`, `resumen`, `grafico`), el recurso `bcrp://series-clave` y 3 skills (`limpiando-enaho`, `graficando-enaho`, `mapeando-enaho`) |
+| [`skill_invocada_directo`](integracion/skill_invocada_directo_bitacora.md) | Una skill invocada individualmente con su comando: `/graficando-enaho sexo` ejecuta su script y devuelve el gráfico por sexo |
 | [`mcp_prompt_y_recurso`](integracion/mcp_prompt_y_recurso_bitacora.md) | El prompt MCP `/mcp__bcrp__interpretar_inflacion` invocado desde Claude Code, que lee el recurso y llama a dos herramientas |
 
 ## Correcciones registradas en la conversación

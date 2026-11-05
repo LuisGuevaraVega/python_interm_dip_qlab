@@ -91,7 +91,9 @@ ponderados por `factor07 × mieperho`. Las características de la persona (sexo,
 **Coordinación.** Las skills de gráficos y mapas comprueban si existe la base; si no, activan primero
 `limpiando-enaho`. Ejemplo real: con la base apartada, el pedido *«Haz un mapa de la pobreza monetaria por
 departamento con ENAHO 2024»* activó `mapeando-enaho` → `limpiando-enaho` → mapa (25/25)
-([bitácora](evidencias_ia/integracion/skills_mapa_sin_base_bitacora.md)).
+([bitácora](evidencias_ia/integracion/skills_mapa_sin_base_bitacora.md)). También se invocan individualmente:
+`/graficando-enaho sexo` ([bitácora](evidencias_ia/integracion/skill_invocada_directo_bitacora.md)); y en la
+ejecución del informe el agente cargó las tres, una por una, con la herramienta Skill.
 
 ## 5. Fuentes y descarga de datos
 
@@ -182,7 +184,7 @@ calculadas, el README, la documentación de la skill). Cada atajo y su correcci�
 ## 11. Ejemplo de una ejecución completa
 
 `scripts/ejecutar_agente.py --limpio` con el pedido de [`agente/pregunta_investigacion.md`](agente/pregunta_investigacion.md)
-([bitácora completa](evidencias_ia/integracion/investigacion_final_bitacora.md), 103 s, 19 turnos, Sonnet):
+([bitácora completa](evidencias_ia/integracion/investigacion_final_bitacora.md), 95 s, 19 turnos, Sonnet):
 
 | Paso | Herramienta | Qué produjo |
 |---|---|---|

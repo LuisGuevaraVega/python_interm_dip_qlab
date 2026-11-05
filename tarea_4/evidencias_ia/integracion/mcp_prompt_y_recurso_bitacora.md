@@ -2,7 +2,7 @@
 
 - Fecha: 2026-11-05 16:33 (hora local, UTC-5)
 - Modelo: claude-sonnet-5-5
-- Turnos: 7 · Tiempo: 32 s · Costo informado por Claude Code: US$ 0.11
+- Turnos: 7 · Tiempo: 27 s · Costo informado por Claude Code: US$ 0.11
 - Herramientas MCP distintas: 2 (comparar_series, resumen)
 - Skills distintas: 0 (ninguna)
 - Registro completo: [mcp_prompt_y_recurso.jsonl](mcp_prompt_y_recurso.jsonl)

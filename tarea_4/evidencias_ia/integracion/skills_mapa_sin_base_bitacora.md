@@ -2,7 +2,7 @@
 
 - Fecha: 2026-11-05 16:06 (hora local, UTC-5)
 - Modelo: claude-sonnet-5-5
-- Turnos: 12 · Tiempo: 39 s · Costo informado por Claude Code: US$ 0.14
+- Turnos: 12 · Tiempo: 31 s · Costo informado por Claude Code: US$ 0.14
 - Herramientas MCP distintas: 0 (ninguna)
 - Skills distintas: 2 (mapeando-enaho, limpiando-enaho)
 - Registro completo: [skills_mapa_sin_base.jsonl](skills_mapa_sin_base.jsonl)
@@ -12,6 +12,16 @@
 ```text
 Haz un mapa de la pobreza monetaria por departamento con ENAHO 2024.
 ```
+
+## Plan y mensajes del agente durante la ejecución
+
+**Antes de la llamada 3:**
+
+No existe `salidas/hogares_2024.parquet`, así que primero uso la skill `limpiando-enaho`.
+
+**Antes de la llamada 7:**
+
+La validación aprobó. Ahora genero el mapa.
 
 ## Llamadas a herramientas, en orden
 

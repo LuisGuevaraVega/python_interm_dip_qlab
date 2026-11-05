@@ -35,12 +35,14 @@ def resumir(valor, largo=300):
 
 
 def bitacora(eventos, prompt, nombre, segundos):
-    llamadas, resultados, final = [], {}, {}
+    llamadas, resultados, final, textos = [], {}, {}, []
     for e in eventos:
         if e.get("type") == "assistant":
             for c in e["message"].get("content", []):
                 if c.get("type") == "tool_use":
                     llamadas.append(c)
+                elif c.get("type") == "text" and c["text"].strip():
+                    textos.append((len(llamadas), c["text"].strip()))
         elif e.get("type") == "user":
             contenido = e.get("message", {}).get("content", [])
             for c in contenido if isinstance(contenido, list) else []:
@@ -53,6 +55,10 @@ def bitacora(eventos, prompt, nombre, segundos):
             final = e
     mcp = [c for c in llamadas if c["name"].startswith("mcp__")]
     skills = [c for c in llamadas if c["name"] == "Skill"]
+    # una skill pedida como comando (/graficando-enaho ...) entra al contexto sin pasar por la herramienta Skill
+    comando = prompt.strip().split()[0][1:] if prompt.strip().startswith("/") else ""
+    if comando and (RAIZ / ".claude" / "skills" / comando / "SKILL.md").exists():
+        skills.insert(0, {"name": "Skill", "input": {"skill": f"{comando} (invocada con /{comando})"}})
     lineas = [f"# Bitácora del agente: {nombre}", "",
               f"- Fecha: {datetime.now():%Y-%m-%d %H:%M} (hora local, UTC-5)",
               f"- Modelo: {final.get('modelUsage') and ', '.join(final['modelUsage']) or 'ver .jsonl'}",
@@ -63,7 +69,13 @@ def bitacora(eventos, prompt, nombre, segundos):
               f"- Skills distintas: {len({c['input'].get('skill') for c in skills})} "
               f"({', '.join(dict.fromkeys(c['input'].get('skill', '') for c in skills)) or 'ninguna'})",
               f"- Registro completo: [{nombre}.jsonl]({nombre}.jsonl)", "", "## Pedido", "", "```text", prompt.strip(),
-              "```", "", "## Llamadas a herramientas, en orden", "", "| # | Herramienta | Argumentos | Resultado (resumen) |",
+              "```", ""]
+    intermedios = textos[:-1] if final.get("result") else textos   # el último texto es la respuesta final
+    if intermedios:
+        lineas += ["## Plan y mensajes del agente durante la ejecución", ""]
+        for despues_de, t in intermedios:
+            lineas += [f"**Antes de la llamada {despues_de + 1}:**", "", t, ""]
+    lineas += ["## Llamadas a herramientas, en orden", "", "| # | Herramienta | Argumentos | Resultado (resumen) |",
               "|---|---|---|---|"]
     for i, c in enumerate(llamadas, 1):
         celda = lambda t: t.replace("|", "\\|").replace("\n", " ")
@@ -85,7 +97,22 @@ def main():
                    help="apartar TODAS las salidas previas (salidas/, figuras/, mapas/, informes/) para que el agente "
                         "tenga que producirlas")
     a.add_argument("--max-turnos", type=int, default=60)
+    a.add_argument("--rehacer", action="store_true",
+                   help="no ejecuta nada: rehace <nombre>_bitacora.md desde el <nombre>.jsonl ya guardado")
     args = a.parse_args()
+    if args.rehacer:
+        eventos = [json.loads(l) for l in (SALIDA / f"{args.nombre}.jsonl").read_text(encoding="utf-8").splitlines()
+                   if l.strip().startswith("{")]
+        final = next((e for e in reversed(eventos) if e.get("type") == "result"), {})
+        prompt = args.prompt or (RAIZ / args.prompt_archivo).read_text(encoding="utf-8")
+        texto, *_ = bitacora(eventos, prompt, args.nombre, (final.get("duration_ms") or 0) / 1000)
+        # se conserva la fecha de la ejecución original, no la de hoy
+        anterior = (SALIDA / f"{args.nombre}_bitacora.md").read_text(encoding="utf-8")
+        fecha_original = anterior.split("- Fecha: ")[1].splitlines()[0]
+        texto = texto.replace(texto.split("- Fecha: ")[1].splitlines()[0], fecha_original, 1)
+        (SALIDA / f"{args.nombre}_bitacora.md").write_text(texto, encoding="utf-8")
+        print(f"Bitácora rehecha: {args.nombre}_bitacora.md")
+        return
     prompt = args.prompt or (RAIZ / args.prompt_archivo).read_text(encoding="utf-8")
     SALIDA.mkdir(parents=True, exist_ok=True)
 
