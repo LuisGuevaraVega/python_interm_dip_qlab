@@ -1,6 +1,6 @@
 """Interfaz web del agente de investigación socioeconómica (Streamlit).
 
-    uv run streamlit run app/app.py
+    uv run streamlit run app/app.py        # se abre en http://localhost:8604 (puerto fijado en .streamlit/config.toml)
 
 Pestañas:
   💬 Preguntar al agente   chat con Claude Code (claude -p) con el MCP del BCRP y las skills de la ENAHO; muestra en vivo
