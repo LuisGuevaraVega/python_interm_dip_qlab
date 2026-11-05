@@ -1,4 +1,4 @@
-Validación ENAHO 2024 (INEI, código 966) — 2026-11-05 15:59
+Validación ENAHO 2024 (INEI, código 966) — 2026-11-05 16:10
 Archivos: 966-Modulo34.zip/966-Modulo34/sumaria-2024.dta y 966-Modulo02.zip/966-Modulo02/enaho01-2024-200.dta
 Unidad de análisis: la persona. Pobreza territorial con el método INEI (hogares de la sumaria × factor07 × mieperho); características individuales con residentes habituales × facpob07.
 

@@ -1,0 +1,25 @@
+$ uv run pytest -v   (2026-11-05 16:31)
+============================= test session starts =============================
+platform win32 -- Python 3.12.15, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\user\Documents\GitHub\python_interm_dip_qlab\tarea_4\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\user\Documents\GitHub\python_interm_dip_qlab\tarea_4
+configfile: pyproject.toml
+testpaths: mcp
+plugins: anyio-4.16.0, platformdirs-4.14.5
+collecting ... collected 10 items
+
+mcp/test_comparar_series.py::test_comparar_series_reproduce_la_variacion_acumulada PASSED [ 10%]
+mcp/test_comparar_series.py::test_comparar_series_rechaza_tasas_y_frecuencias_distintas PASSED [ 20%]
+mcp/test_server.py::test_buscar_encuentra_el_ipc PASSED                  [ 30%]
+mcp/test_server.py::test_cuatro_herramientas_como_minimo PASSED          [ 40%]
+mcp/test_server.py::test_serie_mensual PASSED                            [ 50%]
+mcp/test_server.py::test_serie_diaria PASSED                             [ 60%]
+mcp/test_server.py::test_resumen_sin_cuentas_a_mano PASSED               [ 70%]
+mcp/test_server.py::test_codigo_inexistente_da_un_error_claro PASSED     [ 80%]
+mcp/test_server.py::test_un_recurso PASSED                               [ 90%]
+mcp/test_server.py::test_un_prompt PASSED                                [100%]
+
+============================= 10 passed in 6.57s ==============================
+
+$ cmp mcp/test_server.py <sesión 04>/proyecto/test_server.py
+idéntico (0 diferencias)

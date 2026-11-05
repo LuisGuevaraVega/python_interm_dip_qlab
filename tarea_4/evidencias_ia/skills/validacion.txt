@@ -1,0 +1,30 @@
+Validación ENAHO 2024 (INEI, código 966) — 2026-11-05 16:10
+Archivos: 966-Modulo34.zip/966-Modulo34/sumaria-2024.dta y 966-Modulo02.zip/966-Modulo02/enaho01-2024-200.dta
+Unidad de análisis: la persona. Pobreza territorial con el método INEI (hogares de la sumaria × factor07 × mieperho); características individuales con residentes habituales × facpob07.
+
+[APROBADA   ] Hogares en la sumaria: 33,691 filas (referencia 33,691)
+[APROBADA   ] Filas del módulo 02: 117,721 filas (referencia 117,721)
+[APROBADA   ] Llaves de la sumaria únicas: 0 duplicados de (conglome, vivienda, hogar)
+[APROBADA   ] Llaves de personas únicas: 0 duplicados de (conglome, vivienda, hogar, codperso)
+[APROBADA   ] Llaves conservan ceros iniciales: conglome de 6 dígitos: 100%; ubigeo de 6: 100%
+[APROBADA   ] Residentes habituales: 108,664 (referencia 108,664)
+[APROBADA   ] Unión m:1 sin duplicar filas: 108,664 personas antes y 108,664 después
+[APROBADA   ] Toda persona tiene hogar en la sumaria: 0 personas sin hogar
+[APROBADA   ] Factor facpob07 válido: 0 personas con factor faltante o no positivo
+[APROBADA   ] Factor factor07 válido: 0 personas con factor faltante o no positivo
+[APROBADA   ] Población expandida plausible: 34,147,768 personas con facpob07 y 34,482,700 con factor07 × mieperho
+[APROBADA   ] 25 códigos departamentales (01-25): 25 códigos: 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25
+[APROBADA   ] Ningún departamento sin nombre: códigos desconocidos: ninguno
+[APROBADA   ] Participación de alimentos calculable: 0 personas en hogares con gasto total no positivo
+[APROBADA   ] Pobreza monetaria nacional (método INEI: sumaria, factor07 × mieperho): 27.58 % (referencia 27.6 %, diferencia 0.02 pp, tolerancia 0.1)
+[APROBADA   ] Pobreza monetaria nacional (personas residentes, facpob07): 27.53 % (diferencia 0.07 pp)
+[APROBADA   ] Pobreza urbana (método INEI: sumaria, factor07 × mieperho): 24.81 % (referencia 24.8 %, diferencia 0.01 pp, tolerancia 0.15)
+[APROBADA   ] Pobreza urbana (personas residentes, facpob07): 24.74 % (diferencia 0.06 pp)
+[APROBADA   ] Pobreza rural (método INEI: sumaria, factor07 × mieperho): 39.30 % (referencia 39.3 %, diferencia 0.00 pp, tolerancia 0.15)
+[APROBADA   ] Pobreza rural (personas residentes, facpob07): 39.44 % (diferencia 0.14 pp)
+[APROBADA   ] Pobreza extrema nacional (método INEI: sumaria, factor07 × mieperho): 5.50 % (referencia 5.5 %, diferencia 0.00 pp, tolerancia 0.15)
+[APROBADA   ] Pobreza extrema nacional (personas residentes, facpob07): 5.50 % (diferencia 0.00 pp)
+[APROBADA   ] La ponderación importa (el promedio simple no sirve): promedio simple sin factores: 25.61 % frente a 27.58 % ponderado
+
+Aprobadas: 23 · Fallidas: 0 · Advertencias: 0
+Resultado: VALIDACIÓN APROBADA
