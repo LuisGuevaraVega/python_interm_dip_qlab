@@ -1,0 +1,19 @@
+# Verdades de la evaluación (cálculo independiente)
+
+## BCRP (API oficial, sin el servidor MCP)
+bcrp_ipc_dic24: PN01273PM 2024-12 = 1.9663  (https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN01273PM/json/2020-1/2024-12)
+bcrp_pico_ipc: máximo de PN01273PM 2020-01..2024-12 = 8.8126 en 2022-06
+bcrp_alim_feb23: PN09822PM 2023-02 = 13.1637  (https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN09822PM/json/2020-1/2024-12)
+bcrp_acum_alim: PN39445PM 90.5906042646015 (2019-12) -> 119.529248286908 (2024-12) = 31.9444 %  (https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN39445PM/json/2019-12/2024-12)
+   IPC total PN38705PM 92.1399925330876 -> 114.172077 = 23.9115 %  (https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN38705PM/json/2019-12/2024-12)
+   brecha alimentos - total = 8.0329 pp; promedio anual geométrico alimentos = 5.7008 %
+
+## ENAHO 2024 (microdatos del INEI, código propio)
+enaho_pobreza_nac: sumaria, (pobreza<=2) ponderado por factor07*mieperho = 27.5795 % (INEI publica 27.6 %)
+enaho_pobreza_rural: estrato>=6 = 39.3028 % (INEI publica 39.3 %)
+enaho_cajamarca: ubigeo[:2]=='06' = 45.0069 % (sesión 16: 45.0 %)
+   columnas del grupo 1 de gasto sumadas: ['gru11hd', 'gru12hd1', 'gru12hd2', 'gru13hd1', 'gru13hd2', 'gru13hd3', 'gru13hd4', 'gru14hd', 'gru14hd1', 'gru14hd2', 'gru14hd3', 'gru14hd4', 'gru14hd5', 'gru14hd6']
+enaho_alim_extremos: peso de alimentos en el gasto, pobres extremos, factor07*mieperho = 49.2217 %
+   mismo indicador ponderado por personas (facpob07, 108,664 residentes) = 49.2668 %
+mixta_brecha_rural_urbana: peso de alimentos rural 48.0348 % - urbano 33.6895 % = 14.3453 pp (facpob07)
+enaho_pobreza_ninos: residentes de 0 a 14 años en pobreza, facpob07 = 37.5156 %

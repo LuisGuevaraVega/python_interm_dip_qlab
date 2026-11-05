@@ -1,0 +1,8 @@
+fecha,nombre,modelo,segundos,turnos,mcp_distintas,skills_distintas,herramientas_mcp,skills,error
+2026-11-05 16:06,skills_mapa_sin_base,sonnet,39,12,0,2,,mapeando-enaho limpiando-enaho,False
+2026-11-05 16:08,investigacion_intento1,sonnet,84,14,4,0,buscar_series comparar_series grafico resumen,,False
+2026-11-05 16:11,investigacion_final,sonnet,103,19,3,3,comparar_series grafico resumen,limpiando-enaho graficando-enaho mapeando-enaho,False
+2026-11-05 16:33,mcp_prompt_y_recurso,sonnet,32,7,2,0,comparar_series resumen,,False
+2026-11-05 16:45,skill_invocada_directo,sonnet,20,3,0,1,,graficando-enaho (invocada con /graficando-enaho),False
+2026-11-05 17:06,demo,sonnet,27,8,2,1,buscar_series comparar_series,graficando-enaho,False
+2026-11-05 17:24,demo,sonnet,29,8,1,1,comparar_series,graficando-enaho,False

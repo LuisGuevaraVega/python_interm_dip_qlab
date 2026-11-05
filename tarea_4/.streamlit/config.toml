@@ -1,0 +1,7 @@
+# Configuración de la app de la Tarea 4 (Streamlit la lee al correr desde tarea_4/).
+# Puerto propio y fijo: así no choca con otras apps de Streamlit que usen el 8501 por defecto.
+[server]
+port = 8604
+
+[browser]
+gatherUsageStats = false
